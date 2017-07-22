@@ -11,11 +11,16 @@ module.exports = merge(sharedConfig, {
     errorDetails: true
   },
 
+  plugins: [
+    new webpack.HotModuleReplacementPlugin() // Enable HMR
+  ],
+
   output: {
     pathinfo: true
   },
 
   devServer: {
+    hot: true,
     clientLogLevel: 'none',
     https: settings.dev_server.https,
     host: settings.dev_server.host,
