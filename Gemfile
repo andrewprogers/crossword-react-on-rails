@@ -22,6 +22,10 @@ group :development, :test do
   gem 'valid_attribute'
 end
 
+group :test do
+  gem 'coveralls', require: false
+end
+
 group :production do
   gem 'rails_12factor'
 end
@@ -29,3 +33,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'webpacker'
+gem 'dotenv-rails'
