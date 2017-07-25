@@ -12,7 +12,7 @@ module.exports = merge(sharedConfig, {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin() // Enable HMR
+    // new webpack.HotModuleReplacementPlugin() // Enable HMR
   ],
 
   output: {
@@ -20,7 +20,7 @@ module.exports = merge(sharedConfig, {
   },
 
   devServer: {
-    hot: true,
+    // hot: true,
     clientLogLevel: 'none',
     https: settings.dev_server.https,
     host: settings.dev_server.host,
