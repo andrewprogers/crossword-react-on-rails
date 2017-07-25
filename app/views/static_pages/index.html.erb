@@ -1,2 +1,8 @@
-<div id="app">
-</div>
+<h1>Welcome!</h1>
+
+<% if current_user %>
+  Signed in as <%= current_user.name %>
+  <%= link_to "Sign Out", '/signout' %>
+<% else %>
+  <%= link_to "Sign in with Google", '/auth/google_oauth2', id: "sign_in" %>
+<% end %>

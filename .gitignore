@@ -25,3 +25,4 @@
 /coverage
 .coveralls.yml
 .env
+UserStories.md
