@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :puzzles
+
   validates :provider, presence: true, inclusion: { in: ["google_oauth2"] }
   validates :uid, presence: true
   validates :name, presence: true

@@ -6,4 +6,7 @@ RSpec.describe User, type: :model do
 
   it { should_not have_valid(:uid).when("", nil) }
   it { should_not have_valid(:name).when("", nil) }
+
+  it { should have_many(:puzzles) }
+  xit { should have_many(:solutions) }
 end
