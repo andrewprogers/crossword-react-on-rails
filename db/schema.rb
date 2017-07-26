@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170725023203) do
+ActiveRecord::Schema.define(version: 20170726220040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
+    t.string "direction", null: false
+    t.integer "gridnum", null: false
+    t.string "clue", null: false
+    t.string "answer", null: false
+    t.bigint "puzzle_id", null: false
+    t.index ["puzzle_id"], name: "index_answers_on_puzzle_id"
+  end
+
+  create_table "puzzles", force: :cascade do |t|
+    t.string "title"
+    t.integer "size", null: false
+    t.text "grid", null: false
+    t.datetime "date", null: false
+    t.text "notes"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_puzzles_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider"
