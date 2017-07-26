@@ -1,5 +1,6 @@
 class Puzzle < ApplicationRecord
   belongs_to :user
+  has_many :answers
 
   validates :created_at, presence: true
   validates :updated_at, presence: true

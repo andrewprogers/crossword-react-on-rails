@@ -19,6 +19,6 @@ RSpec.describe Puzzle, type: :model do
   it { should have_valid(:notes).when('adfasdfasdfsadfsadf', '') }
 
   it { should belong_to(:user) }
-  xit { should have_many(:answers) }
+  it { should have_many(:answers) }
   xit { should have_many(:solutions) }
 end
