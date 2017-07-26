@@ -9,5 +9,3 @@
 require_relative 'puzzle_hashes'
 
 puzzle = puzzle_hashes[0]
-
-binding.pry

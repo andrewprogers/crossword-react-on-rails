@@ -6,9 +6,9 @@ FactoryGirl.define do
     user
     size 5
     grid "..ASD.ASDFASDDFWERT.QWT.."
-    date Time.now()
+    date Time.now
     notes "These are the notes"
-    created_at Time.now()
-    updated_at Time.now()
+    created_at Time.now
+    updated_at Time.now
   end
 end

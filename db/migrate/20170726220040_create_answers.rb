@@ -5,7 +5,7 @@ class CreateAnswers < ActiveRecord::Migration[5.1]
       t.integer :gridnum, null: false
       t.string :clue, null: false
       t.string :answer, null: false
-      
+
       t.belongs_to :puzzle, null: false
     end
   end
