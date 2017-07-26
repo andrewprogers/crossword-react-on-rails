@@ -26,3 +26,5 @@
 .coveralls.yml
 .env
 UserStories.md
+
+public/packs-test
