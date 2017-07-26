@@ -10,8 +10,6 @@ require 'rspec/rails'
 require 'coveralls'
 Coveralls.wear!('rails')
 
-
-
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -65,7 +63,7 @@ RSpec.configure do |config|
     OmniAuth.config.test_mode = true
     # then, provide a set of fake oauth data that
     # omniauth will use when a user tries to authenticate:
-    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(
       provider: "google_oauth2",
       uid: "12345678910",
       info: {
@@ -79,7 +77,7 @@ RSpec.configure do |config|
         refresh_token: "12345abcdefg",
         expires_at: DateTime.now,
       }
-    })
+    )
   end
 end
 require "capybara/rails"
