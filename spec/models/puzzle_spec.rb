@@ -20,5 +20,5 @@ RSpec.describe Puzzle, type: :model do
 
   it { should belong_to(:user) }
   it { should have_many(:answers) }
-  xit { should have_many(:solutions) }
+  it { should have_many(:solutions) }
 end
