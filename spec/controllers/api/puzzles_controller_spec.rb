@@ -48,6 +48,16 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
       expect(user_solution).to eq(solution1.user_answers.split(''))
     end
 
+    it "creates a solution for the current user if none exists" do
+      user1 = FactoryGirl.create(:user)
+      session[:user_id] = user1.id
+
+      expect(Solution.where(user: user1).length).to eq(0)
+      get :show, params: { id: puzzle1.id }
+      
+      expect(Solution.where(user: user1).length).to eq(1)
+    end
+
     it "should have a nil solution for the puzzle if not logged in" do
       get :show, params: { id: puzzle1.id }
       user_solution = JSON.parse(response.body)['puzzle']['user_solution']
