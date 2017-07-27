@@ -280,7 +280,7 @@ Crossword.generateEmptyGrid = (size) => {
     for (var r = 0; r < size ; r++) {
       let row = [];
       for (var c = 0; c < size; c++) {
-        row.push('')
+        row.push(' ')
       }
       emptyLetters.push(row);
     }

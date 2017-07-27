@@ -123,7 +123,7 @@ class UserActionController {
     let newState = {}
     let row = this.state.selectedCellRow;
     let column = this.state.selectedCellColumn;
-    let currentCellEmpty = (this.state.userLetters[row][column] === '')
+    let currentCellEmpty = (this.state.userLetters[row][column] === ' ')
     let crossword = new Crossword(this.state.grid, this.state.clues, this.state.userLetters)
     let currentClue = crossword.getSelectedClue(this.state.clueDirection, row, column)
     if (currentCellEmpty) {
@@ -146,7 +146,7 @@ class UserActionController {
       }
     }
 
-    this.state.userLetters[row][column] = '';
+    this.state.userLetters[row][column] = ' ';
     newState.userLetters = this.state.userLetters;
     return newState;
   }

@@ -19,7 +19,7 @@ describe('Crossword', () => {
     it('is initialized with empty strings for every value in the array', () => {
       for (var i = 0; i < emptyArray.length; i++) {
         for (var j = 0; j < emptyArray.length; j++) {
-          expect(emptyArray[i][j]).toEqual('');
+          expect(emptyArray[i][j]).toEqual(' ');
         }
       }
     })
@@ -83,7 +83,7 @@ describe('Crossword', () => {
     it('has a userLetters property', () => {
       expect(crossword.userLetters).toEqual(jasmine.any(Array))
       expect(crossword.userLetters[0]).toEqual(jasmine.any(Array))
-      expect(crossword.userLetters[0][0]).toEqual('')
+      expect(crossword.userLetters[0][0]).toEqual(' ')
     })
   })
 

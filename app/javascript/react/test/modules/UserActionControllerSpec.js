@@ -67,7 +67,7 @@ describe('UserActionController', () => {
         fakeState.userLetters[0][0] = 'z'
         controller = new UserActionController(fakeState)
         let newState = controller.keyPress('Backspace');
-        expect(newState.userLetters[0][0]).toEqual('')
+        expect(newState.userLetters[0][0]).toEqual(' ')
       })
 
       describe('when direction is across and the current cell is blank', () => {
@@ -85,7 +85,7 @@ describe('UserActionController', () => {
           fakeState.userLetters[2][1] = 'a'
           controller = new UserActionController(fakeState);
           let newState = controller.keyPress('Backspace');
-          expect(newState.userLetters[2][1]).toEqual('');
+          expect(newState.userLetters[2][1]).toEqual(' ');
           expect(newState.selectedCellRow).toEqual(2);
           expect(newState.selectedCellColumn).toEqual(1);
         })
@@ -94,7 +94,7 @@ describe('UserActionController', () => {
           fakeState.userLetters[3][1] = 'a'
           controller = new UserActionController(fakeState);
           let newState = controller.keyPress('Backspace');
-          expect(newState.userLetters[3][1]).toEqual('');
+          expect(newState.userLetters[3][1]).toEqual(' ');
           expect(newState.selectedCellRow).toEqual(3);
           expect(newState.selectedCellColumn).toEqual(1);
           expect(newState.clueDirection).toEqual('down');
@@ -116,7 +116,7 @@ describe('UserActionController', () => {
           fakeState.userLetters[1][2] = 'a'
           controller = new UserActionController(fakeState);
           let newState = controller.keyPress('Backspace');
-          expect(newState.userLetters[1][2]).toEqual('');
+          expect(newState.userLetters[1][2]).toEqual(' ');
           expect(newState.selectedCellRow).toEqual(1);
           expect(newState.selectedCellColumn).toEqual(2);
         })
@@ -126,7 +126,7 @@ describe('UserActionController', () => {
           fakeState.userLetters[3][2] = 'a'
           controller = new UserActionController(fakeState);
           let newState = controller.keyPress('Backspace');
-          expect(newState.userLetters[3][2]).toEqual('');
+          expect(newState.userLetters[3][2]).toEqual(' ');
           expect(newState.selectedCellRow).toEqual(3);
           expect(newState.selectedCellColumn).toEqual(2);
           expect(newState.clueDirection).toEqual('across');
