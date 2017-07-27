@@ -8,14 +8,18 @@ class CrosswordContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    // Placeholder to be removed in the future
     let puzzle = this.props.initialPuzzle
-    let size = puzzle.size.rows;
+    let initialSolution;
+    if ('user_solution' in puzzle) {
+      initialSolution = Crossword.parseArrayToGrid(puzzle.user_solution);
+    } else {
+      initialSolution = Crossword.generateEmptyGrid(puzzle.size.rows)
+    }
 
     this.state = {
       grid: Crossword.parseArrayToGrid(puzzle.grid),
       clues: puzzle.clues,
-      userLetters: Crossword.generateEmptyGrid(size),
+      userLetters: initialSolution,
       selectedCellRow: 0,
       selectedCellColumn: 0,
       clueDirection: "across"

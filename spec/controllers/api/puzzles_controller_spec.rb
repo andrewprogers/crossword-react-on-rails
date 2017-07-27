@@ -61,5 +61,10 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
       expect(size['rows']).to eq(puzzle1.size)
       expect(size['cols']).to eq(puzzle1.size)
     end
+
+    it "should return a 400 level response if the puzzle id does not exist" do
+      get :show, params: { id: puzzle1.id + 10 }
+      expect(response.status).to eq(404)
+    end
   end
 end
