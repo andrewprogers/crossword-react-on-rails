@@ -12,6 +12,6 @@ class Api::V1::PuzzlesController < ApplicationController
     puzzle_data['size']['rows'] = puzzle.size
     puzzle_data['size']['cols'] = puzzle.size
 
-    render json: {puzzle: puzzle_data}
+    render json: { puzzle: puzzle_data }
   end
 end
