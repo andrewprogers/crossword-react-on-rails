@@ -8,4 +8,27 @@
 
 require_relative 'puzzle_hashes'
 
-puzzle = puzzle_hashes[0]
+puzzle_hashes do |data|
+  puzzle = Puzzle.find_or_create_by!(
+    title: data[:title],
+    size: data[:size],
+    grid: data[:grid].join(""),
+    date: Date.strptime(data[:date], "%m/%d/%Y"),
+    notes: data[:notes],
+    user: User.where(uid: 0).first
+  )
+
+  directions = ["Across", "Down"]
+  directions.each do |direction|
+    data[:answers][direction.downcase].each.with_index do |answer, index|
+      match_data = data[:clues][direction.downcase][index].match(/^(\d*)\. (.*)$/)
+      Answer.find_or_create_by!(
+        direction: direction,
+        gridnum: match_data[1],
+        clue: match_data[2],
+        answer: answer,
+        puzzle: puzzle
+      )
+    end
+  end
+end
