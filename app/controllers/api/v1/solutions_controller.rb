@@ -9,7 +9,7 @@ class Api::V1::SolutionsController < ApplicationController
     else
       solution.user_answers = update
       solution.save!
-      render json: {user_answers: update}
+      render json: { user_answers: update }
     end
   end
 end
