@@ -28,6 +28,7 @@ class App extends Component {
         puzzleLoaded: true
       })
     })
+    .catch(err => console.error(err.message))
   }
 
   componentDidMount() {
@@ -41,6 +42,7 @@ class App extends Component {
     if (this.state.puzzleLoaded) {
       content = <CrosswordContainer initialPuzzle={this.state.puzzleData} />
     }
+    
     return (
       <div className="App">
         {content}
