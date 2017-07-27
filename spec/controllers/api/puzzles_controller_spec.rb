@@ -63,7 +63,7 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
     end
 
     it "should return a 400 level response if the puzzle id does not exist" do
-      get :show, params: {id: puzzle1.id + 10 }
+      get :show, params: { id: puzzle1.id + 10 }
       expect(response.status).to eq(404)
     end
   end
