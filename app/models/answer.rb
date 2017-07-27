@@ -6,4 +6,8 @@ class Answer < ApplicationRecord
   validates :clue, presence: true
   validates :answer, presence: true
   validates :puzzle_id, presence: true
+
+  def formatted_clue
+    "#{gridnum}. #{clue}"
+  end
 end

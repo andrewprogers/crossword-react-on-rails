@@ -7,12 +7,12 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
   let!(:down1) { FactoryGirl.create(:answer, clue: "A clue3", answer: "A thing3", puzzle: puzzle1) }
   let!(:down2) { FactoryGirl.create(:answer, clue: "A clue4", answer: "A thing4", puzzle: puzzle1) }
 
-  describe 'GET#show' do
+  xdescribe 'GET#show' do
     it "should return a json representation of a puzzle" do
       get :show, params: { puzzle_id: puzzle1.id }
       returned_json = JSON.parse(response.body)
 
-      expect(returned_json).to be_a(Hash)
+      expect(response.content_type).to eq("application/json")
       expect(returned_json).to have_key('puzzle')
     end
 
