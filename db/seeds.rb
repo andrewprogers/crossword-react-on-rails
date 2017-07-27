@@ -9,28 +9,26 @@
 require_relative 'puzzle_hashes'
 
 puzzle_hashes do |data|
-  puzzle = Puzzle.find_or_create_by!({
+  puzzle = Puzzle.find_or_create_by!(
     title: data[:title],
     size: data[:size],
     grid: data[:grid].join(""),
     date: Date.strptime(data[:date], "%m/%d/%Y"),
     notes: data[:notes],
     user: User.where(uid: 0).first
-  })
+  )
 
   directions = ["Across", "Down"]
   directions.each do |direction|
     data[:answers][direction.downcase].each.with_index do |answer, index|
-      matchData = data[:clues][direction.downcase][index].match(/^(\d*)\. (.*)$/)
-      gridnum = matchData[1]
-      clue =  matchData[2]
-      Answer.find_or_create_by!({
+      match_data = data[:clues][direction.downcase][index].match(/^(\d*)\. (.*)$/)
+      Answer.find_or_create_by!(
         direction: direction,
-        gridnum: matchData[1],
-        clue: matchData[2],
+        gridnum: match_data[1],
+        clue: match_data[2],
         answer: answer,
         puzzle: puzzle
-      })
+      )
     end
   end
 end
