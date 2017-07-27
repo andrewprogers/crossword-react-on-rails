@@ -5,5 +5,4 @@ class Solution < ApplicationRecord
   validates :user_answers, exclusion: { in: [nil] }
   validates :user_id, presence: true
   validates :puzzle_id, presence: true
-  validates :created_at, :updated_at, presence: true
 end
