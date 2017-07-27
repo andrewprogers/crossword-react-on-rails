@@ -12,7 +12,10 @@ class App extends Component {
   }
 
   fetchPuzzleData(id) {
-    fetch(`/api/v1/puzzles/${id}`)
+    fetch(`/api/v1/puzzles/${id}`, {
+      method: "GET",
+      credentials: "same-origin"
+    })
     .then(response => {
       if (response.ok) {
         return response;
@@ -42,7 +45,7 @@ class App extends Component {
     if (this.state.puzzleLoaded) {
       content = <CrosswordContainer initialPuzzle={this.state.puzzleData} />
     }
-    
+
     return (
       <div className="App">
         {content}

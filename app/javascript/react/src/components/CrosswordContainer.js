@@ -9,8 +9,11 @@ class CrosswordContainer extends React.Component {
     super(props);
 
     let puzzle = this.props.initialPuzzle
-    let initialSolution;
-    if ('user_solution' in puzzle) {
+    let initialSolution, solutionString;
+    if ('user_id' in puzzle) {
+      this.user_id = puzzle.user_id
+      this.solution_id = puzzle.solution_id
+      solutionString = puzzle.user_solution
       initialSolution = Crossword.parseArrayToGrid(puzzle.user_solution);
     } else {
       initialSolution = Crossword.generateEmptyGrid(puzzle.size.rows)
@@ -22,7 +25,8 @@ class CrosswordContainer extends React.Component {
       userLetters: initialSolution,
       selectedCellRow: 0,
       selectedCellColumn: 0,
-      clueDirection: "across"
+      clueDirection: "across",
+      lastReturnedSolution: solutionString
     }
 
     this.on = {
@@ -55,6 +59,46 @@ class CrosswordContainer extends React.Component {
       newDirection = (this.state.clueDirection === 'across') ? 'down' : 'across'
     }
     this.setState({clueDirection: newDirection})
+  }
+
+  setPersistenceInterval() {
+    let intervalTime = 5000;
+    if (this.user !== null) {
+      this.persistenceInterval = setInterval(() => {
+        let userLettersStringified = this.state.userLetters.map(arr => arr.join('')).join('')
+        if (this.state.lastReturnedSolution !== userLettersStringified) {
+          fetch(`/api/v1/users/${this.user_id}/solutions/${this.solution_id}`, {
+            method: "PATCH",
+            credentials: "same-origin",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({user_solution: userLettersStringified})
+          })
+          .then(response => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error('Failed to save answers')
+            }
+          })
+          .then(json => {
+            return json;
+          })
+          .then(json => this.setState({
+            lastReturnedSolution: json.user_answers
+          }))
+        }
+      }, intervalTime)
+    }
+  }
+
+  componentDidMount() {
+    this.persistenceInterval = this.setPersistenceInterval()
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.persistenceInterval)
   }
 
   render() {

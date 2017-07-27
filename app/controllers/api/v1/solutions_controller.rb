@@ -1,4 +1,5 @@
 class Api::V1::SolutionsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   def update
     solution = Solution.where(user_id: params[:user_id], id: params[:id]).first
     update = params[:user_solution]
