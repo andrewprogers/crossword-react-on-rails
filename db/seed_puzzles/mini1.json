@@ -1,0 +1,23 @@
+{
+  "author": "Andrew Rogers",
+  "title": "Test Mini Puzzle",
+  "clues": {
+    "across": [
+      "1. Hop on it", "4. Decorative vases", "7. Declarative frontend framework", "8. Travel destination", "9. Higher Ed. place"
+    ],
+    "down": ["1. It may be prickly", "2. Pee compound", "3. Major bug", "5. Search around", "7. Three-pronged"]
+  },
+  "answers": {
+    "across": [
+      "BUS", "URNS", "REACT", "AFAR", "UNI"
+    ],
+    "down": ["BUR", "UREA", "SNAFU", "SCAN", "TRI"]
+  },
+  "date": "7/28/17",
+  "grid": ["B", "U", "S", ".", ".", "U", "R", "N", "S", ".", "R", "E", "A", "C", "T", ".", "A", "F", "A", "R", ".", ".", "U", "N", "I"],
+  "size": {
+    "rows": 5,
+    "cols": 5
+  },
+  "notes": ""
+}
