@@ -13,7 +13,6 @@ class CrosswordContainer extends React.Component {
     if ('user_id' in puzzle) {
       this.user_id = puzzle.user_id
       this.solution_id = puzzle.solution_id
-      solutionString = puzzle.user_solution
       initialSolution = Crossword.parseArrayToGrid(puzzle.user_solution);
     } else {
       initialSolution = Crossword.generateEmptyGrid(puzzle.size.rows)
@@ -26,7 +25,7 @@ class CrosswordContainer extends React.Component {
       selectedCellRow: 0,
       selectedCellColumn: 0,
       clueDirection: "across",
-      lastReturnedSolution: solutionString
+      lastReturnedSolution: puzzle.user_solution
     }
 
     this.on = {
@@ -61,40 +60,25 @@ class CrosswordContainer extends React.Component {
     this.setState({clueDirection: newDirection})
   }
 
-  setPersistenceInterval() {
-    let intervalTime = 5000;
+  componentDidMount() {
     if (this.user !== null) {
       this.persistenceInterval = setInterval(() => {
-        let userLettersStringified = this.state.userLetters.map(arr => arr.join('')).join('')
-        if (this.state.lastReturnedSolution !== userLettersStringified) {
+        if (JSON.stringify(this.state.lastReturnedSolution) !== JSON.stringify(this.state.userLetters)) {
           fetch(`/api/v1/users/${this.user_id}/solutions/${this.solution_id}`, {
             method: "PATCH",
             credentials: "same-origin",
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({user_solution: userLettersStringified})
+            body: JSON.stringify({user_solution: this.state.userLetters})
           })
-          .then(response => {
-            if (response.ok) {
-              return response.json();
-            } else {
-              throw new Error('Failed to save answers')
-            }
-          })
+          .then(response => response.json())
           .then(json => {
-            return json;
+            this.setState({ lastReturnedSolution: json.user_answers})
           })
-          .then(json => this.setState({
-            lastReturnedSolution: json.user_answers
-          }))
         }
-      }, intervalTime)
+      }, 1000)
     }
-  }
-
-  componentDidMount() {
-    this.persistenceInterval = this.setPersistenceInterval()
   }
 
   componentWillUnmount() {
