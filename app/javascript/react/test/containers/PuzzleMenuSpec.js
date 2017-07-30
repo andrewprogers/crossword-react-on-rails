@@ -18,7 +18,7 @@ describe('PuzzleMenu', () => {
   })
 
   it("should render a Clear MenuButton with correct props", () => {
-    expect(wrapper.find(MenuButton).props().name).toEqual("Clear")
+    expect(wrapper.find(MenuButton).props().name).toEqual("CLEAR")
     expect(wrapper.find(MenuButton).props().onClick).toEqual(onSpies.handleClear)
   })
 })
