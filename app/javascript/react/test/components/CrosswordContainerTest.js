@@ -5,6 +5,7 @@ import jasmineEnzyme from 'jasmine-enzyme';
 import CrosswordContainer from '../../src/components/CrosswordContainer'
 import CrosswordGrid from '../../src/components/CrosswordGrid'
 import CluesContainer from '../../src/components/CluesContainer'
+import PuzzleMenu from '../../src/containers/PuzzleMenu'
 
 import Crossword from '../../src/modules/Crossword'
 import UserActionController from '../../src/modules/UserActionController'
@@ -62,6 +63,13 @@ describe('CrosswordContainer', () => {
     it('renders a clues container component', () => {
       expect(wrapper.find(CluesContainer)).toBePresent();
       expect(wrapper.find(CluesContainer).props().crossword).toEqual(new Crossword(Crossword.parseArrayToGrid(mockData.grid), mockData.clues, Crossword.generateEmptyGrid(21)))
+    })
+
+    it('renders a PuzzleMenu container component with appropriate event handlers', () => {
+      expect(wrapper.find(PuzzleMenu)).toBePresent();
+      expect(wrapper.find(PuzzleMenu).props().on).toEqual(jasmine.objectContaining({
+        handleClear: jasmine.any(Function)
+      }))
     })
   })
 })
