@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
   resources :session, only: [:create, :destroy]
 
-  resources :puzzles, only: [:show]
+  resources :puzzles, only: [:show, :new, :create, :edit]
 
   namespace :api do
     namespace :v1 do

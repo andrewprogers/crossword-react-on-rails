@@ -4,8 +4,9 @@ class Puzzle < ApplicationRecord
   has_many :solutions
 
   validates :size, presence: true, numericality: { only_integer: true }
-  validates :grid, presence: true
+  validates :size, inclusion: { in: 5..25 }
   validates :date, presence: true
+  validate :grid_cant_be_empty
 
   def get_clues
     clues = {}
@@ -16,5 +17,11 @@ class Puzzle < ApplicationRecord
     clues['down'] = down_answers.map { |clue| clue.formatted_clue }
 
     clues
+  end
+
+  def grid_cant_be_empty
+    if grid.nil? || grid == ""
+      errors.add(:grid, "can't be empty")
+    end
   end
 end
