@@ -415,4 +415,20 @@ describe('UserActionController', () => {
       })
     })
   })
+
+  describe('.clear', () => {
+    let controller, newState;
+    beforeEach(() => {
+      controller = new UserActionController(new FakeState());
+      newState = controller.clear()
+    })
+
+    it("returns a state with empty user letters", () => {
+      expect(newState.userLetters).toEqual(Crossword.generateEmptyGrid(4))
+    })
+
+    it("resets is_solved to false", () => {
+      expect(newState.isSolved).toEqual(false)
+    })
+  })
 })

@@ -67,7 +67,7 @@ class CrosswordContainer extends React.Component {
 
   handleClear() {
     if (confirm("This will clear your entire solution. Are you sure?")) {
-      // DO a thing
+      this.setState(new UserActionController(this.state).clear())
     }
   }
 
@@ -101,6 +101,8 @@ class CrosswordContainer extends React.Component {
 
   render() {
     let crossword = new Crossword(this.state.grid, this.state.clues, this.state.userLetters);
+    let notice;
+
     return(
       <div id='crossword-container' className="row">
         <div className='small-12 columns'><PuzzleMenu on={this.on} /></div>

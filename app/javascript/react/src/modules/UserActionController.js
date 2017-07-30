@@ -154,6 +154,13 @@ class UserActionController {
     newState.userLetters = this.state.userLetters;
     return newState;
   }
+
+  clear() {
+    return {
+        userLetters: Crossword.generateEmptyGrid(this.state.grid.length),
+        isSolved: false
+      }
+  }
 }
 
 export default UserActionController;
