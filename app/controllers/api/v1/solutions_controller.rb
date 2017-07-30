@@ -7,6 +7,7 @@ class Api::V1::SolutionsController < ApplicationController
     if update.length != solution.user_answers.length
       render json: {}, status: 409
     else
+      solution.correct = params[:is_solved] unless params[:is_solved].nil?
       solution.user_answers = update
       solution.save!
       render json: { user_answers: params[:user_solution] }

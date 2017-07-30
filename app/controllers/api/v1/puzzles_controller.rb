@@ -20,6 +20,7 @@ class Api::V1::PuzzlesController < ApplicationController
         puzzle_data['user_solution'] = solution.user_answers.split('')
         puzzle_data['user_id'] = current_user.id
         puzzle_data['solution_id'] = solution.id
+        puzzle_data['is_solved'] = solution.correct
       end
 
       render json: { puzzle: puzzle_data }

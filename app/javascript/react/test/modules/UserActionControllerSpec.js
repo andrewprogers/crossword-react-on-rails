@@ -329,6 +329,17 @@ describe('UserActionController', () => {
           })
         })
       })
+
+      it('updates state when puzzle is solved', () => {
+        fakeState.userLetters =
+          [[' ','b','c','d'],
+           ['e','f','','h'],
+           ['i','j','k','l'],
+           ['m','n','o','']];
+        let controller1 = new UserActionController(fakeState)
+        newState = controller1.keyPress('a');
+        expect(newState.isSolved).toEqual(true);
+      })
     })
 
     describe('arrow keys', () => {

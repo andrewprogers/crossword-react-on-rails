@@ -273,6 +273,18 @@ class Crossword {
       }
     }
   }
+
+  isSolved() {
+    for (var row = 0; row < this.grid.length; row++) {
+      for (var col = 0; col < this.grid.length; col++) {
+        let currentCell = this.grid[row][col].toUpperCase();
+        if (!(currentCell === '.' || currentCell === this.userLetters[row][col].toUpperCase())) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
 }
 
 Crossword.generateEmptyGrid = (size) => {

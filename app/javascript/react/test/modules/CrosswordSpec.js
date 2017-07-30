@@ -854,4 +854,50 @@ describe('Crossword', () => {
       expect(crossword.previousClue(currentClue)).toEqual(expectedClue)
     })
   })
+
+  describe('.isSolved', () => {
+    let square, clues
+    beforeEach(() => {
+      square =
+        [['a','b','c','.'],
+         ['e','f','g','h'],
+         ['i','j','k','l'],
+         ['.','n','o','p']];
+      clues = {
+        across: ['across1', 'across2', 'across3', 'across4'],
+        down: ['down1', 'down2', 'down3', 'down4']
+      }
+    })
+
+    it('returns false when user letters do not completely match the grid letters', () => {
+      let crossword = new Crossword(square, clues, Crossword.generateEmptyGrid(4))
+      expect(crossword.isSolved()).toEqual(false);
+
+      let incompleteSolution =
+        [['a','b','c',' '],
+         ['e','','g','h'],
+         ['i','j','k','l'],
+         ['','n','o','p']];
+      let crossword2 = new Crossword(square, clues, incompleteSolution);
+      expect(crossword2.isSolved()).toEqual(false);
+
+      let wrongSolution =
+        [['a','b','c',' '],
+         ['e','x','g','h'],
+         ['i','j','k','l'],
+         ['','n','o','p']];
+      let crossword3 = new Crossword(square, clues, wrongSolution);
+      expect(crossword3.isSolved()).toEqual(false);
+    })
+
+    it('returns true when every letter entry in the grid is matched in the user letters', () => {
+      let correctSolution =
+        [['a','b','c',' '],
+         ['e','f','g','h'],
+         ['i','j','k','l'],
+         ['','n','o','p']];
+      let crossword = new Crossword(square, clues, correctSolution);
+      expect(crossword.isSolved()).toEqual(true);
+    })
+  })
 })
