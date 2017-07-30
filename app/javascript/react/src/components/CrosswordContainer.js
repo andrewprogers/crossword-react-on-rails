@@ -3,6 +3,7 @@ import CrosswordGrid from './CrosswordGrid';
 import CluesContainer from './CluesContainer';
 import Crossword from '../modules/Crossword'
 import UserActionController from '../modules/UserActionController'
+import PuzzleMenu from '../containers/PuzzleMenu'
 
 class CrosswordContainer extends React.Component {
   constructor(props) {
@@ -35,7 +36,8 @@ class CrosswordContainer extends React.Component {
       updateSelectedCell: this.updateSelectedCell.bind(this),
       changeClueDirection: this.changeClueDirection.bind(this),
       handleKeyDown: this.handleKeyDown.bind(this),
-      handleMouseClick: this.handleMouseClick.bind(this)
+      handleMouseClick: this.handleMouseClick.bind(this),
+      handleClear: this.handleClear.bind(this)
     }
   }
 
@@ -61,6 +63,12 @@ class CrosswordContainer extends React.Component {
       newDirection = (this.state.clueDirection === 'across') ? 'down' : 'across'
     }
     this.setState({clueDirection: newDirection})
+  }
+
+  handleClear() {
+    if (confirm("This will clear your entire solution. Are you sure?")) {
+      this.setState(new UserActionController(this.state).clear())
+    }
   }
 
   componentDidMount() {
@@ -94,12 +102,10 @@ class CrosswordContainer extends React.Component {
   render() {
     let crossword = new Crossword(this.state.grid, this.state.clues, this.state.userLetters);
     let notice;
-    if (this.state.isSolved) {
-      notice = "solved"
-    }
+
     return(
       <div id='crossword-container' className="row">
-        <h1>{notice}</h1>
+        <div className='small-12 columns'><PuzzleMenu on={this.on} /></div>
         <div className='small-12 large-6 columns'>
           <CrosswordGrid
             crossword={crossword}

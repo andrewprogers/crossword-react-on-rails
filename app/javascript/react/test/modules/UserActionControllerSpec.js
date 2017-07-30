@@ -19,7 +19,8 @@ class FakeState {
     this.userLetters = Crossword.generateEmptyGrid(this.grid.length)
     this.selectedCellRow = 0;
     this.selectedCellColumn = 0;
-    this.clueDirection = 'across'
+    this.clueDirection = 'across';
+    this.isSolved = false;
   }
 
   setCell(row, col) {
@@ -68,6 +69,12 @@ describe('UserActionController', () => {
         controller = new UserActionController(fakeState)
         let newState = controller.keyPress('Backspace');
         expect(newState.userLetters[0][0]).toEqual(' ')
+      })
+
+      it('does not update user letters once the puzzle is solved', () => {
+        fakeState.isSolved = true
+        let controller = new UserActionController(fakeState)
+        expect(controller.keyPress('Backspace').userLetters).toBeUndefined()
       })
 
       describe('when direction is across and the current cell is blank', () => {
@@ -340,6 +347,12 @@ describe('UserActionController', () => {
         newState = controller1.keyPress('a');
         expect(newState.isSolved).toEqual(true);
       })
+
+      it('does not update user letters once the puzzle is solved', () => {
+        fakeState.isSolved = true
+        let controller = new UserActionController(fakeState)
+        expect(controller.keyPress('a').userLetters).toBeUndefined()
+      })
     })
 
     describe('arrow keys', () => {
@@ -413,6 +426,22 @@ describe('UserActionController', () => {
         selectedCellRow: 1,
         selectedCellColumn: 1
       })
+    })
+  })
+
+  describe('.clear', () => {
+    let controller, newState;
+    beforeEach(() => {
+      controller = new UserActionController(new FakeState());
+      newState = controller.clear()
+    })
+
+    it("returns a state with empty user letters", () => {
+      expect(newState.userLetters).toEqual(Crossword.generateEmptyGrid(4))
+    })
+
+    it("resets is_solved to false", () => {
+      expect(newState.isSolved).toEqual(false)
     })
   })
 })

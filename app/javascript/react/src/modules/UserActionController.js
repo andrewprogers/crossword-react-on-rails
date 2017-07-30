@@ -8,7 +8,8 @@ class UserActionController {
       userLetters: [],
       selectedCellRow: state.selectedCellRow,
       selectedCellColumn: state.selectedCellColumn,
-      clueDirection: state.clueDirection
+      clueDirection: state.clueDirection,
+      isSolved: state.isSolved
     }
     for (var i = 0; i < state.grid.length; i++) {
       this.state.grid.push(state.grid[i].slice())
@@ -83,6 +84,9 @@ class UserActionController {
 
   handleLetter(key) {
     let newState = {};
+    if (this.state.isSolved) {
+      return newState;
+    }
     let row = this.state.selectedCellRow;
     let column = this.state.selectedCellColumn;
     let crossword = new Crossword(this.state.grid, this.state.clues, this.state.userLetters)
@@ -125,6 +129,9 @@ class UserActionController {
 
   handleBackspace() {
     let newState = {}
+    if (this.state.isSolved) {
+      return newState;
+    }
     let row = this.state.selectedCellRow;
     let column = this.state.selectedCellColumn;
     let currentCellEmpty = (this.state.userLetters[row][column] === ' ')
@@ -153,6 +160,13 @@ class UserActionController {
     this.state.userLetters[row][column] = ' ';
     newState.userLetters = this.state.userLetters;
     return newState;
+  }
+
+  clear() {
+    return {
+        userLetters: Crossword.generateEmptyGrid(this.state.grid.length),
+        isSolved: false
+      }
   }
 }
 
