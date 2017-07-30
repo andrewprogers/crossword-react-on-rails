@@ -10,10 +10,12 @@ class CrosswordContainer extends React.Component {
 
     let puzzle = this.props.initialPuzzle
     let initialSolution, solutionString;
+    let solveStatus = false;
     if ('user_id' in puzzle) {
       this.user_id = puzzle.user_id
       this.solution_id = puzzle.solution_id
       initialSolution = Crossword.parseArrayToGrid(puzzle.user_solution);
+      solveStatus = puzzle.is_solved
     } else {
       initialSolution = Crossword.generateEmptyGrid(puzzle.size.rows)
     }
@@ -25,7 +27,8 @@ class CrosswordContainer extends React.Component {
       selectedCellRow: 0,
       selectedCellColumn: 0,
       clueDirection: "across",
-      lastReturnedSolution: puzzle.user_solution
+      lastReturnedSolution: puzzle.user_solution,
+      isSolved: solveStatus
     }
 
     this.on = {
@@ -37,8 +40,8 @@ class CrosswordContainer extends React.Component {
   }
 
   handleKeyDown(event) {
-    let controller = new UserActionController(this.state)
-    this.setState(controller.keyPress(event.key))
+    let newState = (new UserActionController(this.state)).keyPress(event.key)
+    this.setState(newState)
   }
 
   handleMouseClick(clickedCell) {
@@ -70,7 +73,10 @@ class CrosswordContainer extends React.Component {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({user_solution: this.state.userLetters})
+            body: JSON.stringify({
+              user_solution: this.state.userLetters,
+              is_solved: this.state.isSolved
+            })
           })
           .then(response => response.json())
           .then(json => {
@@ -87,8 +93,13 @@ class CrosswordContainer extends React.Component {
 
   render() {
     let crossword = new Crossword(this.state.grid, this.state.clues, this.state.userLetters);
+    let notice;
+    if (this.state.isSolved) {
+      notice = "solved"
+    }
     return(
       <div id='crossword-container' className="row">
+        <h1>{notice}</h1>
         <div className='small-12 large-6 columns'>
           <CrosswordGrid
             crossword={crossword}

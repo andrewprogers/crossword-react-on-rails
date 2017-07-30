@@ -18,8 +18,10 @@ describe('CrosswordContainer', () => {
     testData.user_id = 3;
     testData.solution_id = 4;
     testData.user_solution = testData.grid
+    testData.is_solved = true;
     wrapper = shallow(<CrosswordContainer initialPuzzle={testData} />)
     expect(wrapper.state().userLetters).toEqual(Crossword.parseArrayToGrid(testData.user_solution))
+    expect(wrapper.state().isSolved).toEqual(true)
   })
 
   it('creates blank solution information when user is given', () => {
@@ -40,6 +42,7 @@ describe('CrosswordContainer', () => {
     expect(wrapper.state().selectedCellColumn).toEqual(0);
     expect(wrapper.state().clueDirection).toEqual('across');
     expect(wrapper.state().lastReturnedSolution).toBeUndefined();
+    expect(wrapper.state().isSolved).toEqual(false);
   })
 
   describe('renders', () => {

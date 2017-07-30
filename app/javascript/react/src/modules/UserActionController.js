@@ -116,6 +116,10 @@ class UserActionController {
       newState.clueDirection = currentClue.direction();
     }
 
+    if (crossword.isSolved()) {
+      newState.isSolved = true;
+    }
+
     return newState;
   }
 

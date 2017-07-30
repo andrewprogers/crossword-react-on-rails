@@ -48,6 +48,16 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
       expect(user_solution).to eq(solution1.user_answers.split(''))
     end
 
+    it "should have an is_solved property that reflects if the users answer is correct" do
+      user1 = FactoryGirl.create(:user)
+      solution1 = FactoryGirl.create(:solution, puzzle: puzzle1, user: user1, correct: true)
+      session[:user_id] = user1.id
+
+      get :show, params: { id: puzzle1.id }
+      solution_correct = JSON.parse(response.body)['puzzle']['is_solved']
+      expect(solution_correct).to eq(true)
+    end
+
     it "creates a solution for the current user if none exists" do
       user1 = FactoryGirl.create(:user)
       session[:user_id] = user1.id
