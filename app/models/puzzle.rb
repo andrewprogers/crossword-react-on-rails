@@ -7,6 +7,7 @@ class Puzzle < ApplicationRecord
   validates :size, inclusion: { in: 5..25 }
   validates :date, presence: true
   validate :grid_cant_be_empty
+  validate :draft_cant_be_empty
 
   def get_clues
     clues = {}
@@ -22,6 +23,12 @@ class Puzzle < ApplicationRecord
   def grid_cant_be_empty
     if grid.nil? || grid == ""
       errors.add(:grid, "can't be empty")
+    end
+  end
+
+  def draft_cant_be_empty
+    if draft.nil? || draft == ""
+      errors.add(:draft, "can't be empty")
     end
   end
 end

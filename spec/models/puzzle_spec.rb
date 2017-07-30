@@ -13,6 +13,9 @@ RSpec.describe Puzzle, type: :model do
 
   it { should have_valid(:notes).when('adfasdfasdfsadfsadf', '') }
 
+  it { should have_valid(:draft).when(true, false) }
+  it { should_not have_valid(:draft).when(nil, '') }
+
   it { should belong_to(:user) }
   it { should have_many(:answers) }
   it { should have_many(:solutions) }

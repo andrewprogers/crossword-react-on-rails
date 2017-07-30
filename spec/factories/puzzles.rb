@@ -8,6 +8,7 @@ FactoryGirl.define do
     grid "..ASD.ASDFASDDFWERT.QWT.."
     date Time.now
     notes "These are the notes"
+    draft false
     created_at Time.now
     updated_at Time.now
   end

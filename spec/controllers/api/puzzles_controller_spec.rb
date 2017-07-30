@@ -93,8 +93,28 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
       expect(size['cols']).to eq(puzzle1.size)
     end
 
-    it "should return a 400 level response if the puzzle id does not exist" do
+    it "should have a draft property indicating whether the current puzzle is a draft" do
+      puzzle1.draft = true
+      puzzle1.save
+      session[:user_id] = puzzle1.user.id
+
+      get :show, params: { id: puzzle1.id }
+      draft = JSON.parse(response.body)['puzzle']['draft']
+
+      expect(draft).to eq(true)
+    end
+
+    it "should return a 404 response if the puzzle id does not exist" do
       get :show, params: { id: puzzle1.id + 10 }
+      expect(response.status).to eq(404)
+    end
+
+    it "should return a 404 response if the puzzle is a draft an not owned by current user" do
+      puzzle1.draft = true
+      puzzle1.save
+      session[:user_id] = FactoryGirl.create(:user).id
+
+      get :show, params: { id: puzzle1.id }
       expect(response.status).to eq(404)
     end
   end

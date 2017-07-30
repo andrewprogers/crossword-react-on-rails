@@ -17,6 +17,7 @@ class PuzzlesController < ApplicationController
     @puzzle.user = current_user
     @puzzle.grid = " " * @puzzle.size * @puzzle.size
     @puzzle.date = Date.today()
+    @puzzle.draft = true
 
     if @puzzle.save
       redirect_to edit_puzzle_path(@puzzle)
