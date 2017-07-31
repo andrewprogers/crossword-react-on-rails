@@ -47,6 +47,113 @@ describe('CrosswordContainer', () => {
     expect(wrapper.state().editMode).toEqual(false);
   })
 
+  describe('patchPayload',() => {
+    let payload
+
+    it('returns a payload object', () => {
+      wrapper = shallow(<CrosswordContainer initialPuzzle={mockData} />)
+      payload = wrapper.instance().patchPayload()
+
+      expect(payload.method).toEqual("PATCH")
+      expect(payload.credentials).toEqual("same-origin")
+      expect(payload.headers).toEqual({'Content-Type': 'application/json'})
+      expect(payload.body).toBeDefined();
+    })
+
+    describe('when not in edit mode', () => {
+      beforeEach(() => {
+        let testData = Object.assign({}, mockData)
+        testData.user_id = 3;
+        testData.solution_id = 4;
+        testData.user_solution = testData.grid
+        testData.is_solved = true;
+
+        wrapper = shallow(<CrosswordContainer initialPuzzle={testData} />)
+        payload = wrapper.instance().patchPayload()
+      })
+
+      it("should send the user solution as an array", () => {
+        let substring = JSON.stringify(wrapper.state().userLetters)
+        expect(payload.body.indexOf(substring)).not.toEqual(-1)
+      })
+
+      it("should send the is_solved state", () => {
+        let substring = JSON.stringify(wrapper.state().isSolved)
+        expect(payload.body.indexOf(substring)).not.toEqual(-1)
+
+        substring = "is_solved"
+        expect(payload.body.indexOf(substring)).not.toEqual(-1)
+      })
+
+      it("should return false if last returned solution is equal to current userletters", () => {
+        wrapper.setState({lastReturnedSolution: wrapper.state().userLetters})
+        payload = wrapper.instance().patchPayload()
+
+        expect(payload).toEqual(false)
+      })
+    })
+
+    describe('when in edit mode', () => {
+      let testData;
+
+      beforeEach(() => {
+        testData = Object.assign({}, mockData)
+        testData.user_id = 3;
+        testData.solution_id = 4;
+        testData.user_solution = testData.grid
+        testData.draft = true
+        wrapper = shallow(<CrosswordContainer initialPuzzle={testData} />)
+        wrapper.setState({
+          size: 3,
+          grid:
+          [['.','.',''],
+           ['.','','.'],
+           ['','.','.']],
+          userLetters:
+          [['','','A'],
+           ['','B',''],
+           ['C','','']],
+        })
+      })
+
+      it("should send the grid_update as an array", () => {
+        payload = wrapper.instance().patchPayload()
+        let substring = JSON.stringify(['..A'.split(''), '.B.'.split(''), 'C..'.split('')])
+
+        expect(payload.body.indexOf(substring)).not.toEqual(-1)
+        expect(payload.body.indexOf("grid_update")).not.toEqual(-1)
+      })
+
+      it("should return false if last update would be redundant with last returned update", () => {
+        wrapper.setState({lastReturnedSolution: ['..A'.split(''), '.B.'.split(''), 'C..'.split('')]})
+
+        payload = wrapper.instance().patchPayload()
+        expect(payload).toEqual(false)
+      })
+    })
+  })
+
+  describe('apiEndpoint', () => {
+    it('updates to solution api endpoint when not in edit mode', () => {
+      wrapper = shallow(<CrosswordContainer initialPuzzle={mockData} />)
+      let endpoint = wrapper.instance().apiEndpoint()
+
+      expect(endpoint.indexOf('/solutions/')).not.toEqual(-1)
+    })
+
+    it('updates to puzzle api endpoint when in edit mode', () => {
+      let testData = Object.assign({}, mockData)
+      testData.user_id = 3;
+      testData.solution_id = 4;
+      testData.user_solution = testData.grid
+      testData.draft = true
+      wrapper = shallow(<CrosswordContainer initialPuzzle={testData} />)
+
+      let endpoint = wrapper.instance().apiEndpoint()
+      expect(endpoint.indexOf('/puzzles/')).not.toEqual(-1)
+    })
+  })
+
   describe('renders', () => {
     beforeEach(() => {
       wrapper = shallow(<CrosswordContainer initialPuzzle={mockData} />)

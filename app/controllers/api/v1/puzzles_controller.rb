@@ -35,12 +35,13 @@ class Api::V1::PuzzlesController < ApplicationController
     unless puzzle.draft
       render json: {}, status: 404
     else
-      unless params[:grid_update].length == puzzle.size ** 2
+      flat_update = params[:grid_update].flatten
+      unless flat_update.length == puzzle.size ** 2
         render json: {}, status: 404
       else
-        puzzle.grid = params[:grid_update]
+        puzzle.grid = flat_update.join('')
         puzzle.save!
-        render json: { grid: puzzle.grid }, status: 200
+        render json: { grid: params[:grid_update] }, status: 200
       end
     end
   end

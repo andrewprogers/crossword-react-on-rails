@@ -123,14 +123,14 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
     let!(:draft) { FactoryGirl.create(:puzzle, draft: true, size: 5) }
 
     it "should accept a properly formatted update to the puzzle grid" do
-      new_grid = ".ABC." * 5
+      new_grid = (".ABC." * 5).split('')
       patch :update, params: { grid_update: new_grid, id: draft.id }
       expect(response.status).to eq(200)
-      expect(Puzzle.find(draft.id).grid).to eq(new_grid)
+      expect(Puzzle.find(draft.id).grid).to eq(new_grid.join(''))
     end
 
-    it "When successful, should return the updated grid value" do
-      new_grid = ".ABC." * 5
+    it "When successful, should return the updated grid value as array" do
+      new_grid = (".ABC." * 5).split('')
       patch :update, params: { grid_update: new_grid, id: draft.id }
       returned_json = JSON.parse(response.body)
 
@@ -139,18 +139,18 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
 
     it "should reject an update to the grid if the puzzle is not a draft" do
       non_draft = FactoryGirl.create(:puzzle, draft: false, size: 5)
-      new_grid = ".ABC." * 5
+      new_grid = (".ABC." * 5).split('')
       patch :update, params: { grid_update: new_grid, id: non_draft.id }
 
       expect(response.status).to eq(404)
-      expect(Puzzle.find(non_draft.id).grid).to_not eq(new_grid)
+      expect(Puzzle.find(non_draft.id).grid).to_not eq(new_grid.join(''))
     end
 
     it "should reject an update to the grid if it is not the correct length" do
-      new_grid = ".ABC." * 4
+      new_grid = (".ABC." * 4).split('')
       patch :update, params: { grid_update: new_grid, id: draft.id }
       expect(response.status).to eq(404)
-      expect(Puzzle.find(draft.id).grid).to_not eq(new_grid)
+      expect(Puzzle.find(draft.id).grid).to_not eq(new_grid.join(''))
     end
   end
 end

@@ -19,15 +19,41 @@ class CrosswordContainer extends React.Component {
       solveStatus = puzzle.is_solved
       isDraftPuzzle = puzzle.draft
     } else {
-      initialSolution = Crossword.generateEmptyGrid(puzzle.size.rows)
+      initialSolution = Crossword.generateEmptyGrid(puzzle.size.rows);
+    }
+    let initialGrid = Crossword.parseArrayToGrid(puzzle.grid);
+
+    if (puzzle.draft) {
+      // load letters from grid into initialSolution
+      initialSolution = Crossword.generateEmptyGrid(puzzle.size.rows);
+      for (var row = 0; row < initialGrid.length; row++) {
+        for (var col = 0; col < initialGrid.length; col++) {
+          if (initialGrid[row][col] !== '.') {
+            initialSolution[row][col] = initialGrid[row][col];
+          }
+        }
+      }
     }
 
+    // Determine start cell
+    let initialRow, initialCol;
+    outerLoop:
+      for (var row = 0; row < initialGrid.length; row++) {
+        for (var col = 0; col < initialGrid.length; col++) {
+          if (initialGrid[row][col] !== ".") {
+            initialRow = row;
+            initialCol = col;
+            break outerLoop;
+          }
+        }
+      }
+
     this.state = {
-      grid: Crossword.parseArrayToGrid(puzzle.grid),
+      grid: initialGrid,
       clues: puzzle.clues,
       userLetters: initialSolution,
-      selectedCellRow: 0,
-      selectedCellColumn: 0,
+      selectedCellRow: initialRow,
+      selectedCellColumn: initialCol,
       clueDirection: "across",
       lastReturnedSolution: puzzle.user_solution,
       isSolved: solveStatus,
@@ -73,25 +99,70 @@ class CrosswordContainer extends React.Component {
     }
   }
 
+  patchPayload() {
+    let body = null;
+    if (this.state.editMode) {
+      let gridUpdate = Crossword.generateEmptyGrid(this.state.grid.length)
+      for (var row = 0; row < this.state.grid.length; row++) {
+        for (var col = 0; col < this.state.grid.length; col++) {
+          if (this.state.grid[row][col] === ".") {
+            gridUpdate[row][col] = '.'
+          } else if (this.state.userLetters[row][col].match(/[A-Z]/)) {
+            gridUpdate[row][col] = this.state.userLetters[row][col]
+          } else {
+            gridUpdate[row][col] = ' '
+          }
+        }
+      }
+
+      if (JSON.stringify(gridUpdate) !== JSON.stringify(this.state.lastReturnedSolution)) {
+        body = { grid_update: gridUpdate }
+      }
+    } else if (JSON.stringify(this.state.lastReturnedSolution) !== JSON.stringify(this.state.userLetters)) {
+      body = {
+        user_solution: this.state.userLetters,
+        is_solved: this.state.isSolved
+      }
+    }
+
+    if (body) {
+      return {
+        method: "PATCH",
+        credentials: "same-origin",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      }
+    } else {
+      return false;
+    }
+  }
+
+  apiEndpoint() {
+    let solution_api = `/api/v1/users/${this.user_id}/solutions/${this.solution_id}`
+    let puzzles_api = `/api/v1/puzzles/${location.pathname.split('/')[2]}`
+
+    return this.state.editMode ? puzzles_api : solution_api
+  }
+
+  setLastReturned(json_response) {
+    if (this.state.editMode) {
+      console.log(json_response.grid)
+      this.setState({ lastReturnedSolution: json_response.grid })
+    } else {
+      this.setState({ lastReturnedSolution: json_response.user_answers })
+    }
+  }
+
   componentDidMount() {
     if (this.user !== null) {
       this.persistenceInterval = setInterval(() => {
-        if (JSON.stringify(this.state.lastReturnedSolution) !== JSON.stringify(this.state.userLetters)) {
-          fetch(`/api/v1/users/${this.user_id}/solutions/${this.solution_id}`, {
-            method: "PATCH",
-            credentials: "same-origin",
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              user_solution: this.state.userLetters,
-              is_solved: this.state.isSolved
-            })
-          })
+        let payload = this.patchPayload()
+        if (payload) {
+          fetch(this.apiEndpoint(), this.patchPayload())
           .then(response => response.json())
-          .then(json => {
-            this.setState({ lastReturnedSolution: json.user_answers})
-          })
+          .then(json => this.setLastReturned(json))
         }
       }, 1000)
     }
