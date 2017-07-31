@@ -416,17 +416,61 @@ describe('UserActionController', () => {
     it('updates clue direction when the current cell is clicked', () => {
       fakeState.setCell(1, 1);
       controller = new UserActionController(fakeState);
-      let newState = controller.mouseClick(clickedCell);
+      let newState = controller.mouseClick(clickedCell, false);
       expect(newState).toEqual({clueDirection: 'down'})
     })
 
     it('updates selected cell when a new cell is clicked', () => {
       controller = new UserActionController(fakeState);
-      let newState = controller.mouseClick(clickedCell);
+      let newState = controller.mouseClick(clickedCell, false);
       expect(newState).toEqual({
         selectedCellRow: 1,
         selectedCellColumn: 1
       })
+    })
+
+    it('does not update selected cell if a black cell is clicked', () => {
+      controller = new UserActionController(fakeState);
+      clickedCell = {row: 1, column: 2};
+      let newState = controller.mouseClick(clickedCell, false);
+      expect(newState).toEqual({})
+    })
+
+    it('updates the clicked cell to black (and reverse) when in edit mode and when metaKey is true', () => {
+      fakeState.editMode = true
+      controller = new UserActionController(fakeState);
+      clickedCell = {row: 1, column: 2};
+      let newState = controller.mouseClick(clickedCell, true);
+      expect(newState.grid[1][2]).toEqual(' ')
+
+      clickedCell = {row: 1, column: 1};
+      newState = controller.mouseClick(clickedCell, true);
+      expect(newState.grid[1][1]).toEqual('.')
+    })
+
+    it('maintains radial symmetry', () => {
+      fakeState.editMode = true
+      controller = new UserActionController(fakeState);
+      clickedCell = {row: 1, column: 2};
+      let newState = controller.mouseClick(clickedCell, true);
+      expect(newState.grid[1][2]).not.toEqual('.')
+      expect(newState.grid[2][1]).not.toEqual('.')
+
+      clickedCell = {row: 1, column: 1};
+      newState = controller.mouseClick(clickedCell, true);
+      expect(newState.grid[1][1]).toEqual('.')
+      expect(newState.grid[2][2]).toEqual('.')
+    })
+
+    it('moves selected cell to next open square when a black square is placed in it', () => {
+      fakeState.editMode = true
+      controller = new UserActionController(fakeState);
+      clickedCell = {row: 0, column: 0};
+      let newState = controller.mouseClick(clickedCell, true);
+      expect(newState.grid[0][0]).toEqual('.')
+
+      expect(newState.selectedCellRow).toEqual(0);
+      expect(newState.selectedCellColumn).toEqual(1);
     })
   })
 

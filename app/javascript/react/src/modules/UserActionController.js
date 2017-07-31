@@ -63,15 +63,32 @@ class UserActionController {
     return newState;
   }
 
-  mouseClick(currentCell) {
+  mouseClick(currentCell, metaKey) {
     let newState = {};
-    if ((currentCell.row === this.state.selectedCellRow)
-    && (currentCell.column === this.state.selectedCellColumn)) {
-      newState.clueDirection = this.nextDirection();
-    } else {
-      newState.selectedCellRow = currentCell.row;
-      newState.selectedCellColumn = currentCell.column;
+    let row = currentCell.row;
+    let col = currentCell.column;
+
+    if (this.state.editMode && metaKey) {
+      newState.grid = this.state.grid
+      let maxIndex = newState.grid.length - 1
+      newState.grid[row][col] = (this.state.grid[row][col] === '.') ? ' ' : '.';
+      newState.grid[maxIndex - row][maxIndex - col] = newState.grid[row][col]
+
+      if ((row === this.state.selectedCellRow) && (col === this.state.selectedCellColumn)) {
+        let crossword = new Crossword(newState.grid, this.state.clues, this.state.userLetters)
+        let next = crossword.nextCell('right', this.state.selectedCellRow, this.state.selectedCellColumn)
+        newState.selectedCellRow = next.row
+        newState.selectedCellColumn = next.column
+      }
+    } else if (this.state.grid[row][col] !== '.') {
+      if ((row === this.state.selectedCellRow) && (col === this.state.selectedCellColumn)) {
+        newState.clueDirection = this.nextDirection();
+      } else {
+        newState.selectedCellRow = row;
+        newState.selectedCellColumn = col;
+      }
     }
+
     return newState;
   }
 

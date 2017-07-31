@@ -90,8 +90,8 @@ describe('Cell', () => {
       expect(wrapper.find('input').props().value).toEqual("")
     })
 
-    it('"div.cell" should not have an onClick function', () => {
-      expect(wrapper.find('div.cell').props().onClick).toEqual(null)
+    it('"div.cell" should have an onClick function', () => {
+      expect(wrapper.find('div.cell').props().onClick).toEqual(jasmine.any(Function))
     })
   })
 
