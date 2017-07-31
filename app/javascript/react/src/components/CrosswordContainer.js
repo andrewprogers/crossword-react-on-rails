@@ -55,7 +55,7 @@ class CrosswordContainer extends React.Component {
       selectedCellRow: initialRow,
       selectedCellColumn: initialCol,
       clueDirection: "across",
-      lastReturnedSolution: puzzle.user_solution,
+      lastResponse: puzzle.user_solution,
       isSolved: solveStatus,
       editMode: isDraftPuzzle
     }
@@ -115,10 +115,10 @@ class CrosswordContainer extends React.Component {
         }
       }
 
-      if (JSON.stringify(gridUpdate) !== JSON.stringify(this.state.lastReturnedSolution)) {
+      if (JSON.stringify(gridUpdate) !== JSON.stringify(this.state.lastResponse)) {
         body = { grid_update: gridUpdate }
       }
-    } else if (JSON.stringify(this.state.lastReturnedSolution) !== JSON.stringify(this.state.userLetters)) {
+    } else if (JSON.stringify(this.state.lastResponse) !== JSON.stringify(this.state.userLetters)) {
       body = {
         user_solution: this.state.userLetters,
         is_solved: this.state.isSolved
@@ -149,9 +149,9 @@ class CrosswordContainer extends React.Component {
   setLastReturned(json_response) {
     if (this.state.editMode) {
       console.log(json_response.grid)
-      this.setState({ lastReturnedSolution: json_response.grid })
+      this.setState({ lastResponse: json_response.grid })
     } else {
-      this.setState({ lastReturnedSolution: json_response.user_answers })
+      this.setState({ lastResponse: json_response.user_answers })
     }
   }
 

@@ -42,7 +42,7 @@ describe('CrosswordContainer', () => {
     expect(wrapper.state().selectedCellRow).toEqual(0);
     expect(wrapper.state().selectedCellColumn).toEqual(0);
     expect(wrapper.state().clueDirection).toEqual('across');
-    expect(wrapper.state().lastReturnedSolution).toBeUndefined();
+    expect(wrapper.state().lastResponse).toBeUndefined();
     expect(wrapper.state().isSolved).toEqual(false);
     expect(wrapper.state().editMode).toEqual(false);
   })
@@ -85,8 +85,8 @@ describe('CrosswordContainer', () => {
         expect(payload.body.indexOf(substring)).not.toEqual(-1)
       })
 
-      it("should return false if last returned solution is equal to current userletters", () => {
-        wrapper.setState({lastReturnedSolution: wrapper.state().userLetters})
+      it("should return false if last response is equal to current userletters", () => {
+        wrapper.setState({lastResponse: wrapper.state().userLetters})
         payload = wrapper.instance().patchPayload()
 
         expect(payload).toEqual(false)
@@ -125,7 +125,7 @@ describe('CrosswordContainer', () => {
       })
 
       it("should return false if last update would be redundant with last returned update", () => {
-        wrapper.setState({lastReturnedSolution: ['..A'.split(''), '.B.'.split(''), 'C..'.split('')]})
+        wrapper.setState({lastResponse: ['..A'.split(''), '.B.'.split(''), 'C..'.split('')]})
 
         payload = wrapper.instance().patchPayload()
         expect(payload).toEqual(false)
