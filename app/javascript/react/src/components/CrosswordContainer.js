@@ -24,10 +24,9 @@ class CrosswordContainer extends React.Component {
     let initialGrid = Crossword.parseArrayToGrid(puzzle.grid);
 
     if (isDraftPuzzle) {
-      // load letters from grid into initialSolution
       initialSolution = Crossword.generateEmptyGrid(puzzle.size.rows);
-      for (var row = 0; row < initialGrid.length; row++) {
-        for (var col = 0; col < initialGrid.length; col++) {
+      for (let row = 0; row < initialGrid.length; row++) {
+        for (let col = 0; col < initialGrid.length; col++) {
           if (initialGrid[row][col] !== '.') {
             initialSolution[row][col] = initialGrid[row][col];
           }
@@ -35,11 +34,10 @@ class CrosswordContainer extends React.Component {
       }
     }
 
-    // Determine start cell
     let initialRow, initialCol;
     outerLoop:
-      for (var row = 0; row < initialGrid.length; row++) {
-        for (var col = 0; col < initialGrid.length; col++) {
+      for (let row = 0; row < initialGrid.length; row++) {
+        for (let col = 0; col < initialGrid.length; col++) {
           if (initialGrid[row][col] !== ".") {
             initialRow = row;
             initialCol = col;
