@@ -17,7 +17,6 @@ feature "user views a puzzles play page" do
     stub_omniauth
     visit root_path
     click_link("Sign in with Google")
-    user = User.where(provider: "google_oauth2", uid: "12345678910").first
     draft2 = FactoryGirl.create(:puzzle, draft: true)
 
     visit edit_puzzle_path(draft2)
