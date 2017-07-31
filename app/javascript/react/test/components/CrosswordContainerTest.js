@@ -13,6 +13,9 @@ import mockData from '../constants/mockData'
 
 describe('CrosswordContainer', () => {
   let wrapper;
+  beforeEach(() => {
+    spyOn(CrosswordContainer.prototype, 'componentDidUpdate')
+  })
 
   it('assigns solution information when user is given', () => {
     let testData = Object.assign({}, mockData)
@@ -84,13 +87,6 @@ describe('CrosswordContainer', () => {
         substring = "is_solved"
         expect(payload.body.indexOf(substring)).not.toEqual(-1)
       })
-
-      it("should return false if last response is equal to current userletters", () => {
-        wrapper.setState({lastResponse: wrapper.state().userLetters})
-        payload = wrapper.instance().patchPayload()
-
-        expect(payload).toEqual(false)
-      })
     })
 
     describe('when in edit mode', () => {
@@ -122,13 +118,6 @@ describe('CrosswordContainer', () => {
 
         expect(payload.body.indexOf(substring)).not.toEqual(-1)
         expect(payload.body.indexOf("grid_update")).not.toEqual(-1)
-      })
-
-      it("should return false if last update would be redundant with last returned update", () => {
-        wrapper.setState({lastResponse: ['..A'.split(''), '.B.'.split(''), 'C..'.split('')]})
-
-        payload = wrapper.instance().patchPayload()
-        expect(payload).toEqual(false)
       })
     })
   })

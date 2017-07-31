@@ -23,7 +23,7 @@ class CrosswordContainer extends React.Component {
     }
     let initialGrid = Crossword.parseArrayToGrid(puzzle.grid);
 
-    if (puzzle.draft) {
+    if (isDraftPuzzle) {
       // load letters from grid into initialSolution
       initialSolution = Crossword.generateEmptyGrid(puzzle.size.rows);
       for (var row = 0; row < initialGrid.length; row++) {
@@ -100,7 +100,7 @@ class CrosswordContainer extends React.Component {
   }
 
   patchPayload() {
-    let body = null;
+    let body;
     if (this.state.editMode) {
       let gridUpdate = Crossword.generateEmptyGrid(this.state.grid.length)
       for (var row = 0; row < this.state.grid.length; row++) {
@@ -114,28 +114,20 @@ class CrosswordContainer extends React.Component {
           }
         }
       }
-
-      if (JSON.stringify(gridUpdate) !== JSON.stringify(this.state.lastResponse)) {
-        body = { grid_update: gridUpdate }
-      }
-    } else if (JSON.stringify(this.state.lastResponse) !== JSON.stringify(this.state.userLetters)) {
+      body = { grid_update: gridUpdate }
+    } else {
       body = {
         user_solution: this.state.userLetters,
         is_solved: this.state.isSolved
       }
     }
-
-    if (body) {
-      return {
-        method: "PATCH",
-        credentials: "same-origin",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-      }
-    } else {
-      return false;
+    return {
+      method: "PATCH",
+      credentials: "same-origin",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
     }
   }
 
@@ -148,28 +140,19 @@ class CrosswordContainer extends React.Component {
 
   setLastReturned(json_response) {
     if (this.state.editMode) {
-      console.log(json_response.grid)
       this.setState({ lastResponse: json_response.grid })
     } else {
       this.setState({ lastResponse: json_response.user_answers })
     }
   }
 
-  componentDidMount() {
-    if (this.user !== null) {
-      this.persistenceInterval = setInterval(() => {
-        let payload = this.patchPayload()
-        if (payload) {
-          fetch(this.apiEndpoint(), this.patchPayload())
-          .then(response => response.json())
-          .then(json => this.setLastReturned(json))
-        }
-      }, 1000)
+  componentDidUpdate() {
+    let payload = this.patchPayload()
+    if(this.user !== null && payload) {
+      fetch(this.apiEndpoint(), payload)
+      .then(response => response.json())
+      .then(json => this.setLastReturned(json))
     }
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.persistenceInterval)
   }
 
   render() {
