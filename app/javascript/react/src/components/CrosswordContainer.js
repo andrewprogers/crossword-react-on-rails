@@ -11,12 +11,13 @@ class CrosswordContainer extends React.Component {
 
     let puzzle = this.props.initialPuzzle
     let initialSolution, solutionString;
-    let solveStatus = false;
+    let solveStatus = false, isDraftPuzzle = false;
     if ('user_id' in puzzle) {
       this.user_id = puzzle.user_id
       this.solution_id = puzzle.solution_id
       initialSolution = Crossword.parseArrayToGrid(puzzle.user_solution);
       solveStatus = puzzle.is_solved
+      isDraftPuzzle = puzzle.draft
     } else {
       initialSolution = Crossword.generateEmptyGrid(puzzle.size.rows)
     }
@@ -29,7 +30,8 @@ class CrosswordContainer extends React.Component {
       selectedCellColumn: 0,
       clueDirection: "across",
       lastReturnedSolution: puzzle.user_solution,
-      isSolved: solveStatus
+      isSolved: solveStatus,
+      editMode: isDraftPuzzle
     }
 
     this.on = {
@@ -101,10 +103,10 @@ class CrosswordContainer extends React.Component {
 
   render() {
     let crossword = new Crossword(this.state.grid, this.state.clues, this.state.userLetters);
-    let notice;
-
+    let notice = this.state.editMode ? "Edit mode active" : ""
     return(
       <div id='crossword-container' className="row">
+        <h4>{notice}</h4>
         <div className='small-12 columns'><PuzzleMenu on={this.on} /></div>
         <div className='small-12 large-6 columns'>
           <CrosswordGrid

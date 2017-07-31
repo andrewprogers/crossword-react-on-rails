@@ -1,6 +1,9 @@
 class PuzzlesController < ApplicationController
   def show
-    @puzzle_id = params[:id]
+    if Puzzle.where(id: params[:id]).first.draft
+      flash[:error] = "That page is unavailable"
+      redirect_to root_path
+    end
   end
 
   def new
@@ -28,6 +31,11 @@ class PuzzlesController < ApplicationController
   end
 
   def edit
+    @puzzle = Puzzle.where(id: params[:id]).first
+    if !@puzzle.draft || @puzzle.user != current_user
+      flash[:error] = "That page is unavailable"
+      redirect_to root_path
+    end
   end
 
   private

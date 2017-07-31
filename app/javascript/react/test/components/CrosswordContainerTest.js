@@ -44,6 +44,7 @@ describe('CrosswordContainer', () => {
     expect(wrapper.state().clueDirection).toEqual('across');
     expect(wrapper.state().lastReturnedSolution).toBeUndefined();
     expect(wrapper.state().isSolved).toEqual(false);
+    expect(wrapper.state().editMode).toEqual(false);
   })
 
   describe('renders', () => {

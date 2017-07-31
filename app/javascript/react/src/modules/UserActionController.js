@@ -9,7 +9,8 @@ class UserActionController {
       selectedCellRow: state.selectedCellRow,
       selectedCellColumn: state.selectedCellColumn,
       clueDirection: state.clueDirection,
-      isSolved: state.isSolved
+      isSolved: state.isSolved,
+      editMode: state.editMode
     }
     for (var i = 0; i < state.grid.length; i++) {
       this.state.grid.push(state.grid[i].slice())
