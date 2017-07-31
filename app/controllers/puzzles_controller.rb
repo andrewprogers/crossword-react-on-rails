@@ -11,7 +11,7 @@ class PuzzlesController < ApplicationController
       flash[:error] = "You must be signed in to create a new puzzle"
       redirect_to root_path
     else
-      @puzzle = Puzzle.new()
+      @puzzle = Puzzle.new
     end
   end
 
@@ -19,7 +19,7 @@ class PuzzlesController < ApplicationController
     @puzzle = Puzzle.new(puzzle_params)
     @puzzle.user = current_user
     @puzzle.grid = " " * @puzzle.size * @puzzle.size
-    @puzzle.date = Date.today()
+    @puzzle.date = Date.today
     @puzzle.draft = true
 
     if @puzzle.save
