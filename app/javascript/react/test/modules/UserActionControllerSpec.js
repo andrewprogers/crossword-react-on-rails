@@ -21,6 +21,7 @@ class FakeState {
     this.selectedCellColumn = 0;
     this.clueDirection = 'across';
     this.isSolved = false;
+    this.editMode = false;
   }
 
   setCell(row, col) {

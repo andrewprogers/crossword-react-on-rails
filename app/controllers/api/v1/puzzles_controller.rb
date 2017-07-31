@@ -1,7 +1,7 @@
 class Api::V1::PuzzlesController < ApplicationController
   def show
     puzzle = Puzzle.where(id: params[:id]).first
-    if puzzle.nil?
+    if puzzle.nil? || (puzzle.draft == true && puzzle.user != current_user)
       render json: {}, status: 404
     else
       puzzle_data = {}
@@ -10,6 +10,7 @@ class Api::V1::PuzzlesController < ApplicationController
       puzzle_data['size'] = {}
       puzzle_data['size']['rows'] = puzzle.size
       puzzle_data['size']['cols'] = puzzle.size
+      puzzle_data['draft'] = puzzle.draft
 
       if current_user
         solution = Solution.where(puzzle: puzzle, user: current_user).first
