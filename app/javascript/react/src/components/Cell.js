@@ -9,18 +9,17 @@ const Cell = props => {
   }
   let classString = 'cell unselectable'
 
-  let clickHandler = () => {
+  let clickHandler = (event) => {
     let currentCell = {
       row: props.row,
       column: props.column
     }
-    props.on.handleMouseClick(currentCell)
+    props.on.handleMouseClick(currentCell, event.metaKey)
   };
 
   if (letter === '.') {
     classString += ' shaded'
     letter = '';
-    clickHandler = null;
   }
   if ((props.selectedCellRow === props.row) && (props.selectedCellColumn === props.column)) {
     classString += ' selectedCell'
