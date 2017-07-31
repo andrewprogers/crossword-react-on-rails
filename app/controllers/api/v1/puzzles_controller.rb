@@ -1,4 +1,6 @@
 class Api::V1::PuzzlesController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:update]
+
   def show
     puzzle = Puzzle.where(id: params[:id]).first
     if puzzle.nil? || (puzzle.draft == true && puzzle.user != current_user)
@@ -25,6 +27,21 @@ class Api::V1::PuzzlesController < ApplicationController
       end
 
       render json: { puzzle: puzzle_data }
+    end
+  end
+
+  def update
+    puzzle = Puzzle.find(params[:id])
+    unless puzzle.draft
+      render json: {}, status: 404
+    else
+      unless params[:grid_update].length == puzzle.size ** 2
+        render json: {}, status: 404
+      else
+        puzzle.grid = params[:grid_update]
+        puzzle.save!
+        render json: { grid: puzzle.grid }, status: 200
+      end
     end
   end
 end
