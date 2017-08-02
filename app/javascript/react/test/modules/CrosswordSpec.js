@@ -55,6 +55,42 @@ describe('Crossword', () => {
     })
   })
 
+  describe('.validate', () => {
+    let grid, userLetters, clues
+    beforeEach(() => {
+      grid =
+        [['.','',''],
+         ['','',''],
+         ['','','.']];
+      userLetters =
+        [[' ','b','c'],
+         ['d','e','f'],
+         ['g','h','i']];
+      clues = {
+        across: ['across1', 'across2', 'across3'],
+        down: ['down1', 'down2', 'down3']
+      }
+    })
+
+    it('returns false if any cell has neither a userLetter nor a black square', () => {
+      grid[0][0] = ' ';
+      expect(Crossword.validate(grid, clues, userLetters)).toEqual(false)
+
+      grid[0][0] = '.';
+      userLetters[0][1] = ' ';
+      expect(Crossword.validate(grid, clues, userLetters)).toEqual(false)
+    })
+
+    it('returns false if the clue text for any clue is empty string', () => {
+      clues.across[2] = ""
+      expect(Crossword.validate(grid, clues, userLetters)).toEqual(false)
+    })
+
+    it('returns true otherwise', () => {
+      expect(Crossword.validate(grid, clues, userLetters)).toEqual(true)
+    })
+  })
+
   describe('new Crossword', () => {
     let crossword, square, clues
     beforeEach(() => {
