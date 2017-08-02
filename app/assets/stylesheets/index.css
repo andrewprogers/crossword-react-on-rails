@@ -3,6 +3,10 @@ body {
   padding: 0;
 }
 
+.App ::selection {
+  background: none;
+}
+
 #crossword-container .row{
   margin-left: 0;
   margin-right: 0;
@@ -84,10 +88,6 @@ body {
   text-shadow: 0 0 0 black;
 }
 
-.cell-letter::selection {
-  background: none;
-}
-
 .selectedClue {
   background-color: #FFD658;
 }
@@ -166,4 +166,58 @@ body {
 
 .menu-cell.first {
   background-color: black;
+}
+
+div#puzzle-title {
+  margin: 5px;
+  margin-left: 0px;
+  padding-left: 0px;
+}
+
+#title-input {
+  width: 80%;
+  display: inline;
+  border: none;
+  background-color: inherit;
+  margin-left: 0px;
+  margin-bottom: 5px;
+  box-shadow: none;
+  font-size: 2em;
+  padding: 10px 0px;
+}
+
+#title-input:focus {
+  color: transparent;
+  text-shadow: 0 0 0 black;
+}
+
+#title-input.editable {
+  background-color: rgba(255, 255, 255, 0.13);
+}
+
+#title-input.editable:focus {
+  color: black;
+  border: none;
+  box-shadow: inset 2px 2px 14px 0px hsla(0,0%,4%,.1);
+}
+
+.clue-editor-row .clue-gridnum {
+  font-family: courier, monospace;
+}
+
+.clue-editor-row input {
+  background-color: inherit;
+  width: 80%;
+  border: none;
+  padding-left: 2em;
+  margin-left: -1.7em;
+}
+
+.clue-editor-row input:focus {
+  outline: none;
+  border-bottom: 1px solid #FFD658;
+}
+
+.clue-editor-row input::selection {
+  background: rgba(255, 214, 88, 0.7);
 }

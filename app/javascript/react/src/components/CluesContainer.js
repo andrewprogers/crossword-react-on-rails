@@ -1,5 +1,6 @@
 import React from 'react';
 import Clues from './Clues';
+import CluesEditor from './CluesEditor'
 
 const CluesContainer = props => {
   let acrossClues = props.crossword.getAcrossClues();
@@ -7,6 +8,12 @@ const CluesContainer = props => {
 
   return(
     <div id='clues-container'>
+      <CluesEditor
+        crossword={props.crossword}
+        type='across'
+        clues={acrossClues}
+        on={props.on}
+        />
       <Clues
         crossword={props.crossword}
         type='across'

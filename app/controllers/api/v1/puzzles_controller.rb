@@ -7,12 +7,17 @@ class Api::V1::PuzzlesController < ApplicationController
       render json: {}, status: 404
     else
       puzzle_data = {}
-      puzzle_data['clues'] = puzzle.get_clues
+      if puzzle.draft
+        puzzle_data['clues'] = puzzle.get_draft_clues
+      else
+        puzzle_data['clues'] = puzzle.get_clues
+      end
       puzzle_data['grid'] = puzzle.grid.split('')
       puzzle_data['size'] = {}
       puzzle_data['size']['rows'] = puzzle.size
       puzzle_data['size']['cols'] = puzzle.size
       puzzle_data['draft'] = puzzle.draft
+      puzzle_data['title'] = puzzle.title
 
       if current_user
         solution = Solution.where(puzzle: puzzle, user: current_user).first
@@ -36,6 +41,9 @@ class Api::V1::PuzzlesController < ApplicationController
 
     if puzzle.draft && flat_update.length == puzzle.size**2
       puzzle.grid = flat_update.join('')
+      puzzle.title = params[:title_update]
+      puzzle.title = puzzle.date.strftime('%A, %b %d') if puzzle.title == ""
+      puzzle.draft_clues_json = params[:clues_update].to_json
       puzzle.save!
       render json: { grid: params[:grid_update] }, status: 200
     else

@@ -119,6 +119,11 @@ describe('CrosswordContainer', () => {
         expect(payload.body.indexOf(substring)).not.toEqual(-1)
         expect(payload.body.indexOf("grid_update")).not.toEqual(-1)
       })
+
+      it("should send the puzzle title", () => {
+        let substring = mockData.title;
+        expect(payload.body.indexOf(substring)).not.toEqual(-1)
+      })
     })
   })
 
