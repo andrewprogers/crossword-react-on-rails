@@ -127,7 +127,9 @@ class CrosswordContainer extends React.Component {
 
   publishPuzzle() {
     if (Crossword.validate(this.state.grid, this.state.clues, this.state.userLetters)) {
-      fetch(apiEndpoint('publish'), publishPayload())
+      fetch(this.apiEndpoint('publish'), this.publishPayload())
+    } else {
+      alert("Your puzzle is not yet complete")
     }
   }
 
