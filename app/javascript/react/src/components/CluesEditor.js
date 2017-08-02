@@ -16,7 +16,6 @@ class CluesEditor extends React.Component {
 
     let clueEditorRows = this.props.clues.map((clue, index) => {
       let changeHandler = (event) => {
-        console.log("hi")
         let newClues = this.props.clues.map(clue => clue.text)
         newClues[index] = event.target.value
         this.props.on.updateClues(
