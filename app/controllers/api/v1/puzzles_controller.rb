@@ -7,10 +7,10 @@ class Api::V1::PuzzlesController < ApplicationController
       render json: {}, status: 404
     else
       puzzle_data = {}
-      if puzzle.draft
-        puzzle_data['clues'] = puzzle.get_draft_clues
+      puzzle_data['clues'] = if puzzle.draft
+        puzzle.get_draft_clues
       else
-        puzzle_data['clues'] = puzzle.get_clues
+        puzzle.get_clues
       end
       puzzle_data['grid'] = puzzle.grid.split('')
       puzzle_data['size'] = {}

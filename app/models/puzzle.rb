@@ -21,8 +21,8 @@ class Puzzle < ApplicationRecord
   end
 
   def get_draft_clues
-    JSON.parse(self.draft_clues_json)
-  rescue => e
+    JSON.parse(draft_clues_json)
+  rescue
     return { 'across' => [], 'down' => [] }
   end
 

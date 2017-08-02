@@ -171,7 +171,7 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
 
     it "should accept an update to the clues property" do
       new_grid = (".ABC." * 5).split('')
-      clues_update = {across: ['clue1', 'clue2'], down: ['clue3', 'clue4']}
+      clues_update = { across: ['clue1', 'clue2'], down: ['clue3', 'clue4'] }
       patch :update, params: { grid_update: new_grid, clues_update: clues_update, id: draft.id }
       expect(response.status).to eq(200)
       expect(Puzzle.find(draft.id).draft_clues_json).to eq(clues_update.to_json)
