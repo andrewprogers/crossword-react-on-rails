@@ -147,6 +147,14 @@ describe('CrosswordContainer', () => {
   })
 
   describe('apiEndpoint', () => {
+    it('provides the publish api when given "publish" as a mode argument', () => {
+      wrapper = shallow(<CrosswordContainer initialPuzzle={mockData} />)
+      let endpoint = wrapper.instance().apiEndpoint("publish")
+
+      expect(endpoint.indexOf('/puzzles/')).not.toEqual(-1)
+      expect(endpoint.indexOf('/publish')).not.toEqual(-1)
+    })
+
     it('updates to solution api endpoint when not in edit mode', () => {
       wrapper = shallow(<CrosswordContainer initialPuzzle={mockData} />)
       let endpoint = wrapper.instance().apiEndpoint()
@@ -164,6 +172,8 @@ describe('CrosswordContainer', () => {
 
       let endpoint = wrapper.instance().apiEndpoint()
       expect(endpoint.indexOf('/puzzles/')).not.toEqual(-1)
+      expect(endpoint.indexOf('/publish/')).toEqual(-1)
+
     })
   })
 

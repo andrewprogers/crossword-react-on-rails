@@ -126,7 +126,9 @@ class CrosswordContainer extends React.Component {
   }
 
   publishPuzzle() {
-
+    if (Crossword.validate(this.state.grid, this.state.clues, this.state.userLetters)) {
+      fetch(apiEndpoint('publish'), publishPayload())
+    }
   }
 
   patchPayload() {
@@ -165,9 +167,13 @@ class CrosswordContainer extends React.Component {
     }
   }
 
-  apiEndpoint() {
+  apiEndpoint(mode) {
+    let puzzle_id = location.pathname.split('/')[2]
+    if (mode === 'publish'){
+      return `/api/v1/puzzles/${puzzle_id}/publish`
+    }
     let solution_api = `/api/v1/users/${this.user_id}/solutions/${this.solution_id}`
-    let puzzles_api = `/api/v1/puzzles/${location.pathname.split('/')[2]}`
+    let puzzles_api = `/api/v1/puzzles/${puzzle_id}`
 
     return this.state.editMode ? puzzles_api : solution_api
   }
