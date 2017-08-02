@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import { mount } from 'enzyme';
 import jasmineEnzyme from 'jasmine-enzyme';
 
@@ -78,7 +78,7 @@ describe('Clues', () => {
 
   it('renders an li for each clue with the clue text and an onClick callback function', () => {
     expect(wrapper.find('li').length).toEqual(6)
-    expect(wrapper.find('li').first().text()).toEqual("across1")
+    expect(wrapper.find('li').first().text()).toEqual("1. across1")
     expect(wrapper.find('li').first().props().onClick).toEqual(jasmine.any(Function))
   })
 

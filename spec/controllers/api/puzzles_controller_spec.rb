@@ -104,6 +104,30 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
       expect(draft).to eq(true)
     end
 
+    it "should have a draft property indicating whether the current puzzle is a draft" do
+      get :show, params: { id: puzzle1.id }
+      title = JSON.parse(response.body)['puzzle']['title']
+
+      expect(title).to eq(puzzle1.title)
+    end
+
+    it 'should determine clues property from draft_clues_json when puzzle is a draft' do
+      draft_json = {
+        across: ['across_clue'],
+        down: ['down_clue', 'down2', 'down3']
+      }.to_json
+      draft = FactoryGirl.create(:puzzle, draft: true, draft_clues_json: draft_json)
+      session[:user_id] = draft.user.id
+
+      get :show, params: { id: draft.id }
+      returned_json = JSON.parse(response.body)
+      across = returned_json['puzzle']['clues']['across']
+      down = returned_json['puzzle']['clues']['down']
+
+      expect(across.length).to eq(1)
+      expect(down.length).to eq(3)
+    end
+
     it "should return a 404 response if the puzzle id does not exist" do
       get :show, params: { id: puzzle1.id + 10 }
       expect(response.status).to eq(404)
@@ -127,6 +151,30 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
       patch :update, params: { grid_update: new_grid, id: draft.id }
       expect(response.status).to eq(200)
       expect(Puzzle.find(draft.id).grid).to eq(new_grid.join(''))
+    end
+
+    it "should accept an update to the Puzzle title when not empty" do
+      new_grid = (".ABC." * 5).split('')
+      new_title = "My new title"
+      patch :update, params: { grid_update: new_grid, title_update: new_title, id: draft.id }
+      expect(response.status).to eq(200)
+      expect(Puzzle.find(draft.id).title).to eq(new_title)
+    end
+
+    it "If given a blank string for the title, should store the date as the title" do
+      new_grid = (".ABC." * 5).split('')
+      new_title = ""
+      patch :update, params: { grid_update: new_grid, title_update: new_title, id: draft.id }
+      expect(response.status).to eq(200)
+      expect(Puzzle.find(draft.id).title).to eq(draft.date.strftime('%A, %b %d'))
+    end
+
+    it "should accept an update to the clues property" do
+      new_grid = (".ABC." * 5).split('')
+      clues_update = { across: ['clue1', 'clue2'], down: ['clue3', 'clue4'] }
+      patch :update, params: { grid_update: new_grid, clues_update: clues_update, id: draft.id }
+      expect(response.status).to eq(200)
+      expect(Puzzle.find(draft.id).draft_clues_json).to eq(clues_update.to_json)
     end
 
     it "When successful, should return the updated grid value as array" do

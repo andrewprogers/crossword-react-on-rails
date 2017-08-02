@@ -53,7 +53,7 @@ class Crossword {
         } else {
           if ((c === 0) || (this.grid[r][c - 1] === '.')) {
             let clue = this.getClueDimensions('across', r, c)
-            clue.text = acrossClueTextCopy.shift()
+            clue.text = acrossClueTextCopy.shift()  || ''
             acrossClues.push(clue)
           }
         }
@@ -79,7 +79,7 @@ class Crossword {
         } else {
           if ((r === 0) || (this.grid[r - 1][c] === '.')) {
             let clue = this.getClueDimensions('down', r, c)
-            clue.text = downClueTextCopy.shift()
+            clue.text = downClueTextCopy.shift() || ''
             downClues.push(clue)
           }
         }

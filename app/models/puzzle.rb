@@ -20,6 +20,12 @@ class Puzzle < ApplicationRecord
     clues
   end
 
+  def get_draft_clues
+    JSON.parse(draft_clues_json)
+  rescue
+    return { 'across' => [], 'down' => [] }
+  end
+
   def grid_cant_be_empty
     if grid.nil? || grid == ""
       errors.add(:grid, "can't be empty")

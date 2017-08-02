@@ -4,6 +4,7 @@ import jasmineEnzyme from 'jasmine-enzyme';
 
 import PuzzleMenu from '../../src/containers/PuzzleMenu'
 import MenuButton from '../../src/components/MenuButton'
+import PuzzleTitle from '../../src/components/PuzzleTitle'
 
 describe('PuzzleMenu', () => {
   let wrapper;
@@ -15,6 +16,10 @@ describe('PuzzleMenu', () => {
 
   it("should render a div#puzzle-menu", () => {
     expect(wrapper.find("div#puzzle-menu")).toBePresent();
+  })
+
+  it("should render a PuzzleTitle component", () => {
+    expect(wrapper.find(PuzzleTitle)).toBePresent();
   })
 
   it("should render a Clear MenuButton with correct props", () => {

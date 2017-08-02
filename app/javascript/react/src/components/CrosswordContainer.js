@@ -53,9 +53,9 @@ class CrosswordContainer extends React.Component {
       selectedCellRow: initialRow,
       selectedCellColumn: initialCol,
       clueDirection: "across",
-      lastResponse: puzzle.user_solution,
       isSolved: solveStatus,
-      editMode: isDraftPuzzle
+      editMode: isDraftPuzzle,
+      puzzleTitle: puzzle.title
     }
 
     this.on = {
@@ -63,7 +63,9 @@ class CrosswordContainer extends React.Component {
       changeClueDirection: this.changeClueDirection.bind(this),
       handleKeyDown: this.handleKeyDown.bind(this),
       handleMouseClick: this.handleMouseClick.bind(this),
-      handleClear: this.handleClear.bind(this)
+      handleClear: this.handleClear.bind(this),
+      updateTitle: this.updateTitle.bind(this),
+      updateClues: this.updateClues.bind(this)
     }
   }
 
@@ -97,6 +99,20 @@ class CrosswordContainer extends React.Component {
     }
   }
 
+  updateTitle(value) {
+    this.setState({puzzleTitle: value})
+  }
+
+  updateClues(clueUpdate) {
+    let newClues = Object.assign({}, this.state.clues)
+    if (clueUpdate.across !== undefined) {
+      newClues.across = clueUpdate.across;
+    } else {
+      newClues.down = clueUpdate.down;
+    }
+    this.setState({clues: newClues})
+  }
+
   patchPayload() {
     let body;
     if (this.state.editMode) {
@@ -112,7 +128,11 @@ class CrosswordContainer extends React.Component {
           }
         }
       }
-      body = { grid_update: gridUpdate }
+      body = {
+        grid_update: gridUpdate,
+        title_update: this.state.puzzleTitle,
+        clues_update: this.state.clues
+      }
     } else {
       body = {
         user_solution: this.state.userLetters,
@@ -136,20 +156,11 @@ class CrosswordContainer extends React.Component {
     return this.state.editMode ? puzzles_api : solution_api
   }
 
-  setLastReturned(json_response) {
-    if (this.state.editMode) {
-      this.setState({ lastResponse: json_response.grid })
-    } else {
-      this.setState({ lastResponse: json_response.user_answers })
-    }
-  }
-
   componentDidUpdate() {
     let payload = this.patchPayload()
     if(this.user !== null && payload) {
       fetch(this.apiEndpoint(), payload)
       .then(response => response.json())
-      .then(json => this.setLastReturned(json))
     }
   }
 
@@ -159,7 +170,12 @@ class CrosswordContainer extends React.Component {
     return(
       <div id='crossword-container' className="row">
         <h4>{notice}</h4>
-        <div className='small-12 columns'><PuzzleMenu on={this.on} /></div>
+        <div className='small-12 columns'>
+          <PuzzleMenu
+            on={this.on}
+            editMode={this.state.editMode}
+            title={this.state.puzzleTitle} />
+        </div>
         <div className='small-12 large-6 columns'>
           <CrosswordGrid
             crossword={crossword}
@@ -174,6 +190,7 @@ class CrosswordContainer extends React.Component {
             selectedCellRow={this.state.selectedCellRow}
             selectedCellColumn={this.state.selectedCellColumn}
             clueDirection={this.state.clueDirection}
+            editMode={this.state.editMode}
             on={this.on} />
         </div>
       </div>

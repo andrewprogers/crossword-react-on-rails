@@ -9,6 +9,7 @@ FactoryGirl.define do
     date Time.now
     notes "These are the notes"
     draft false
+    draft_clues_json nil
     created_at Time.now
     updated_at Time.now
   end
