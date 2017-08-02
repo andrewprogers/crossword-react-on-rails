@@ -34,13 +34,13 @@ RSpec.describe Puzzle, type: :model do
     end
 
     it "has an array of across clues" do
-      expect(puzzle1.get_clues['across']).to include(across1.formatted_clue)
-      expect(puzzle1.get_clues['across']).to_not include(down1.formatted_clue)
+      expect(puzzle1.get_clues['across']).to include(across1.clue)
+      expect(puzzle1.get_clues['across']).to_not include(down1.clue)
     end
 
     it "has an array of down clues" do
-      expect(puzzle1.get_clues['down']).to_not include(across1.formatted_clue)
-      expect(puzzle1.get_clues['down']).to include(down1.formatted_clue)
+      expect(puzzle1.get_clues['down']).to_not include(across1.clue)
+      expect(puzzle1.get_clues['down']).to include(down1.clue)
     end
   end
 
