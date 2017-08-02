@@ -4,6 +4,7 @@ import jasmineEnzyme from 'jasmine-enzyme';
 
 import CluesEditor from '../../src/components/CluesEditor';
 import Crossword from '../../src/modules/Crossword';
+import ClueEditorRow from '../../src/components/ClueEditorRow';
 
 describe('CluesEditor', () => {
   let wrapper, onSpies, clues;
@@ -43,33 +44,22 @@ describe('CluesEditor', () => {
     expect(wrapper.find('div.clue-box.unselectable')).toBePresent()
   })
 
-  it('has an textarea tag', () => {
-    expect(wrapper.find('textarea')).toBePresent()
-    expect(wrapper.find('textarea')).toBePresent()
+  it('displays one ClueEditorRow for each clue', () => {
+    expect(wrapper.find(ClueEditorRow).length).toEqual(6)
   })
 
-  describe('displayCluesAsText', () => {
-    let clueText
-    beforeEach(() => {
-      clueText = wrapper.instance().displayCluesAsText()
-    })
-
-    it('returns a string with a line for each clue', () => {
-      expect(clueText.split("\n").length).toEqual(clues.across.length)
-    })
-
-    it('starts the string with the correct gridnum', () => {
-      expect(clueText.split("\n")[1].charAt(0)).toEqual('2')
-    })
-
-    it('includes the clue text', () => {
-      let str = clues.across[1]
-      expect(clueText.split("\n")[1].indexOf(str)).not.toEqual(-1)
-    })
+  it('renders a ClueEditorRow with the correct props', () => {
+    let editRow = wrapper.find(ClueEditorRow).first()
+    console.log()
+    expect(editRow.props().gridnum).toEqual(1)
+    expect(editRow.props().clueText).toEqual('1. across1')
+    expect(editRow.props().onChange).toEqual(jasmine.any(Function))
   })
 
-  it('calls updateClues callback when text area is changed', () => {
-    wrapper.find('textarea').simulate('change')
-    expect(onSpies.updateClues).toHaveBeenCalledWith({across: clues.across});
+  it('calls updateClues when ClueEditorRow is changed', () => {
+    let editRow = wrapper.find(ClueEditorRow).first()
+    editRow.find('input').first().simulate('change')
+
+    expect(onSpies.updateClues).toHaveBeenCalled();
   })
 })
