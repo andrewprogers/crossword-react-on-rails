@@ -114,8 +114,19 @@ class CrosswordContainer extends React.Component {
     this.setState({clues: newClues})
   }
 
+  publishPayload() {
+    return({
+      method: "PATCH",
+      credentials: "same-origin",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({editMode: false})
+    })
+  }
+
   publishPuzzle() {
-    
+
   }
 
   patchPayload() {

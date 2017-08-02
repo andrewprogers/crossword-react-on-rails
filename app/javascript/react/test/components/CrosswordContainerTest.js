@@ -50,9 +50,28 @@ describe('CrosswordContainer', () => {
     expect(wrapper.state().editMode).toEqual(false);
   })
 
-  describe('patchPayload',() => {
-    let payload
+  describe('publishPayload', () => {
+    let payload;
+    it('returns a payload object', () => {
+      wrapper = shallow(<CrosswordContainer initialPuzzle={mockData} />)
+      payload = wrapper.instance().publishPayload()
 
+      expect(payload.method).toEqual("PATCH")
+      expect(payload.credentials).toEqual("same-origin")
+      expect(payload.headers).toEqual({'Content-Type': 'application/json'})
+      expect(payload.body).toBeDefined();
+    })
+
+    it('has a body indicating edit mode is false', () => {
+      wrapper = shallow(<CrosswordContainer initialPuzzle={mockData} />)
+      payload = wrapper.instance().publishPayload()
+
+      expect(JSON.parse(payload.body).editMode).toEqual(false)
+    })
+  })
+
+  describe('patchPayload',() => {
+    let payload;
     it('returns a payload object', () => {
       wrapper = shallow(<CrosswordContainer initialPuzzle={mockData} />)
       payload = wrapper.instance().patchPayload()
