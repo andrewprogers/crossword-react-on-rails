@@ -1,5 +1,5 @@
 class Api::V1::PuzzlesController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:update]
+  skip_before_action :verify_authenticity_token, only: [:update, :publish]
 
   def show
     puzzle = Puzzle.where(id: params[:id]).first
@@ -49,5 +49,9 @@ class Api::V1::PuzzlesController < ApplicationController
     else
       render json: {}, status: 404
     end
+  end
+
+  def publish
+    redirect_to puzzle_path(Puzzle.find(1))
   end
 end

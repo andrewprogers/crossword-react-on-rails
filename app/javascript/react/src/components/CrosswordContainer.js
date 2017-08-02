@@ -128,6 +128,9 @@ class CrosswordContainer extends React.Component {
   publishPuzzle() {
     if (Crossword.validate(this.state.grid, this.state.clues, this.state.userLetters)) {
       fetch(this.apiEndpoint('publish'), this.publishPayload())
+      .then(response => {
+        window.location.href = 'http://localhost:3000/puzzles/2'
+      })
     } else {
       alert("Your puzzle is not yet complete")
     }

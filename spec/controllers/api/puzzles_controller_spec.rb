@@ -201,4 +201,7 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
       expect(Puzzle.find(draft.id).grid).to_not eq(new_grid.join(''))
     end
   end
+
+  describe "PATCH#publish" do
+  end
 end
