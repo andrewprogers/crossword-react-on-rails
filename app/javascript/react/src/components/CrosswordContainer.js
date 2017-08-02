@@ -190,6 +190,7 @@ class CrosswordContainer extends React.Component {
             selectedCellRow={this.state.selectedCellRow}
             selectedCellColumn={this.state.selectedCellColumn}
             clueDirection={this.state.clueDirection}
+            editMode={this.state.editMode}
             on={this.on} />
         </div>
       </div>

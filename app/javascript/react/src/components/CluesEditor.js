@@ -43,25 +43,3 @@ class CluesEditor extends React.Component {
 }
 
 export default CluesEditor;
-
-// const CluesEditor = props => {
-//
-//   let clueCell = props.crossword.getSelectedClue(props.clueDirection, props.selectedCellRow, props.selectedCellColumn);
-//   let selected = clueCell.gridNum;
-//   let clues = props.clues.map(clueObj => {
-//     let className = (selected === clueObj.gridNum) ? "selected" : "";
-//     let clickHandler = () => {
-//       props.on.updateSelectedCell(clueObj.row.start, clueObj.column.start)
-//       if (props.clueDirection !== props.type) {
-//         props.on.changeClueDirection(type)
-//       }
-//     }
-//     return(
-//       <li
-//         key={clueObj.text}
-//         onClick={clickHandler}
-//         className={className}>{clueObj.text}</li>
-//     )
-//   })
-//
-// }
