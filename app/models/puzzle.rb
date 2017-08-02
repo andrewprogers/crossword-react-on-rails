@@ -12,10 +12,10 @@ class Puzzle < ApplicationRecord
   def get_clues
     clues = {}
     across_answers = Answer.where(puzzle: self, direction: "Across").sort_by { |answer| answer.gridnum }
-    clues['across'] = across_answers.map { |clue| clue.formatted_clue }
+    clues['across'] = across_answers.map { |answer| answer.clue }
 
     down_answers = Answer.where(puzzle: self, direction: "Down").sort_by { |answer| answer.gridnum }
-    clues['down'] = down_answers.map { |clue| clue.formatted_clue }
+    clues['down'] = down_answers.map { |answer| answer.clue }
 
     clues
   end

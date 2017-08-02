@@ -24,11 +24,11 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
 
       expect(across).to be_a(Array)
       expect(across.length).to eq(2)
-      expect(across).to include("#{across1.gridnum}. #{across1.clue}")
+      expect(across).to include(across1.clue)
 
       expect(down).to be_a(Array)
       expect(down.length).to eq(2)
-      expect(down).to include("#{down1.gridnum}. #{down1.clue}")
+      expect(down).to include(down1.clue)
     end
 
     it "should have an array representation of the grid" do
