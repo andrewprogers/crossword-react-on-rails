@@ -8,10 +8,10 @@ import PuzzleTitle from '../../src/components/PuzzleTitle'
 
 describe('PuzzleMenu', () => {
   let wrapper;
-  let onSpies = jasmine.createSpyObj('on', ['handleClear']);
+  let onSpies = jasmine.createSpyObj('on', ['handleClear', 'publishPuzzle']);
 
   beforeEach(() => {
-    wrapper = mount(<PuzzleMenu on={onSpies} />)
+    wrapper = mount(<PuzzleMenu editMode={false} on={onSpies} />)
   })
 
   it("should render a div#puzzle-menu", () => {
@@ -23,7 +23,28 @@ describe('PuzzleMenu', () => {
   })
 
   it("should render a Clear MenuButton with correct props", () => {
-    expect(wrapper.find(MenuButton).props().name).toEqual("CLEAR")
-    expect(wrapper.find(MenuButton).props().onClick).toEqual(onSpies.handleClear)
+    let clear = wrapper.find(MenuButton).filterWhere(n => n.prop('name') == "CLEAR")
+    expect(clear).toBePresent()
+    expect(clear.props().onClick).toEqual(onSpies.handleClear)
+  })
+
+
+  describe("when not in edit mode", () => {
+    it("should not render a Publish MenuButton", () => {
+      let publish = wrapper.find(MenuButton).filterWhere(n => n.prop('name') == "PUBLISH")
+      expect(publish).not.toBePresent()
+    })
+  })
+
+  describe("when in edit mode", () => {
+    beforeEach(() => {
+      wrapper = mount(<PuzzleMenu editMode={true} on={onSpies} />)
+    })
+
+    it("should render a Publish MenuButton with correct props", () => {
+      let publish = wrapper.find(MenuButton).filterWhere(n => n.prop('name') == "PUBLISH")
+      expect(publish).toBePresent()
+      expect(publish.props().onClick).toEqual(onSpies.publishPuzzle)
+    })
   })
 })
