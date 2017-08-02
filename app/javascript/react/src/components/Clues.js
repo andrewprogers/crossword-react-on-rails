@@ -11,7 +11,7 @@ const Clues = props => {
 
   let clueCell = props.crossword.getSelectedClue(props.clueDirection, props.selectedCellRow, props.selectedCellColumn);
   let selected = clueCell.gridNum;
-  let clues = props.clues.map(clueObj => {
+  let clues = props.clues.map((clueObj, index) => {
     let className = (selected === clueObj.gridNum) ? "selected" : "";
     let clickHandler = () => {
       props.on.updateSelectedCell(clueObj.row.start, clueObj.column.start)
@@ -21,9 +21,9 @@ const Clues = props => {
     }
     return(
       <li
-        key={clueObj.text}
+        key={index}
         onClick={clickHandler}
-        className={className}>{clueObj.text}</li>
+        className={className}>{`${clueObj.gridNum}. ${clueObj.text}`}</li>
     )
   })
 
