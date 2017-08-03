@@ -120,8 +120,21 @@ class CrosswordContainer extends React.Component {
     let downNums = crossword.getDownClues().map(clue => clue.gridNum)
     let clueNumbers = { across: acrossNums, down: downNums }
 
-    let acrossClues = crossword.getAcrossClues().map(clue => clue.answer)
-    let downClues = crossword.getDownClues().map(clue => clue.answer)
+    let acrossClues = crossword.getAcrossClues().map(clue => {
+      let answer = ""
+      for (var col = clue.column.start; col <= clue.column.end; col++) {
+        answer += this.state.userLetters[clue.row.start][col]
+      }
+      return answer;
+    })
+
+    let downClues = crossword.getDownClues().map(clue => {
+      let answer = ""
+      for (var row = clue.row.start; row <= clue.row.end; row++) {
+        answer += this.state.userLetters[row][clue.column.start]
+      }
+      return answer;
+    })
     let clueAnswers = { across: acrossClues, down: downClues }
     return({
       method: "PATCH",
@@ -139,8 +152,13 @@ class CrosswordContainer extends React.Component {
   publishPuzzle() {
     if (Crossword.validate(this.state.grid, this.state.clues, this.state.userLetters)) {
       fetch(this.apiEndpoint('publish'), this.publishPayload())
-      .then(response => {
-        window.location.href = 'http://localhost:3000/puzzles/2'
+      .then(response => response.json())
+      .then(json => {
+        if (json.errors === undefined){
+          location = `http://${location.host}/puzzles/${json.puzzle_id}`
+        } else {
+          alert("There was an error saving your puzzle")
+        }
       })
     } else {
       alert("Your puzzle is not yet complete")

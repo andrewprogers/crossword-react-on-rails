@@ -74,6 +74,7 @@ describe('CrosswordContainer', () => {
 
     it('has a body with a clue_answers object', () => {
       wrapper = shallow(<CrosswordContainer initialPuzzle={mockData} />)
+      wrapper.setState({ userLetters: wrapper.state().grid })
       payload = wrapper.instance().publishPayload()
 
       expect(JSON.parse(payload.body).clue_answers).toEqual(mockData.answers)
