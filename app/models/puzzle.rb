@@ -37,4 +37,14 @@ class Puzzle < ApplicationRecord
       errors.add(:draft, "can't be empty")
     end
   end
+
+  def validate_draft(clue_numbers)
+    return false if grid.length != size * size
+    return false if grid.split('').any? { |char| char == " " }
+    return false if title.blank?
+    clues = JSON.parse(draft_clues_json)
+    return false if clues['across'].length < clue_numbers[:across].length
+    return false if clues['down'].length < clue_numbers[:down].length
+    return true
+  end
 end
