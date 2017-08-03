@@ -65,7 +65,8 @@ class CrosswordContainer extends React.Component {
       handleMouseClick: this.handleMouseClick.bind(this),
       handleClear: this.handleClear.bind(this),
       updateTitle: this.updateTitle.bind(this),
-      updateClues: this.updateClues.bind(this)
+      updateClues: this.updateClues.bind(this),
+      publishPuzzle: this.publishPuzzle.bind(this)
     }
   }
 
@@ -113,6 +114,57 @@ class CrosswordContainer extends React.Component {
     this.setState({clues: newClues})
   }
 
+  publishPayload() {
+    let crossword = new Crossword(this.state.grid, this.state.clues, this.state.userLetters)
+    let acrossNums = crossword.getAcrossClues().map(clue => clue.gridNum)
+    let downNums = crossword.getDownClues().map(clue => clue.gridNum)
+    let clueNumbers = { across: acrossNums, down: downNums }
+
+    let acrossClues = crossword.getAcrossClues().map(clue => {
+      let answer = ""
+      for (var col = clue.column.start; col <= clue.column.end; col++) {
+        answer += this.state.userLetters[clue.row.start][col]
+      }
+      return answer;
+    })
+
+    let downClues = crossword.getDownClues().map(clue => {
+      let answer = ""
+      for (var row = clue.row.start; row <= clue.row.end; row++) {
+        answer += this.state.userLetters[row][clue.column.start]
+      }
+      return answer;
+    })
+    let clueAnswers = { across: acrossClues, down: downClues }
+    return({
+      method: "PATCH",
+      credentials: "same-origin",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        clue_numbers: clueNumbers,
+        clue_answers: clueAnswers
+      })
+    })
+  }
+
+  publishPuzzle() {
+    if (Crossword.validate(this.state.grid, this.state.clues, this.state.userLetters)) {
+      fetch(this.apiEndpoint('publish'), this.publishPayload())
+      .then(response => response.json())
+      .then(json => {
+        if (json.errors === undefined){
+          location = `http://${location.host}/puzzles/${json.puzzle_id}`
+        } else {
+          alert("There was an error saving your puzzle")
+        }
+      })
+    } else {
+      alert("Your puzzle is not yet complete")
+    }
+  }
+
   patchPayload() {
     let body;
     if (this.state.editMode) {
@@ -149,9 +201,13 @@ class CrosswordContainer extends React.Component {
     }
   }
 
-  apiEndpoint() {
+  apiEndpoint(mode) {
+    let puzzle_id = location.pathname.split('/')[2]
+    if (mode === 'publish'){
+      return `/api/v1/puzzles/${puzzle_id}/publish`
+    }
     let solution_api = `/api/v1/users/${this.user_id}/solutions/${this.solution_id}`
-    let puzzles_api = `/api/v1/puzzles/${location.pathname.split('/')[2]}`
+    let puzzles_api = `/api/v1/puzzles/${puzzle_id}`
 
     return this.state.editMode ? puzzles_api : solution_api
   }

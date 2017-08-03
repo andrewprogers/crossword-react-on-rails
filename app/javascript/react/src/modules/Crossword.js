@@ -54,6 +54,11 @@ class Crossword {
           if ((c === 0) || (this.grid[r][c - 1] === '.')) {
             let clue = this.getClueDimensions('across', r, c)
             clue.text = acrossClueTextCopy.shift()  || ''
+            let answer = ""
+            for (var i = clue.column.start; i <= clue.column.end; i++) {
+              answer += this.grid[r][i]
+            }
+            clue.answer = answer;
             acrossClues.push(clue)
           }
         }
@@ -80,6 +85,11 @@ class Crossword {
           if ((r === 0) || (this.grid[r - 1][c] === '.')) {
             let clue = this.getClueDimensions('down', r, c)
             clue.text = downClueTextCopy.shift() || ''
+            let answer = ""
+            for (var i = clue.row.start; i <= clue.row.end; i++) {
+              answer += this.grid[i][c]
+            }
+            clue.answer = answer;
             downClues.push(clue)
           }
         }
@@ -311,5 +321,23 @@ Crossword.parseArrayToGrid = (gridArray) => {
     }
     return newGrid;
   }
+
+Crossword.validate = (grid, clues, userLetters) => {
+  for (var row = 0; row < grid.length; row++) {
+    for (var col = 0; col < grid.length; col++) {
+      if (!(grid[row][col] === "." || userLetters[row][col].match(/^[A-Z]$/gi))){
+        return false;
+      }
+    }
+  }
+  let crossword = new Crossword(grid, clues, userLetters)
+  let acrossValid = crossword.getAcrossClues().every(clue => {
+    return !(clue.text === "" || clue.text === "")
+  })
+  let downValid = crossword.getDownClues().every(clue => {
+    return !(clue.text === "" || clue.text === "")
+  })
+  return acrossValid && downValid;
+}
 
 export default Crossword;

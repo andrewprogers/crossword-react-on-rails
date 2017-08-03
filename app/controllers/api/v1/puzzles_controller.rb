@@ -1,5 +1,5 @@
 class Api::V1::PuzzlesController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:update]
+  skip_before_action :verify_authenticity_token, only: [:update, :publish]
 
   def show
     puzzle = Puzzle.where(id: params[:id]).first
@@ -48,6 +48,20 @@ class Api::V1::PuzzlesController < ApplicationController
       render json: { grid: params[:grid_update] }, status: 200
     else
       render json: {}, status: 404
+    end
+  end
+
+  def publish
+    @puzzle = Puzzle.find(params[:id])
+    if @puzzle.validate_draft(params[:clue_numbers], params[:clue_answers])
+      @puzzle.create_answers_from_draft(params[:clue_numbers], params[:clue_answers])
+      @puzzle.draft_clues_json = nil
+      @puzzle.draft = false
+      @puzzle.save
+      flash[:notice] = "Your puzzle was successfully saved!"
+      render json: { puzzle_id: params[:id] }
+    else
+      render json: { errors: "Puzzle failed to save." }, status: 404
     end
   end
 end
