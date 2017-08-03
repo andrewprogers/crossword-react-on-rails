@@ -12,5 +12,16 @@ FactoryGirl.define do
     draft_clues_json nil
     created_at Time.now
     updated_at Time.now
+
+    factory :draft_puzzle do
+      sequence :title do |n|
+        "draft_puzzle_title_#{n}"
+      end
+      json = {
+        across: ['across1', 'across2', 'across3', 'across4', 'across5'],
+        down: ['down1', 'down2', 'down3', 'down4', 'down5']
+      }.to_json
+      draft_clues_json json
+    end
   end
 end

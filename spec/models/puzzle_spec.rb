@@ -66,4 +66,45 @@ RSpec.describe Puzzle, type: :model do
       expect(draft2.get_draft_clues['down'].length).to eq(0)
     end
   end
+
+  describe '#validate_draft' do
+    let!(:draft) { FactoryGirl.create(:draft_puzzle) }
+
+    it "should return false if grid is wrong length" do
+      draft.grid = '..ASDFSF.AD.AF'
+      expect(draft.validate_draft).to eq(false)
+    end
+
+    it "should return false if grid has spaces" do
+      draft.grid[3] = ' '
+      expect(draft.validate_draft).to eq(false)
+    end
+
+    it "should return false if the Title is not present" do
+      draft.title = ''
+      expect(draft.validate_draft).to eq(false)
+    end
+
+    it "should return false if all across clues are not complete" do
+      json = {
+        across: ['across1', 'across2', 'across3', 'across4'],
+        down: ['down1', 'down2', 'down3', 'down4', 'down5']
+      }.to_json
+      draft.draft_clues_json = json
+      expect(draft.validate_draft).to eq(false)
+    end
+
+    it "should return false if all down clues are not complete" do
+      json = {
+        across: ['across1', 'across2', 'across3', 'across4', 'across5'],
+        down: ['down1', 'down2', 'down3', 'down4']
+      }.to_json
+      draft.draft_clues_json = json
+      expect(draft.validate_draft).to eq(false)
+    end
+
+    it 'should return true otherwise' do
+      expect(draft.validate_draft).to eq(true)
+    end
+  end
 end
