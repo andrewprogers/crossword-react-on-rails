@@ -119,13 +119,20 @@ class CrosswordContainer extends React.Component {
     let acrossNums = crossword.getAcrossClues().map(clue => clue.gridNum)
     let downNums = crossword.getDownClues().map(clue => clue.gridNum)
     let clueNumbers = { across: acrossNums, down: downNums }
+
+    let acrossClues = crossword.getAcrossClues().map(clue => clue.answer)
+    let downClues = crossword.getDownClues().map(clue => clue.answer)
+    let clueAnswers = { across: acrossClues, down: downClues }
     return({
       method: "PATCH",
       credentials: "same-origin",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({clue_numbers: clueNumbers})
+      body: JSON.stringify({
+        clue_numbers: clueNumbers,
+        clue_answers: clueAnswers
+      })
     })
   }
 

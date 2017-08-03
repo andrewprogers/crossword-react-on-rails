@@ -54,6 +54,11 @@ class Crossword {
           if ((c === 0) || (this.grid[r][c - 1] === '.')) {
             let clue = this.getClueDimensions('across', r, c)
             clue.text = acrossClueTextCopy.shift()  || ''
+            let answer = ""
+            for (var i = clue.column.start; i <= clue.column.end; i++) {
+              answer += this.grid[r][i]
+            }
+            clue.answer = answer;
             acrossClues.push(clue)
           }
         }
@@ -80,6 +85,11 @@ class Crossword {
           if ((r === 0) || (this.grid[r - 1][c] === '.')) {
             let clue = this.getClueDimensions('down', r, c)
             clue.text = downClueTextCopy.shift() || ''
+            let answer = ""
+            for (var i = clue.row.start; i <= clue.row.end; i++) {
+              answer += this.grid[i][c]
+            }
+            clue.answer = answer;
             downClues.push(clue)
           }
         }

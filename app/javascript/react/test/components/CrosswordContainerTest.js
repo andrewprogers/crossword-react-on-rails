@@ -71,6 +71,13 @@ describe('CrosswordContainer', () => {
         down: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 24, 30, 33, 34, 38, 39, 42, 44, 46, 48, 50, 51, 54, 55, 56, 57, 58, 61, 62, 64, 65, 66, 69, 71, 73, 76, 78, 81, 83, 84, 86, 88, 89, 91, 92, 95, 96, 97, 98, 100, 102, 104, 106, 107, 109, 111, 114, 118, 119, 120 ]
       })
     })
+
+    it('has a body with a clue_answers object', () => {
+      wrapper = shallow(<CrosswordContainer initialPuzzle={mockData} />)
+      payload = wrapper.instance().publishPayload()
+
+      expect(JSON.parse(payload.body).clue_answers).toEqual(mockData.answers)
+    })
   })
 
   describe('patchPayload',() => {

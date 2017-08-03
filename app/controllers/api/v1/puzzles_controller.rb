@@ -52,6 +52,14 @@ class Api::V1::PuzzlesController < ApplicationController
   end
 
   def publish
-    redirect_to puzzle_path(Puzzle.find(1))
+    @puzzle = Puzzle.find(params[:id])
+    if @puzzle.validate_draft(params[:clue_numbers], params[:clue_answers])
+      @puzzle.draft = false
+      @puzzle.draft_clues_json = nil
+      @puzzle.save
+      redirect_to puzzle_path(Puzzle.find(params[:id]))
+    else
+      render json: {}, status: 404
+    end
   end
 end

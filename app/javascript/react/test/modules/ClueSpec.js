@@ -30,6 +30,11 @@ describe(Clue, () => {
         expect(clue.text).toEqual("across clue")
       })
 
+      it('has an optional answer property', () => {
+        let answerClue = new Clue(row, column, 2, "across clue", "ANSWER")
+        expect(answerClue.answer).toEqual("ANSWER")
+      })
+
       it('has alias properties for row and column props', () => {
         expect(clue.rowStart).toEqual(1)
         expect(clue.rowEnd).toEqual(3)

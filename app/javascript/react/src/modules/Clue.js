@@ -1,5 +1,5 @@
 class Clue {
-  constructor(row, column, gridNum, text) {
+  constructor(row, column, gridNum, text, answer) {
     if (typeof row === 'number') {
       this.row = {start: row, end: row};
     } else {
@@ -18,6 +18,7 @@ class Clue {
     this.rowEnd = this.row.end;
     this.columnStart = this.column.start;
     this.columnEnd = this.column.end;
+    this.answer = answer;
   }
 
   isAcross() {

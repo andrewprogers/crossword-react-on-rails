@@ -203,5 +203,37 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
   end
 
   describe "PATCH#publish" do
+    let!(:draft) { FactoryGirl.create(:draft_puzzle) }
+    let!(:clue_numbers) do
+      {
+        across: [1, 4, 5, 6, 7],
+        down: [1, 2, 3, 4, 5]
+      }
+    end
+    let!(:clue_answers) do
+      {
+        across: ['aans1', 'aans2', 'aans3', 'aans4', 'aans5'],
+        down: ['dans1', 'dans2', 'dans3', 'dans4', 'dans5']
+      }
+    end
+
+    it "should respond with status 404 if draft puzzle is not valid and fail to publish" do
+      draft.grid = 'ADS.   .ASD'
+      draft.save
+
+      patch :publish, params: { clue_numbers: clue_numbers, clue_answers: clue_answers, id: draft.id }
+      expect(response.status).to eq(404)
+      expect(Puzzle.find(draft.id).draft).to eq(true)
+    end
+
+    it "should update valid puzzles to have draft equal false" do
+      patch :publish, params: { clue_numbers: clue_numbers, clue_answers: clue_answers, id: draft.id }
+      expect(Puzzle.find(draft.id).draft).to eq(false)
+    end
+
+    it "should update valid puzzles to have draft_clues_json to be nil" do
+      patch :publish, params: { clue_numbers: clue_numbers, clue_answers: clue_answers, id: draft.id }
+      expect(Puzzle.find(draft.id).draft_clues_json).to eq(nil)
+    end
   end
 end
