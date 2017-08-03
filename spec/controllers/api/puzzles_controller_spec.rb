@@ -235,5 +235,11 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
       patch :publish, params: { clue_numbers: clue_numbers, clue_answers: clue_answers, id: draft.id }
       expect(Puzzle.find(draft.id).draft_clues_json).to eq(nil)
     end
+
+    it "should create answers for the puzzle" do
+      patch :publish, params: { clue_numbers: clue_numbers, clue_answers: clue_answers, id: draft.id }
+      expected_answer_nums = clue_numbers[:across] + clue_numbers[:across]
+      expect(Answer.where(puzzle: draft).length).to eq(expected_answer_nums.length)
+    end
   end
 end

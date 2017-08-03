@@ -55,6 +55,7 @@ class Api::V1::PuzzlesController < ApplicationController
     @puzzle = Puzzle.find(params[:id])
     if @puzzle.validate_draft(params[:clue_numbers], params[:clue_answers])
       @puzzle.draft = false
+      @puzzle.create_answers_from_draft(params[:clue_numbers], params[:clue_answers])
       @puzzle.draft_clues_json = nil
       @puzzle.save
       redirect_to puzzle_path(Puzzle.find(params[:id]))
