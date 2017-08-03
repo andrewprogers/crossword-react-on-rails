@@ -62,11 +62,14 @@ describe('CrosswordContainer', () => {
       expect(payload.body).toBeDefined();
     })
 
-    it('has a body indicating edit mode is false', () => {
+    it('has a body with a clue_numbers object', () => {
       wrapper = shallow(<CrosswordContainer initialPuzzle={mockData} />)
       payload = wrapper.instance().publishPayload()
 
-      expect(JSON.parse(payload.body).editMode).toEqual(false)
+      expect(JSON.parse(payload.body).clue_numbers).toEqual({
+        across: [ 1, 4, 8, 14, 19, 21, 22, 23, 25, 26, 27, 28, 29, 31, 32, 35, 36, 37, 40, 41, 43, 45, 47, 49, 52, 53, 56, 59, 60, 62, 63, 64, 65, 67, 68, 70, 72, 74, 75, 77, 79, 80, 82, 83, 84, 85, 86, 87, 90, 93, 94, 98, 99, 101, 103, 104, 105, 108, 110, 112, 113, 115, 116, 117, 121, 122, 123, 124, 125, 126, 127 ],
+        down: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 24, 30, 33, 34, 38, 39, 42, 44, 46, 48, 50, 51, 54, 55, 56, 57, 58, 61, 62, 64, 65, 66, 69, 71, 73, 76, 78, 81, 83, 84, 86, 88, 89, 91, 92, 95, 96, 97, 98, 100, 102, 104, 106, 107, 109, 111, 114, 118, 119, 120 ]
+      })
     })
   })
 

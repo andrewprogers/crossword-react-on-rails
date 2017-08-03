@@ -115,13 +115,17 @@ class CrosswordContainer extends React.Component {
   }
 
   publishPayload() {
+    let crossword = new Crossword(this.state.grid, this.state.clues, this.state.userLetters)
+    let acrossNums = crossword.getAcrossClues().map(clue => clue.gridNum)
+    let downNums = crossword.getDownClues().map(clue => clue.gridNum)
+    let clueNumbers = { across: acrossNums, down: downNums }
     return({
       method: "PATCH",
       credentials: "same-origin",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({editMode: false})
+      body: JSON.stringify({clue_numbers: clueNumbers})
     })
   }
 
