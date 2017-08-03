@@ -1,223 +1,64 @@
-body {
-  margin: 0;
-  padding: 0;
-}
-
-.App ::selection {
-  background: none;
-}
-
-#crossword-container .row{
-  margin-left: 0;
-  margin-right: 0;
-}
-
-
-.scale-container {
+.main-image {
   position: relative;
-  height: 0;
-  padding-bottom: 100%;
+  max-height: 1000px;
+  margin: auto;
+  overflow: hidden;
+  border-top: 1px solid #444;
+  border-bottom: 5px solid #FFD658;
+
 }
 
-#grid-container {
-  border: 1px solid #555;
+.main-image img {
+  display: block;
+  margin: auto;
+  opacity: 0.3;
+}
+
+.try-now {
   position: absolute;
-  left: 0;
-  top: 0;
+  top: 40%;
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  line-height: 1;
-}
-
-#grid-container .cell {
-  border-right: 1px solid #555;
-  border-bottom: 1px solid #555;
-  width: 10%;
-  box-sizing: border-box;
-  font-size: 24px;
   text-align: center;
-  padding-top: 0px;
 }
 
-.shaded {
-  background-color: black;
+.try-now a {
+  display: inline-block;
+  padding: 2% 4%;
+  background-color: rgba(255, 214, 88, 0.83);
+  border: 2px solid #FFD658;
+  color: black;
+  box-shadow: 5px 5px 14px 0px grey;
+  transition: all 0.3s ease;
 }
 
-.cell-number {
-  position: absolute;
-  padding-top: 0.2%;
-  padding-left: 0.3%;
-
-  text-align: left;
-  font-size: 0.3em;
-}
-
-.cell-letter {
-  padding: 0;
-  padding-top: 20%;
-  margin: 0px 0px -100px 0px;
-  width: 100%;
-  height: 100%;
-  border: none;
-  background-color: inherit;
-  box-shadow: none;
-  font-size: inherit;
-  transition: none;
-  text-align: center;
-  cursor: default;
-}
-
-.unselectable {
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-}
-
-.cell-letter:focus {
-  outline: none;
-  background-color: inherit;
-  border: none;
-  box-shadow: none;
-  transition: none;
-  outline-offset: 0px;
-  color: transparent;
-  text-shadow: 0 0 0 black;
-}
-
-.selectedClue {
+.try-now a:hover {
+  display: inline-block;
+  padding: 2% 4%;
   background-color: #FFD658;
-}
-
-.selectedCell.selectedClue {
-  background-color: #FFA985;
-}
-
-
-/*-------------*/
-.clue-box {
-  border: 3px solid #AAA;
-  color: #555;
-  border-radius: 10px;
-  padding: 1%;
-  margin-bottom: 10px;
-  background-color: #FFEAA8;
-  cursor: default;
-}
-
-.selected-clues {
-  background-color: #FFEAA8;
-  border-color: #F4B905;
+  border: 2px solid #FFD658;
   color: black;
+  box-shadow: 8px 8px 14px 0px grey;
 }
 
-.selected-clues .selected {
-  background-color: #FFC2A8;
-  border-radius: 7px;
-  border: 0px solid #FFD658;
+div.lower {
+  background-color: #FFD658;
+  border-top: 5px solid white;
+  padding: 30px 0px;
 }
 
-.clues {
-  -moz-column-count: 2;
-  -webkit-column-count: 2;
-  column-count: 2;
-  font-size: 0.9em;
-}
-
-.clue-box h3 {
-  padding-left: 5px;
-}
-
-.clues ul {
-  margin-left: 0;
-}
-
-.clues li {
-  list-style: none;
-  padding-left: 5px;
-}
-
-/*-------------*/
-#puzzle-menu {
+.lower div {
   border: 1px solid black;
-  background-color: #FFC2A8;
-  margin: 5px 0px;
-  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 30px;
 }
 
-/*-------------*/
-.menu-button {
-  display: inline-block;
-  background-color: white;
-  border: 1px solid black;
-  border-right-width: 0px;
+/* Small only */
+@media screen and (max-width: 39.9375em) {
+
 }
 
-.menu-cell {
-  display: inline-block;
-  border-right: 1px solid #555;
-  padding: 4px 12px;
-  font-size: 24px;
-  text-align: center;
-}
+/* Medium and up */
+@media screen and (min-width: 40em) {}
 
-.menu-cell.first {
-  background-color: black;
-}
-
-div#puzzle-title {
-  margin: 5px;
-  margin-left: 0px;
-  padding-left: 0px;
-}
-
-#title-input {
-  width: 80%;
-  display: inline;
-  border: none;
-  background-color: inherit;
-  margin-left: 0px;
-  margin-bottom: 5px;
-  box-shadow: none;
-  font-size: 2em;
-  padding: 10px 0px;
-}
-
-#title-input:focus {
-  color: transparent;
-  text-shadow: 0 0 0 black;
-}
-
-#title-input.editable {
-  background-color: rgba(255, 255, 255, 0.13);
-}
-
-#title-input.editable:focus {
-  color: black;
-  border: none;
-  box-shadow: inset 2px 2px 14px 0px hsla(0,0%,4%,.1);
-}
-
-.clue-editor-row .clue-gridnum {
-  font-family: courier, monospace;
-}
-
-.clue-editor-row input {
-  background-color: inherit;
-  width: 80%;
-  border: none;
-  padding-left: 2em;
-  margin-left: -1.7em;
-}
-
-.clue-editor-row input:focus {
-  outline: none;
-  border-bottom: 1px solid #FFD658;
-}
-
-.clue-editor-row input::selection {
-  background: rgba(255, 214, 88, 0.7);
-}
+/* Large and up */
+@media screen and (min-width: 64em) {}
