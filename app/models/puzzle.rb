@@ -58,8 +58,8 @@ class Puzzle < ApplicationRecord
           puzzle: self,
           direction: direction.capitalize,
           gridnum: grid_num,
-          answer: clue_answers[direction][0],
-          clue: clues[direction.to_s][0]
+          answer: clue_answers[direction][idx],
+          clue: clues[direction.to_s][idx]
         )
       end
     end

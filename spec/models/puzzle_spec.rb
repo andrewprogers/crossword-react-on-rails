@@ -165,7 +165,7 @@ RSpec.describe Puzzle, type: :model do
         gridnum: clue_numbers[:across][0],
         answer: clue_answers[:across][0],
         clue: JSON.parse(draft.draft_clues_json)["across"][0]
-        )
+      )
       expect(answer.length).to eq(1)
     end
 
@@ -177,7 +177,7 @@ RSpec.describe Puzzle, type: :model do
         gridnum: clue_numbers[:down][0],
         answer: clue_answers[:down][0],
         clue: JSON.parse(draft.draft_clues_json)["down"][0]
-        )
+      )
       expect(answer.length).to eq(1)
     end
   end
