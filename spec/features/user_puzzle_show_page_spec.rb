@@ -35,10 +35,10 @@ feature 'user views their puzzles page' do
     scenario "user has list of puzzles they are solving" do
       user = User.where(provider: "google_oauth2", uid: "12345678910").first
       puzzle = FactoryGirl.create(:puzzle)
-      solution = FactoryGirl.create(user: user, puzzle: puzzle)
+      solution = FactoryGirl.create(:solution, user: user, puzzle: puzzle)
 
       click_link('My Puzzles')
-      expect(page).to have_content('Puzzles In Progress:')
+      expect(page).to have_content('Puzzles In Progress')
       expect(page).to have_content(puzzle.title)
       expect(page).to_not have_content("No Unfinished Puzzles!")
     end
@@ -48,7 +48,7 @@ feature 'user views their puzzles page' do
       puzzle = FactoryGirl.create(:puzzle)
 
       click_link('My Puzzles')
-      expect(page).to have_content('Puzzles In Progress:')
+      expect(page).to have_content('Puzzles In Progress')
       expect(page).to_not have_content(puzzle.title)
       expect(page).to have_content("No Unfinished Puzzles!")
     end
@@ -68,7 +68,7 @@ feature 'user views their puzzles page' do
 
       click_link('My Puzzles')
       expect(page).to have_content('Your Drafts')
-      expect(page).to have_content("You don't have any drafts right now")
+      expect(page).to have_content("You don't have any drafts right now!")
     end
   end
 end
