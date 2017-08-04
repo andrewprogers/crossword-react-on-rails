@@ -108,7 +108,7 @@ class UserActionController {
     let row = this.state.selectedCellRow;
     let column = this.state.selectedCellColumn;
     let crossword = new Crossword(this.state.grid, this.state.clues, this.state.userLetters)
-    let isCellEmpty = (this.state.userLetters[row][column] === '')
+    let isCellEmpty = (this.state.userLetters[row][column] === ' ')
 
     this.state.userLetters[row][column] = key.toUpperCase();
     newState.userLetters = this.state.userLetters;
