@@ -5,6 +5,7 @@ import jasmineEnzyme from 'jasmine-enzyme';
 import PuzzleMenu from '../../src/containers/PuzzleMenu'
 import MenuButton from '../../src/components/MenuButton'
 import PuzzleTitle from '../../src/components/PuzzleTitle'
+import InfoContainer from '../../src/components/InfoContainer'
 
 describe('PuzzleMenu', () => {
   let wrapper;
@@ -34,6 +35,15 @@ describe('PuzzleMenu', () => {
       let publish = wrapper.find(MenuButton).filterWhere(n => n.prop('name') == "PUBLISH")
       expect(publish).not.toBePresent()
     })
+
+    it("should not render a Match MenuButton", () => {
+      let match = wrapper.find(MenuButton).filterWhere(n => n.prop('name') == "MATCH")
+      expect(match).not.toBePresent()
+    })
+
+    it('should not render an InfoContainer', () => {
+      expect(wrapper.find(InfoContainer)).not.toBePresent();
+    })
   })
 
   describe("when in edit mode", () => {
@@ -51,6 +61,10 @@ describe('PuzzleMenu', () => {
       let match = wrapper.find(MenuButton).filterWhere(n => n.prop('name') == "MATCH")
       expect(match).toBePresent()
       expect(match.props().onClick).toEqual(onSpies.matchPattern)
+    })
+
+    it('should render an InfoContainer', () => {
+      expect(wrapper.find(InfoContainer)).toBePresent();
     })
   })
 })
