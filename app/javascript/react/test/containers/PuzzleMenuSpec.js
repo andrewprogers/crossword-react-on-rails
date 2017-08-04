@@ -8,9 +8,8 @@ import PuzzleTitle from '../../src/components/PuzzleTitle'
 import InfoContainer from '../../src/components/InfoContainer'
 
 describe('PuzzleMenu', () => {
-  let wrapper;
-  let onSpies = jasmine.createSpyObj('on', ['handleClear', 'publishPuzzle', 'matchPattern']);
-
+  let wrapper, matchSpy;
+  let onSpies = jasmine.createSpyObj('on', ['handleClear', 'publishPuzzle']);
   beforeEach(() => {
     wrapper = mount(<PuzzleMenu editMode={false} on={onSpies} />)
   })
@@ -57,10 +56,10 @@ describe('PuzzleMenu', () => {
       expect(publish.props().onClick).toEqual(onSpies.publishPuzzle)
     })
 
-    it("should render a Match MenuButton with correct props", () => {
+    it("should render a Match MenuButton", () => {
       let match = wrapper.find(MenuButton).filterWhere(n => n.prop('name') == "MATCH")
       expect(match).toBePresent()
-      expect(match.props().onClick).toEqual(onSpies.matchPattern)
+      expect(match.props().onClick).toEqual(jasmine.any(Function))
     })
 
     it('should render an InfoContainer', () => {
