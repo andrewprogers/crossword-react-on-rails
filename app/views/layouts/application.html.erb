@@ -21,7 +21,7 @@
         <% if current_user %>
           <%= link_to "Sign Out", '/signout' , class: "nav-link"%>
           <span id="user-name"><%= current_user.name %></span>
-          <%= image_tag current_user.avatar_url, class: "avatar" %>
+          <%= image_tag current_user.avatar_url, class: "avatar" unless current_user.avatar_url.nil? %>
         <% else %>
           <%= link_to "Sign in with Google", '/auth/google_oauth2', id: "sign_in", class: "nav-link sign-in" %>
         <% end %>

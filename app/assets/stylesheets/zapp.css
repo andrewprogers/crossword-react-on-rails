@@ -98,14 +98,20 @@ body {
 
 
 /*-------------*/
+#clues-container .columns {
+  padding: 0px 5px;
+}
+
 .clue-box {
   border: 3px solid #AAA;
   color: #555;
-  border-radius: 10px;
   padding: 1%;
   margin-bottom: 10px;
   background-color: #FFEAA8;
   cursor: default;
+  max-height: 600px;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 .selected-clues {
@@ -115,15 +121,13 @@ body {
 }
 
 .selected-clues .selected {
-  background-color: #FFC2A8;
-  border-radius: 7px;
-  border: 0px solid #FFD658;
+  border-bottom: 2px solid rgb(255, 99, 32);
 }
 
 .clues {
-  -moz-column-count: 2;
-  -webkit-column-count: 2;
-  column-count: 2;
+  -moz-column-count: 1;
+  -webkit-column-count: 1;
+  column-count: 1;
   font-size: 0.9em;
 }
 
@@ -138,6 +142,7 @@ body {
 .clues li {
   list-style: none;
   padding-left: 5px;
+  border-bottom: 2px solid #FFEAA8;
 }
 
 /*-------------*/
