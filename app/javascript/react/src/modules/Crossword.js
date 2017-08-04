@@ -106,6 +106,17 @@ class Crossword {
     return clues.find((clue) => selectedClue.match(clue))
   }
 
+  getUserPattern(direction, row, column){
+    let clue = this.getSelectedClue(direction, row, column);
+    let pattern = ""
+    for (var row = clue.row.start; row <= clue.row.end; row++) {
+      for (var col = clue.column.start; col <= clue.column.end; col++) {
+        pattern += this.userLetters[row][col]
+      }
+    }
+    return pattern;
+  }
+
   getClueDimensions(direction, row, column) {
     let lastIndex = this.grid.length - 1
     if (direction === 'across') {

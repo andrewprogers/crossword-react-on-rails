@@ -350,6 +350,37 @@ describe('Crossword', () => {
       })
   })
 
+  describe('.getUserPattern', () => {
+    let crossword, square, clues, userLetters
+    beforeAll(() => {
+      square =
+        [['a','.','c','d'],
+         ['e','.','g','h'],
+         ['i','j','k','l'],
+         ['m','n','.','.']];
+      userLetters =
+        [[' ','.',' ',' '],
+         ['Z','.',' ',' '],
+         ['A',' ','C',' '],
+         [' ',' ','.','.']];
+      clues = {
+        across: ['across1', 'across2', 'across3', 'across4', 'across5', 'across6'],
+        down: ['down1', 'down2', 'down3', 'down4']
+      }
+      crossword = new Crossword(square, clues, userLetters)
+    })
+
+    it('gets the current user letters for the selected  across clue', () => {
+      expect(crossword.getUserPattern('across', 2, 0))
+      .toEqual("A C ")
+    })
+
+    it('gets the current user letters for the selected  down clue', () => {
+      expect(crossword.getUserPattern('down', 0, 0))
+      .toEqual(" ZA ")
+    })
+  })
+
   describe('.nextCell', () => {
     describe('directionless properties', () => {
       let crossword, square, clues
