@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 
   resources :puzzles, only: [:show, :new, :create, :edit]
 
+  resources :users, only: [] do
+    resources :puzzles, only: [:index]
+  end
+
   namespace :api do
     namespace :v1 do
       resources :puzzles, only: [:show, :update] do
