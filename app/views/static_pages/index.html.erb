@@ -1,8 +1,12 @@
-<h1>Welcome!</h1>
+<div class="main-image">
+  <%= image_tag "grid.png" %>
+  <div class="try-now">
+    <%= link_to "Try a Random Puzzle", "#" %>
+  </div>
+</div>
 
-<% if current_user %>
-  Signed in as <%= current_user.name %>
-  <%= link_to "Sign Out", '/signout' %>
-<% else %>
-  <%= link_to "Sign in with Google", '/auth/google_oauth2', id: "sign_in" %>
-<% end %>
+<div class="lower columns">
+  <div class="small-8 small-centered columns">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+</div>

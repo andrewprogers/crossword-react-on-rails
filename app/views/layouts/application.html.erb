@@ -9,15 +9,49 @@
   </head>
 
   <body>
-    <div class="flash-notices">
+    <div class="top">
+      <div class="top-left">
+        <%= link_to "Cross Reaction", root_path, id: "title" %>
+        <%= link_to "Play", puzzles_path, class: "nav-link" %>
+        <% if current_user %>
+          <%= link_to "Create", new_puzzle_path, class: "nav-link" %>
+        <% end %>
+      </div>
+      <div class="top-right">
+        <% if current_user %>
+          <%= link_to "Sign Out", '/signout' , class: "nav-link"%>
+          <span id="user-name"><%= current_user.name %></span>
+          <%= image_tag current_user.avatar_url, class: "avatar" unless current_user.avatar_url.nil? %>
+        <% else %>
+          <%= link_to "Sign in with Google", '/auth/google_oauth2', id: "sign_in", class: "nav-link sign-in" %>
+        <% end %>
+      </div>
+    </div>
+
+
+
+    <div class="flash-container">
       <% flash.each do |key, msg| %>
-        <div class="flash-<%= key %>">
+        <div class="flash-msg flash-<%= key %>">
           <span><%= msg %></span>
         </div>
       <% end %>
+
+      <!-- <div class="flash-msg">
+        <span>This is a test alert</span>
+      </div>
+      <div class="flash-msg flash-error">
+        <span>This is a test Error</span>
+      </div>
+      <div class="flash-msg flash-notice">
+        <span>This is a test Notice</span>
+      </div> -->
     </div>
-    <%= yield %>
-    
+
+    <div class="">
+      <%= yield %>
+    </div>
+
     <script type="text/javascript">
       $(document).foundation()
     </script>

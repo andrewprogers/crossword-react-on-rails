@@ -1,0 +1,104 @@
+.top {
+  background-color: #EEE;
+  overflow: hidden;
+  border-bottom: 5px solid #FFD658;
+  border-top: 2px solid #B2B2B2;
+  margin-bottom: 1%;
+}
+
+.top a, .top span {
+  color: #444;
+  display: block;
+  padding: 14px 10px;
+}
+
+.top-left a {
+  float: left;
+}
+
+.top-right a, .top-right span, .avatar {
+  float: right;
+}
+
+.top a#title {
+  font-size: 1.4em;
+  padding: 10px 20px 7px 10px;
+}
+
+#title:hover {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
+
+.nav-link {
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+  min-width: 90px;
+  text-align: center;
+}
+
+.nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #444;
+}
+
+.top a.sign-in {
+  background-color: #CF4332;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.top a.sign-in:hover {
+  background-color: #E8604F;
+  color: white;
+}
+
+.avatar {
+  padding-top: 2px;
+  border-radius: 5px;
+}
+
+
+
+.flash-msg {
+  width: 95%;
+
+  font-size: 1.5em;
+  margin: auto;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  padding-left: 15px;
+  border-bottom: 3px solid #FFD658;
+  background-color: #FFFCE5;
+  box-shadow: 3px 3px 8px 0px grey;
+  color: #444
+}
+
+.flash-error {
+  border-color: #ED541D;
+  background-color: #FEF5F1;
+}
+
+.flash-notice {
+  border-color: #2ECB70;
+  background-color: #F8FFF0;
+}
+
+/* Small only */
+@media screen and (max-width: 39.9375em) {
+  .flash-msg {
+    font-size: 1em;
+  }
+}
+
+/* Medium and up */
+@media screen and (min-width: 40em) {
+  .flash-msg {
+    margin-top: 13px;
+    margin-bottom: 13px;
+  }
+}
+
+/* Large and up */
+@media screen and (min-width: 64em) {}

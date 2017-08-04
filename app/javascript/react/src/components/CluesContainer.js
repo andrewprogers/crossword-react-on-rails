@@ -26,24 +26,29 @@ const CluesContainer = props => {
   } else {
     return (
       <div id='clues-container'>
-        <Clues
-          crossword={props.crossword}
-          type='across'
-          clues={acrossClues}
-          clueDirection={props.clueDirection}
-          selectedCellRow={props.selectedCellRow}
-          selectedCellColumn={props.selectedCellColumn}
-          on={props.on}
-          />
-        <Clues
-          crossword={props.crossword}
-          type='down'
-          clues={downClues}
-          clueDirection={props.clueDirection}
-          selectedCellRow={props.selectedCellRow}
-          selectedCellColumn={props.selectedCellColumn}
-          on={props.on}
-          />
+        <div className="small-6 columns">
+          <Clues
+            crossword={props.crossword}
+            type='across'
+            clues={acrossClues}
+            clueDirection={props.clueDirection}
+            selectedCellRow={props.selectedCellRow}
+            selectedCellColumn={props.selectedCellColumn}
+            on={props.on}
+            />
+        </div>
+
+        <div className="small-6 columns">
+          <Clues
+            crossword={props.crossword}
+            type='down'
+            clues={downClues}
+            clueDirection={props.clueDirection}
+            selectedCellRow={props.selectedCellRow}
+            selectedCellColumn={props.selectedCellColumn}
+            on={props.on}
+            />
+        </div>
       </div>
     )
   }
