@@ -82,7 +82,7 @@ describe('Crossword', () => {
     })
 
     it('returns false if the clue text for any clue is empty string', () => {
-      clues.across[2] = ""
+      clues.across[2] = ''
       expect(Crossword.validate(grid, clues, userLetters)).toEqual(false)
     })
 
@@ -670,10 +670,10 @@ describe('Crossword', () => {
     describe('when clue is an across clue',() => {
       beforeAll(() => {
         userSquare =
-          [['a','b','',''],
-           ['e','f','',''],
-           ['i','','k','l'],
-           ['','n','o','p']];
+          [['a','b',' ',' '],
+           ['e','f',' ',' '],
+           ['i',' ','k','l'],
+           [' ','n','o','p']];
         crossword = new Crossword(square, clues, userSquare)
       })
       it('returns the next cell if that cell is empty', () => {
@@ -724,10 +724,10 @@ describe('Crossword', () => {
     describe('when clue is a down clue', () => {
       beforeAll(() => {
         userSquare =
-          [['a','b','c',''],
-           ['e','f','','h'],
-           ['','','k','l'],
-           ['','','o','p']];
+          [['a','b','c',' '],
+           ['e','f',' ','h'],
+           [' ',' ','k','l'],
+           [' ',' ','o','p']];
         crossword = new Crossword(square, clues, userSquare)
       })
 
@@ -793,19 +793,19 @@ describe('Crossword', () => {
     })
     it('returns true if there is at least one empty cell', () => {
       let userSquare =
-        [['a','b','c',''],
+        [['a','b','c',' '],
          ['e','f','g','h'],
          ['i','.','k','l'],
-         ['','n','o','']];
+         [' ','n','o',' ']];
       let crossword = new Crossword(square, clues, userSquare)
       expect(crossword.hasEmptyCells()).toBe(true)
     })
     it('returns false if there are no empty cells', () => {
       let userSquare =
-        [['a','b','c',''],
+        [['a','b','c',' '],
          ['e','f','g','h'],
          ['i','j','k','l'],
-         ['','n','o','p']];
+         [' ','n','o','p']];
       let crossword = new Crossword(square, clues, userSquare)
       expect(crossword.hasEmptyCells()).toBe(false)
     })
@@ -911,9 +911,9 @@ describe('Crossword', () => {
 
       let incompleteSolution =
         [['a','b','c',' '],
-         ['e','','g','h'],
+         ['e',' ','g','h'],
          ['i','j','k','l'],
-         ['','n','o','p']];
+         [' ','n','o','p']];
       let crossword2 = new Crossword(square, clues, incompleteSolution);
       expect(crossword2.isSolved()).toEqual(false);
 
@@ -921,7 +921,7 @@ describe('Crossword', () => {
         [['a','b','c',' '],
          ['e','x','g','h'],
          ['i','j','k','l'],
-         ['','n','o','p']];
+         [' ','n','o','p']];
       let crossword3 = new Crossword(square, clues, wrongSolution);
       expect(crossword3.isSolved()).toEqual(false);
     })
@@ -931,7 +931,7 @@ describe('Crossword', () => {
         [['a','b','c',' '],
          ['e','f','g','h'],
          ['i','j','k','l'],
-         ['','n','o','p']];
+         [' ','n','o','p']];
       let crossword = new Crossword(square, clues, correctSolution);
       expect(crossword.isSolved()).toEqual(true);
     })

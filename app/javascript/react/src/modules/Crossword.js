@@ -1,4 +1,5 @@
 import Clue from './Clue'
+const EMPTY_CELL = ' ';
 
 class Crossword {
   constructor(gridArray, clues, userLetters) {
@@ -54,7 +55,7 @@ class Crossword {
           if ((c === 0) || (this.grid[r][c - 1] === '.')) {
             let clue = this.getClueDimensions('across', r, c)
             clue.text = acrossClueTextCopy.shift()  || ''
-            let answer = ""
+            let answer = ''
             for (var i = clue.column.start; i <= clue.column.end; i++) {
               answer += this.grid[r][i]
             }
@@ -85,7 +86,7 @@ class Crossword {
           if ((r === 0) || (this.grid[r - 1][c] === '.')) {
             let clue = this.getClueDimensions('down', r, c)
             clue.text = downClueTextCopy.shift() || ''
-            let answer = ""
+            let answer = ''
             for (var i = clue.row.start; i <= clue.row.end; i++) {
               answer += this.grid[i][c]
             }
@@ -220,7 +221,7 @@ class Crossword {
     let currentCol = nextCell.column;
 
     while((nextCell.row !== row) || (nextCell.column !== col)) {
-      if (this.userLetters[nextCell.row][nextCell.column] === '' ) {
+      if (this.userLetters[nextCell.row][nextCell.column] === ' ' ) {
         return {
           row: nextCell.row,
           column: nextCell.column
@@ -234,7 +235,7 @@ class Crossword {
   hasEmptyCells() {
     for (var i = 0; i < this.grid.length; i++) {
       for (var j = 0; j < this.grid.length; j++) {
-        if(this.userLetters[i][j] === '' && this.grid[i][j] !== '.') {
+        if(this.userLetters[i][j] === ' ' && this.grid[i][j] !== '.') {
           return true;
         }
       }
@@ -332,10 +333,10 @@ Crossword.validate = (grid, clues, userLetters) => {
   }
   let crossword = new Crossword(grid, clues, userLetters)
   let acrossValid = crossword.getAcrossClues().every(clue => {
-    return !(clue.text === "" || clue.text === "")
+    return !(clue.text === '' || clue.text === '')
   })
   let downValid = crossword.getDownClues().every(clue => {
-    return !(clue.text === "" || clue.text === "")
+    return !(clue.text === '' || clue.text === '')
   })
   return acrossValid && downValid;
 }

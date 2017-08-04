@@ -204,7 +204,7 @@ describe('UserActionController', () => {
           })
           it('returns next cell in clue when current is not empty and not last in clue', () => {
             fakeState.userLetters =
-            [['','b','c','d'],
+            [[' ','b','c','d'],
              ['e','f','.','h'],
              ['i','j','k','l'],
              ['m','n','o','.']];
@@ -216,7 +216,7 @@ describe('UserActionController', () => {
           })
           it('returns next empty cell in clue if current is empty', () => {
             fakeState.userLetters =
-            [['','b','','d'],
+            [[' ','b',' ','d'],
              ['e','f','.','h'],
              ['i','j','k','l'],
              ['m','n','o','.']];
@@ -228,9 +228,9 @@ describe('UserActionController', () => {
           })
           it('returns first empty cell from subsequent across clues when current cell empty', () => {
             fakeState.userLetters =
-            [['a','b','','d'],
+            [['a','b',' ','d'],
              ['e','f','.','h'],
-             ['i','','k','l'],
+             ['i',' ','k','l'],
              ['m','n','o','.']];
             fakeState.setCell(0, 2);
             controller = new UserActionController(fakeState);
@@ -240,10 +240,10 @@ describe('UserActionController', () => {
           })
           it('returns first empty cell of down clues if none in subsequent across clues', () => {
             fakeState.userLetters =
-            [['','b','','d'],
+            [[' ','b',' ','d'],
              ['e','f','.','h'],
              ['i','j','k','l'],
-             ['m','','o','.']];
+             ['m',' ','o','.']];
             fakeState.setCell(3, 1);
             controller = new UserActionController(fakeState);
             newState = controller.keyPress('a')
@@ -291,7 +291,7 @@ describe('UserActionController', () => {
             fakeState.userLetters =
             [['a','b','c','.'],
              ['e','f','g','h'],
-             ['','j','k','l'],
+             [' ','j','k','l'],
              ['.','n','o','.']];
             fakeState.setCell(0, 0);
             controller = new UserActionController(fakeState);
@@ -301,9 +301,9 @@ describe('UserActionController', () => {
           })
           it('returns next empty cell in clue if current is empty', () => {
             fakeState.userLetters =
-            [['','b','c','.'],
+            [[' ','b','c','.'],
              ['e','f','g','h'],
-             ['','j','k','l'],
+             [' ','j','k','l'],
              ['.','n','o','.']];
             fakeState.setCell(0, 0);
             controller = new UserActionController(fakeState);
@@ -313,9 +313,9 @@ describe('UserActionController', () => {
           })
           it('returns first empty cell from subsequent down clues when current cell empty', () => {
             fakeState.userLetters =
-            [['a','b','','.'],
+            [['a','b',' ','.'],
              ['e','f','g','h'],
-             ['','j','k','l'],
+             [' ','j','k','l'],
              ['.','n','o','.']];
             fakeState.setCell(2, 0);
             controller = new UserActionController(fakeState);
@@ -325,8 +325,8 @@ describe('UserActionController', () => {
           })
           it('returns first empty cell of across clues if none in subsequent down clues', () => {
             fakeState.userLetters =
-            [['a','b','','.'],
-             ['e','','g','h'],
+            [['a','b',' ','.'],
+             ['e',' ','g','h'],
              ['i','j','k','l'],
              ['.','n','o','.']];
             fakeState.setCell(0, 2);
@@ -341,9 +341,9 @@ describe('UserActionController', () => {
       it('updates state when puzzle is solved', () => {
         fakeState.userLetters =
           [[' ','b','c','d'],
-           ['e','f','','h'],
+           ['e','f',' ','h'],
            ['i','j','k','l'],
-           ['m','n','o','']];
+           ['m','n','o',' ']];
         let controller1 = new UserActionController(fakeState)
         newState = controller1.keyPress('a');
         expect(newState.isSolved).toEqual(true);
