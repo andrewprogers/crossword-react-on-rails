@@ -8,10 +8,14 @@ describe('InfoContainer', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = mount(<InfoContainer />)
+    wrapper = mount(<InfoContainer info={"SomeText"} />)
   })
 
   it('renders a div#info-container component', () => {
     expect(wrapper.find('div#info-container')).toBePresent();
+  })
+
+  it('displays the info passed to it', () => {
+    expect(wrapper.text()).toMatch("SomeText");
   })
 })

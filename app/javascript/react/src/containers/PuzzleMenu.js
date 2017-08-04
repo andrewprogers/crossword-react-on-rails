@@ -6,11 +6,17 @@ import InfoContainer from '../components/InfoContainer'
 class PuzzleMenu extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      info: ""
+    }
     this.matchPattern = this.matchPattern.bind(this);
   }
 
   matchPattern() {
+    let row = this.props.selectedCellRow
+    let col = this.props.selectedCellColumn
+    let userPattern = this.props.crossword.getUserPattern(this.props.clueDirection, row, col)
+    this.setState({info: "button called"})
   }
 
   render() {
@@ -23,7 +29,7 @@ class PuzzleMenu extends React.Component {
       ]
       columnClassNames = "small-12 medium-6 columns";
       infoSection = <div className="small-12 medium-6 columns">
-        <InfoContainer />
+        <InfoContainer info={this.state.info} />
       </div>
     }
 

@@ -228,6 +228,10 @@ class CrosswordContainer extends React.Component {
         <h4>{notice}</h4>
         <div className='small-12 columns'>
           <PuzzleMenu
+            crossword={crossword}
+            selectedCellRow={this.state.selectedCellRow}
+            selectedCellColumn={this.state.selectedCellColumn}
+            clueDirection={this.state.clueDirection}
             on={this.on}
             editMode={this.state.editMode}
             title={this.state.puzzleTitle} />

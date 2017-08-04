@@ -4,6 +4,7 @@ const InfoContainer = props => {
 
   return(
     <div id="info-container">
+      <p>{props.info}</p>
     </div>
   )
 }
