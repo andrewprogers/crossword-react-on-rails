@@ -6,7 +6,8 @@ const PuzzleMenu = props => {
   let editModeButtons;
   if (props.editMode) {
     editModeButtons = [
-      <MenuButton key="PUBLISH" name="PUBLISH" onClick={props.on.publishPuzzle} />
+      <MenuButton key="PUBLISH" name="PUBLISH" onClick={props.on.publishPuzzle} />,
+      <MenuButton key="MATCH" name="MATCH" onClick={props.on.matchPattern} />
     ]
   }
 
