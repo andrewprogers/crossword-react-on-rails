@@ -1,8 +1,6 @@
-<h1><%= current_user.name %></h1>
-
 <div id="puzzle-index-wrapper">
   <div class="row">
-    <div class="small-12 medium-6 large-4 columns">
+    <div class="small-12 medium-12 large-4 columns">
       <h3>Puzzles In Progress</h3>
       <% if @puzzles_in_progress.length > 0 %>
         <div class="puzzle-tile-container">
@@ -24,7 +22,7 @@
       <% end %>
     </div>
 
-    <div class="small-12 medium-6 large-4 columns">
+    <div class="small-12 medium-12 large-4 columns">
       <h3>Your Puzzles</h3>
       <% if @created_puzzles.length > 0 %>
         <div class="puzzle-tile-container">
@@ -46,7 +44,7 @@
       <% end %>
     </div>
 
-    <div class="small-12 medium-6 large-4 columns">
+    <div class="small-12 medium-12 large-4 columns end">
       <h3>Your Drafts</h3>
       <% if @draft_puzzles.length > 0 %>
         <div class="puzzle-tile-container">
