@@ -1,4 +1,11 @@
 class PuzzlesController < ApplicationController
+  def index
+    @user = User.find(params[:user_id])
+    @created_puzzles = Puzzle.where(user: @user, draft: false)
+    @draft_puzzles = Puzzle.where(user: @user, draft: true)
+    @puzzles_in_progress = Solution.where(user: @user, correct: false).map { |solution| solution.puzzle}
+  end
+
   def show
     if Puzzle.where(id: params[:id]).first.draft
       flash[:error] = "That page is unavailable"

@@ -16,7 +16,7 @@ feature 'user views their puzzles page' do
 
     scenario "user has list of their own puzzles" do
       user = User.where(provider: "google_oauth2", uid: "12345678910").first
-      FactoryGirl.create(:puzzle, user: user)
+      puzzle = FactoryGirl.create(:puzzle, user: user)
 
       click_link('My Puzzles')
       expect(page).to have_content('Your Puzzles')
@@ -51,6 +51,24 @@ feature 'user views their puzzles page' do
       expect(page).to have_content('Puzzles In Progress:')
       expect(page).to_not have_content(puzzle.title)
       expect(page).to have_content("No Unfinished Puzzles!")
+    end
+
+    scenario "user has list of their own drafts" do
+      user = User.where(provider: "google_oauth2", uid: "12345678910").first
+      draft = FactoryGirl.create(:puzzle, user: user, draft: true)
+
+      click_link('My Puzzles')
+      expect(page).to have_content('Your Drafts')
+      expect(page).to have_content(draft.title)
+      expect(page).to_not have_content("You don't have any drafts right now")
+    end
+
+    scenario "user has not created any drafts" do
+      user = User.where(provider: "google_oauth2", uid: "12345678910").first
+
+      click_link('My Puzzles')
+      expect(page).to have_content('Your Drafts')
+      expect(page).to have_content("You don't have any drafts right now")
     end
   end
 end
