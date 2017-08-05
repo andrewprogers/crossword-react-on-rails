@@ -55,7 +55,8 @@ class CrosswordContainer extends React.Component {
       clueDirection: "across",
       isSolved: solveStatus,
       editMode: isDraftPuzzle,
-      puzzleTitle: puzzle.title
+      puzzleTitle: puzzle.title,
+      puzzleRevealed: false
     }
 
     this.on = {
@@ -66,7 +67,8 @@ class CrosswordContainer extends React.Component {
       handleClear: this.handleClear.bind(this),
       updateTitle: this.updateTitle.bind(this),
       updateClues: this.updateClues.bind(this),
-      publishPuzzle: this.publishPuzzle.bind(this)
+      publishPuzzle: this.publishPuzzle.bind(this),
+      toggleReveal: this.toggleReveal.bind(this)
     }
   }
 
@@ -112,6 +114,10 @@ class CrosswordContainer extends React.Component {
       newClues.down = clueUpdate.down;
     }
     this.setState({clues: newClues})
+  }
+
+  toggleReveal() {
+    this.setState({puzzleRevealed: !this.state.puzzleRevealed})
   }
 
   publishPayload() {
