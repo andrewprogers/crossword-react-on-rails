@@ -55,7 +55,8 @@ class CrosswordContainer extends React.Component {
       clueDirection: "across",
       isSolved: solveStatus,
       editMode: isDraftPuzzle,
-      puzzleTitle: puzzle.title
+      puzzleTitle: puzzle.title,
+      puzzleRevealed: false
     }
 
     this.on = {
@@ -66,7 +67,8 @@ class CrosswordContainer extends React.Component {
       handleClear: this.handleClear.bind(this),
       updateTitle: this.updateTitle.bind(this),
       updateClues: this.updateClues.bind(this),
-      publishPuzzle: this.publishPuzzle.bind(this)
+      publishPuzzle: this.publishPuzzle.bind(this),
+      toggleReveal: this.toggleReveal.bind(this)
     }
   }
 
@@ -112,6 +114,10 @@ class CrosswordContainer extends React.Component {
       newClues.down = clueUpdate.down;
     }
     this.setState({clues: newClues})
+  }
+
+  toggleReveal() {
+    this.setState({puzzleRevealed: !this.state.puzzleRevealed})
   }
 
   publishPayload() {
@@ -240,6 +246,7 @@ class CrosswordContainer extends React.Component {
             selectedCellRow={this.state.selectedCellRow}
             selectedCellColumn={this.state.selectedCellColumn}
             clueDirection={this.state.clueDirection}
+            puzzleRevealed={this.state.puzzleRevealed}
             on={this.on} />
         </div>
         <div className='small-12 large-6 columns'>

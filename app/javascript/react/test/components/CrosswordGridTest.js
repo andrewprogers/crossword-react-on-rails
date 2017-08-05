@@ -41,6 +41,7 @@ describe('CrosswordGrid', () => {
         selectedCellRow={selRow}
         selectedCellColumn={selCol}
         clueDirection={direction}
+        puzzleRevealed={false}
         on={onSpies} />
     )
   })
@@ -66,7 +67,8 @@ describe('CrosswordGrid', () => {
       selectedCellRow: 0,
       selectedCellColumn: 0,
       selectedClue: crossword.getSelectedClue('across', selRow, selCol),
-      on: onSpies
+      on: onSpies,
+      puzzleRevealed: false
     })
   })
 })

@@ -34,10 +34,10 @@ class PuzzleMenu extends React.Component {
   }
 
   render() {
-    let editModeButtons, infoSection;
+    let editOnlyButtons, playOnlyButtons, infoSection;
     let columnClassNames = "small-12 columns"
     if (this.props.editMode) {
-      editModeButtons = [
+      editOnlyButtons = [
         <MenuButton key="PUBLISH" name="PUBLISH" onClick={this.props.on.publishPuzzle} />,
         <MenuButton key="MATCH" name="MATCH" onClick={this.matchPattern} />
       ]
@@ -45,6 +45,10 @@ class PuzzleMenu extends React.Component {
       infoSection = <div className="small-12 medium-6 columns">
         <InfoContainer status={this.state.status} words={this.state.words} />
       </div>
+    } else {
+      playOnlyButtons = [
+        <MenuButton key="REVEAL" name="REVEAL" onClick={this.props.on.toggleReveal} />
+      ]
     }
 
 
@@ -56,7 +60,8 @@ class PuzzleMenu extends React.Component {
             editMode={this.props.editMode}
             onChange={this.props.on.updateTitle} />
           <MenuButton name="CLEAR" onClick={this.props.on.handleClear} />
-          {editModeButtons}
+          {editOnlyButtons}
+          {playOnlyButtons}
         </div>
         {infoSection}
       </div>

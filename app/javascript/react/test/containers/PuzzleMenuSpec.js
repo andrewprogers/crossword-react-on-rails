@@ -9,7 +9,7 @@ import InfoContainer from '../../src/components/InfoContainer'
 
 describe('PuzzleMenu', () => {
   let wrapper, matchSpy;
-  let onSpies = jasmine.createSpyObj('on', ['handleClear', 'publishPuzzle']);
+  let onSpies = jasmine.createSpyObj('on', ['handleClear', 'publishPuzzle', 'toggleReveal']);
   beforeEach(() => {
     wrapper = mount(<PuzzleMenu editMode={false} on={onSpies} />)
   })
@@ -43,6 +43,12 @@ describe('PuzzleMenu', () => {
     it('should not render an InfoContainer', () => {
       expect(wrapper.find(InfoContainer)).not.toBePresent();
     })
+
+    it("should render a Reveal MenuButton", () => {
+      let reveal = wrapper.find(MenuButton).filterWhere(n => n.prop('name') == "REVEAL")
+      expect(reveal).toBePresent()
+      expect(reveal.props().onClick).toEqual(jasmine.any(Function))
+    })
   })
 
   describe("when in edit mode", () => {
@@ -64,6 +70,11 @@ describe('PuzzleMenu', () => {
 
     it('should render an InfoContainer', () => {
       expect(wrapper.find(InfoContainer)).toBePresent();
+    })
+
+    it("should not render a Reveal MenuButton", () => {
+      let reveal = wrapper.find(MenuButton).filterWhere(n => n.prop('name') == "REVEAL")
+      expect(reveal).not.toBePresent()
     })
   })
 })

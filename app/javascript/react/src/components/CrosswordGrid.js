@@ -21,6 +21,7 @@ class CrosswordGrid extends React.Component {
             selectedCellRow={this.props.selectedCellRow}
             selectedCellColumn={this.props.selectedCellColumn}
             selectedClue={selectedClue}
+            puzzleRevealed={this.props.puzzleRevealed}
             on={this.props.on}
              />
          )

@@ -95,7 +95,7 @@ describe('Cell', () => {
     })
   })
 
-  describe('when the cell has "" or letter in the grid position id\'d by the row and column', () => {
+  describe('when the cell has " " or letter in the grid position id\'d by the row and column', () => {
     let crossword, wrapper;
     beforeEach(() => {
       crossword = new Crossword(square, clues, userSquare)
@@ -174,6 +174,51 @@ describe('Cell', () => {
     it('renders a div with class selectedClue and selectedCell', () => {
       expect(wrapper.find('div.selectedClue')).toBePresent();
       expect(wrapper.find('div.selectedCell')).toBePresent();
+    })
+  })
+
+  describe('when puzzleRevealed is true', () => {
+    let crossword, wrapper;
+    beforeEach(() => {
+      userSquare[0][0] = ' '
+      userSquare[1][0] = 'Z'
+      crossword = new Crossword(square, clues, userSquare)
+      let selRow = 1
+      let selCol = 0
+      let selClue = crossword.getSelectedClue('down', selRow, selCol)
+      wrapper = mount(
+        <Cell
+          crossword={crossword}
+          row={0}
+          column={0}
+          selectedCellRow={selRow}
+          selectedCellColumn={selCol}
+          selectedClue={selClue}
+          puzzleRevealed={true}
+          on={onSpies}
+           />)
+    })
+
+    it('renders a div with class revealedLetter if the user letter is not correct', () => {
+      expect(wrapper.find('div.revealedLetter')).toBePresent();
+
+      wrapper.setProps({row: 1})
+      expect(wrapper.find('div.revealedLetter')).toBePresent();
+    })
+
+    it('does not render a div with class revealedLetter if the user letter is correct', () => {
+      wrapper.setProps({row: 2})
+      expect(wrapper.find('div.revealedLetter')).not.toBePresent();
+    })
+
+    it('displays the correct letter', () => {
+      expect(wrapper.find('input').props().value).toMatch('a')
+
+      wrapper.setProps({row: 1})
+      expect(wrapper.find('input').props().value).toMatch('e')
+
+      wrapper.setProps({row: 2})
+      expect(wrapper.find('input').props().value).toMatch('i')
     })
   })
 })

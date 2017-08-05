@@ -50,6 +50,17 @@ describe('CrosswordContainer', () => {
     expect(wrapper.state().editMode).toEqual(false);
   })
 
+  describe('toggleReveal', () => {
+    it('changes puzzleRevealed state to opposite of current value', () => {
+      wrapper = shallow(<CrosswordContainer initialPuzzle={mockData} />)
+      expect(wrapper.state().puzzleRevealed).toEqual(false)
+      wrapper.instance().toggleReveal()
+      expect(wrapper.state().puzzleRevealed).toEqual(true)
+      wrapper.instance().toggleReveal()
+      expect(wrapper.state().puzzleRevealed).toEqual(false)
+    })
+  })
+
   describe('publishPayload', () => {
     let payload;
     it('returns a payload object', () => {

@@ -2,12 +2,21 @@ import React from 'react';
 
 const Cell = props => {
   let letter;
-  if(props.crossword.grid[props.row][props.column] === '.') {
-    letter = '.';
+  let gridLetter = props.crossword.grid[props.row][props.column];
+  let userLetter = props.crossword.userLetters[props.row][props.column];
+  let classString = 'cell unselectable'
+
+  if(gridLetter === '.') {
+    letter = '';
+    classString += ' shaded';
+  } else if (props.puzzleRevealed){
+    letter = gridLetter;
+    if (letter !== userLetter) {
+      classString += ' revealedLetter';
+    }
   } else {
     letter = props.crossword.userLetters[props.row][props.column];
   }
-  let classString = 'cell unselectable'
 
   let clickHandler = (event) => {
     let currentCell = {
@@ -17,10 +26,6 @@ const Cell = props => {
     props.on.handleMouseClick(currentCell, event.metaKey)
   };
 
-  if (letter === '.') {
-    classString += ' shaded'
-    letter = '';
-  }
   if ((props.selectedCellRow === props.row) && (props.selectedCellColumn === props.column)) {
     classString += ' selectedCell'
   }
