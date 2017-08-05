@@ -20,6 +20,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda'
   gem 'valid_attribute'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :test do
@@ -36,3 +38,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'webpacker'
 gem 'dotenv-rails'
 gem "omniauth-google-oauth2"
+gem 'httparty'

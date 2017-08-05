@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.datamuse.com/words?max=50&sp=AA???
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-transform, max-age=86400
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 05 Aug 2017 16:19:21 GMT
+      Vary:
+      - Accept-Encoding
+      Content-Length:
+      - '290'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"word":"aaron","score":573},{"word":"aalii","score":223},{"word":"aargh","score":111},{"word":"aalto","score":97},{"word":"aahed","score":85},{"word":"aarti","score":67},{"word":"aames","score":30},{"word":"aarau","score":29},{"word":"aapss","score":21},{"word":"a
+        and r","score":18},{"word":"aalst","score":17},{"word":"aaiun","score":16},{"word":"aamco","score":16},{"word":"aarts","score":16},{"word":"aasha","score":16},{"word":"aasia","score":16},{"word":"aaaaa","score":14},{"word":"aaaai","score":13},{"word":"aasho","score":13},{"word":"aalas","score":12},{"word":"aasta","score":12},{"word":"aacsb","score":11},{"word":"aaium","score":10},{"word":"aamir","score":8},{"word":"aamof","score":7},{"word":"aarom","score":7},{"word":"aatcc","score":7},{"word":"a
+        axis","score":6},{"word":"aaahc","score":6},{"word":"aafes","score":6},{"word":"a
+        and m","score":5},{"word":"aacr2","score":5},{"word":"aalen","score":5},{"word":"aasen","score":5},{"word":"aaass","score":4},{"word":"aamft","score":4},{"word":"aamoi","score":4},{"word":"aanat","score":4},{"word":"aacap","score":3},{"word":"aafco","score":3},{"word":"aamsi","score":3},{"word":"aaoms","score":3},{"word":"aasrp","score":3},{"word":"aavpt","score":3},{"word":"aafhv","score":2},{"word":"aahoa","score":2},{"word":"aal3
+        4","score":2},{"word":"aalge","score":2},{"word":"aascu","score":2}]'
+    http_version: 
+  recorded_at: Sat, 05 Aug 2017 16:19:21 GMT
+recorded_with: VCR 3.0.3

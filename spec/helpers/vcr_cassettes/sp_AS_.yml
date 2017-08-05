@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.datamuse.com/words?max=50&sp=AS???
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-transform, max-age=86400
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 05 Aug 2017 15:19:50 GMT
+      Vary:
+      - Accept-Encoding
+      Content-Length:
+      - '355'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"word":"asail","score":5112},{"word":"asset","score":2001},{"word":"aside","score":1527},{"word":"assay","score":1347},{"word":"aster","score":1145},{"word":"asyla","score":1054},{"word":"assai","score":805},{"word":"askew","score":792},{"word":"aspen","score":746},{"word":"ascot","score":605},{"word":"astir","score":582},{"word":"asian","score":573},{"word":"aspic","score":560},{"word":"ashen","score":529},{"word":"asana","score":487},{"word":"aspin","score":439},{"word":"as
+        of","score":438},{"word":"ashes","score":403},{"word":"astro","score":391},{"word":"asses","score":385},{"word":"astor","score":384},{"word":"ashet","score":342},{"word":"asean","score":337},{"word":"assam","score":337},{"word":"as
+        to","score":336},{"word":"ascii","score":332},{"word":"asked","score":329},{"word":"asher","score":311},{"word":"as
+        per","score":298},{"word":"as is","score":293},{"word":"asper","score":253},{"word":"as
+        if","score":232},{"word":"asker","score":230},{"word":"aswan","score":221},{"word":"astra","score":218},{"word":"asdic","score":214},{"word":"ascap","score":190},{"word":"aston","score":184},{"word":"ascus","score":180},{"word":"aslan","score":171},{"word":"asura","score":166},{"word":"ashur","score":156},{"word":"assed","score":154},{"word":"as
+        for","score":148},{"word":"as-is","score":142},{"word":"as yet","score":140},{"word":"assot","score":139},{"word":"astel","score":111},{"word":"assad","score":110},{"word":"assoc","score":104}]'
+    http_version: 
+  recorded_at: Sat, 05 Aug 2017 15:19:50 GMT
+recorded_with: VCR 3.0.3

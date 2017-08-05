@@ -15,12 +15,15 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :words, only: [:index]
+
       resources :puzzles, only: [:show, :update] do
         member do
           patch :publish
           put :publish
         end
       end
+
       resources :users, only: [] do
         resources :solutions, only: [:update]
       end

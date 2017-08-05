@@ -1,0 +1,38 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.datamuse.com/words?sp=AVSRFDSV
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-transform, max-age=86400
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 05 Aug 2017 15:16:51 GMT
+      Vary:
+      - Accept-Encoding
+      Content-Length:
+      - '22'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: "[]"
+    http_version: 
+  recorded_at: Sat, 05 Aug 2017 15:16:52 GMT
+recorded_with: VCR 3.0.3

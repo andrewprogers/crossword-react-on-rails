@@ -1,0 +1,38 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.datamuse.com/words?max=50&sp=ASKED
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-transform, max-age=86400
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 05 Aug 2017 15:19:50 GMT
+      Vary:
+      - Accept-Encoding
+      Content-Length:
+      - '129'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"word":"asked","score":35922},{"word":"askew","score":792},{"word":"asker","score":230},{"word":"assed","score":154},{"word":"masked","score":136},{"word":"sked","score":111},{"word":"tasked","score":108},{"word":"ashed","score":73},{"word":"basked","score":64},{"word":"askey","score":32},{"word":"aske","score":26},{"word":"aked","score":20},{"word":"ased","score":8}]'
+    http_version: 
+  recorded_at: Sat, 05 Aug 2017 15:19:50 GMT
+recorded_with: VCR 3.0.3
