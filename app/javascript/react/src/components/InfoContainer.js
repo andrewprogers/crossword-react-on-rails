@@ -7,10 +7,12 @@ const InfoContainer = props => {
   }
   return(
     <div id="info-container">
-      <p>{props.status}</p>
-      <ul>
-        {wordsList}
-      </ul>
+      <span className="title">{props.status}</span>
+      <div className="words">
+        <ul>
+          {wordsList}
+        </ul>
+      </div>
     </div>
   )
 }

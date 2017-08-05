@@ -20,7 +20,7 @@ body {
 }
 
 #grid-container {
-  border: 1px solid #555;
+  border: 1px solid #444;
   position: absolute;
   left: 0;
   top: 0;
@@ -42,7 +42,7 @@ body {
 }
 
 .shaded {
-  background-color: black;
+  background-color: #222;
 }
 
 .cell-number {
@@ -52,6 +52,7 @@ body {
 
   text-align: left;
   font-size: 0.3em;
+  color: #444;
 }
 
 .cell-letter {
@@ -67,6 +68,7 @@ body {
   transition: none;
   text-align: center;
   cursor: default;
+  color: #444;
 }
 
 .unselectable {
@@ -85,7 +87,7 @@ body {
   transition: none;
   outline-offset: 0px;
   color: transparent;
-  text-shadow: 0 0 0 black;
+  text-shadow: 0 0 0 #444;
 }
 
 .selectedClue {
@@ -98,6 +100,10 @@ body {
 
 
 /*-------------*/
+#clues-container {
+  margin-top: 5px;
+}
+
 #clues-container .columns {
   padding: 0px 5px;
 }
@@ -147,31 +153,58 @@ body {
 
 /*-------------*/
 #puzzle-menu {
-  border: 1px solid black;
-  background-color: #FFC2A8;
+  border: 2px solid #444;
+  background-color: #EEE;
   margin: 5px 0px;
-  padding: 5px;
+  padding: 5px 0px;
+  min-height: 150px;
 }
 
 /*-------------*/
 .menu-button {
+  margin-right: 2px;
+  position: relative;
   display: inline-block;
-  background-color: white;
-  border: 1px solid black;
-  border-right-width: 0px;
+  background-color: #FFF;
+  border: 1px solid #444;
+  width: 60px;
+  height: 60px;
+  transition: all 0.5s ease;
 }
 
-.menu-cell {
-  display: inline-block;
-  border-right: 1px solid #555;
-  padding: 4px 12px;
-  font-size: 24px;
+.menu-letter {
+  position: absolute;
+  top: 2px;
+  font-size: 36px;
+  width: 100%;
   text-align: center;
+  color: #444
 }
 
-.menu-cell.first {
-  background-color: black;
+.menu-name {
+  visibility: hidden;
+  position: absolute;
+  top: 20px;
+  font-size: 12px;
+  width: 100%;
+  text-align: center;
+  color: white;
 }
+
+.menu-button:hover {
+  background-color: #444;
+}
+
+.menu-button:hover .menu-name {
+  visibility: visible;
+  color: white;
+}
+
+.menu-button:active {
+  border-color: white;
+}
+
+/*-------------*/
 
 div#puzzle-title {
   margin: 5px;
@@ -180,9 +213,10 @@ div#puzzle-title {
 }
 
 #title-input {
-  width: 80%;
+  width: 100%;
   display: inline;
   border: none;
+  border-bottom: 2px solid #FFD658;
   background-color: inherit;
   margin-left: 0px;
   margin-bottom: 5px;
@@ -196,15 +230,48 @@ div#puzzle-title {
   text-shadow: 0 0 0 black;
 }
 
-#title-input.editable {
-  background-color: rgba(255, 255, 255, 0.13);
+input#title-input.editable {
+}
+
+input#title-input.editable::selection {
+  background: rgba(255, 214, 88, 0.7);
 }
 
 #title-input.editable:focus {
   color: black;
-  border: none;
-  box-shadow: inset 2px 2px 14px 0px hsla(0,0%,4%,.1);
 }
+
+/*-------------*/
+
+#info-container {
+  margin-left: -5px;
+  font-size: 14px;
+  color: #444;
+}
+
+#info-container .title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#info-container .words {
+  -moz-column-count: 3;
+  -webkit-column-count: 3;
+  column-count: 3;
+  max-height: 140px;
+  overflow: scroll;
+}
+
+#info-container .words ul {
+  list-style: none;
+  margin: 0;
+}
+
+#info-container .words li {
+  /*list-style: none;*/
+}
+
+/*-------------*/
 
 .clue-editor-row .clue-gridnum {
   font-family: courier, monospace;
