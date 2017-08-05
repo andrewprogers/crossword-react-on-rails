@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Raleway', sans-serif;
 }
 
 .App ::selection {
@@ -109,19 +110,15 @@ body {
 }
 
 .clue-box {
-  border: 3px solid #AAA;
-  color: #555;
+  border: 3px solid #FFEAA8;
+  color: #444;
   padding: 1%;
   margin-bottom: 10px;
   background-color: #FFEAA8;
   cursor: default;
-  max-height: 600px;
-  overflow: scroll;
-  overflow-x: hidden;
 }
 
 .selected-clues {
-  background-color: #FFEAA8;
   border-color: #F4B905;
   color: black;
 }
@@ -131,10 +128,10 @@ body {
 }
 
 .clues {
-  -moz-column-count: 1;
-  -webkit-column-count: 1;
-  column-count: 1;
   font-size: 0.9em;
+  max-height: 500px;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 .clue-box h3 {
@@ -153,7 +150,7 @@ body {
 
 /*-------------*/
 #puzzle-menu {
-  border: 2px solid #444;
+  border: 0px solid #444;
   background-color: #EEE;
   margin: 5px 0px;
   padding: 5px 0px;
