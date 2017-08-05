@@ -2,56 +2,72 @@ import React from 'react';
 import Clues from './Clues';
 import CluesEditor from './CluesEditor'
 
-const CluesContainer = props => {
-  let acrossClues = props.crossword.getAcrossClues();
-  let downClues = props.crossword.getDownClues();
+class CluesContainer extends React.Component {
+  constructor(props) {
+    super(props)
+  }
 
-  if (props.editMode) {
-    return(
-      <div id='clues-container'>
-        <CluesEditor
-          crossword={props.crossword}
-          type='across'
-          clues={acrossClues}
-          on={props.on}
-          />
-        <CluesEditor
-          crossword={props.crossword}
-          type='down'
-          clues={downClues}
-          on={props.on}
-          />
-      </div>
-    )
-  } else {
-    return (
-      <div id='clues-container'>
-        <div className="small-6 columns">
-          <Clues
-            crossword={props.crossword}
+  componentDidUpdate(prevProps, prevState) {
+    let startingScrollY = window.scrollY;
+    let selected = document.getElementsByClassName('selected');
+    selected[0].scrollIntoView();
+    scrollTo(0, startingScrollY);
+  }
+
+  render() {
+    let acrossClues = this.props.crossword.getAcrossClues();
+    let downClues = this.props.crossword.getDownClues();
+
+    if (this.props.editMode) {
+      return(
+        <div id='clues-container'>
+          <CluesEditor
+            crossword={this.props.crossword}
             type='across'
             clues={acrossClues}
-            clueDirection={props.clueDirection}
-            selectedCellRow={props.selectedCellRow}
-            selectedCellColumn={props.selectedCellColumn}
-            on={props.on}
+            on={this.props.on}
             />
-        </div>
-
-        <div className="small-6 columns">
-          <Clues
-            crossword={props.crossword}
+          <CluesEditor
+            crossword={this.props.crossword}
             type='down'
             clues={downClues}
-            clueDirection={props.clueDirection}
-            selectedCellRow={props.selectedCellRow}
-            selectedCellColumn={props.selectedCellColumn}
-            on={props.on}
+            on={this.props.on}
             />
         </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <div id='clues-container'>
+          <div className="small-6 columns">
+            <Clues
+              crossword={this.props.crossword}
+              type='across'
+              clues={acrossClues}
+              clueDirection={this.props.clueDirection}
+              selectedCellRow={this.props.selectedCellRow}
+              selectedCellColumn={this.props.selectedCellColumn}
+              on={this.props.on}
+              />
+          </div>
+
+          <div className="small-6 columns">
+            <Clues
+              crossword={this.props.crossword}
+              type='down'
+              clues={downClues}
+              clueDirection={this.props.clueDirection}
+              selectedCellRow={this.props.selectedCellRow}
+              selectedCellColumn={this.props.selectedCellColumn}
+              on={this.props.on}
+              />
+          </div>
+        </div>
+      )
+    }
   }
 }
+
+
+
 
 export default CluesContainer;
