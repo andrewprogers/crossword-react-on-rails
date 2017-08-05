@@ -7,7 +7,8 @@ class PuzzleMenu extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      info: ""
+      status: "",
+      words: null
     }
     this.matchPattern = this.matchPattern.bind(this);
   }
@@ -18,13 +19,18 @@ class PuzzleMenu extends React.Component {
     let userPattern = this.props.crossword.getUserPattern(this.props.clueDirection, row, col)
     let matchPattern = userPattern.replace(/ /g, "?");
     let matchedWords = this.getMatchingWords(matchPattern)
-    this.setState({info: `pattern: ${matchPattern}`})
+    this.setState({status: `Searching: ${matchPattern}`})
   }
 
   getMatchingWords(pattern) {
-    // fetch(`https://api.datamuse.com/words?sp=${pattern}`)
-    // .then(response => {return response.ok ? response.json() : ""})
-    // .then(json => console.log(json))
+    fetch(`http://${location.host}/api/v1/words?pattern=${pattern}`)
+    .then(response => {return response.ok ? response.json() : {words: []}})
+    .then(json => json.words)
+    .then(words => {
+      let newState = {words: words}
+      newState.status = (words.length > 0) ? "" : "Couldn't match your pattern!"
+      this.setState(newState)
+    })
   }
 
   render() {
@@ -37,7 +43,7 @@ class PuzzleMenu extends React.Component {
       ]
       columnClassNames = "small-12 medium-6 columns";
       infoSection = <div className="small-12 medium-6 columns">
-        <InfoContainer info={this.state.info} />
+        <InfoContainer status={this.state.status} words={this.state.words} />
       </div>
     }
 
