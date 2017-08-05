@@ -8,7 +8,7 @@ class PuzzleMenu extends React.Component {
     super(props)
     this.state = {
       status: "",
-      words: null
+      words: []
     }
     this.matchPattern = this.matchPattern.bind(this);
   }
@@ -28,7 +28,7 @@ class PuzzleMenu extends React.Component {
     .then(json => json.words)
     .then(words => {
       let newState = {words: words}
-      newState.status = (words.length > 0) ? "" : "Couldn't match your pattern!"
+      newState.status = (words.length > 0) ? "Matches" : "Couldn't match your pattern!"
       this.setState(newState)
     })
   }

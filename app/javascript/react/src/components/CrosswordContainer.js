@@ -222,10 +222,8 @@ class CrosswordContainer extends React.Component {
 
   render() {
     let crossword = new Crossword(this.state.grid, this.state.clues, this.state.userLetters);
-    let notice = this.state.editMode ? "Edit mode active" : ""
     return(
       <div id='crossword-container' className="row">
-        <h4>{notice}</h4>
         <div className='small-12 columns'>
           <PuzzleMenu
             crossword={crossword}
