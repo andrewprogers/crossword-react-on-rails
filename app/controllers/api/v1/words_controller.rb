@@ -1,5 +1,6 @@
 class Api::V1::WordsController < ApplicationController
   def index
+    threshold = 250
     pattern = params[:pattern]
     if pattern.blank?
       words = []
@@ -10,6 +11,7 @@ class Api::V1::WordsController < ApplicationController
       unless pattern.include?("?")
         words = words.select { |w| w["word"] === pattern.downcase }
       end
+      words = words.select { |w| w["score"] > threshold }
     end
 
     if words.length > 0

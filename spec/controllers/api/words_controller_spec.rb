@@ -56,5 +56,14 @@ RSpec.describe Api::V1::WordsController, type: :controller do
         expect(response.status).to eq(404)
       end
     end
+
+    it 'only returns words with a score > 250' do
+      VCR.use_cassette("AA???") do
+        get :index, params: { pattern: "AA???" }
+        words = JSON.parse(response.body)["words"]
+
+        expect(words[-1]["score"] > 250).to eq(true)
+      end
+    end
   end
 end
