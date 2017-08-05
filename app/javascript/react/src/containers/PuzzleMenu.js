@@ -16,7 +16,15 @@ class PuzzleMenu extends React.Component {
     let row = this.props.selectedCellRow
     let col = this.props.selectedCellColumn
     let userPattern = this.props.crossword.getUserPattern(this.props.clueDirection, row, col)
-    this.setState({info: "button called"})
+    let matchPattern = userPattern.replace(/ /g, "?");
+    let matchedWords = this.getMatchingWords(matchPattern)
+    this.setState({info: `pattern: ${matchPattern}`})
+  }
+
+  getMatchingWords(pattern) {
+    // fetch(`https://api.datamuse.com/words?sp=${pattern}`)
+    // .then(response => {return response.ok ? response.json() : ""})
+    // .then(json => console.log(json))
   }
 
   render() {
