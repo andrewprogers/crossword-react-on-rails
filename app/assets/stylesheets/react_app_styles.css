@@ -173,28 +173,18 @@ body {
   display: inline-block;
   background-color: #FFF;
   border: 1px solid #444;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   transition: all 0.5s ease;
 }
 
-.menu-letter {
-  position: absolute;
-  top: 2px;
-  font-size: 36px;
-  width: 100%;
-  text-align: center;
-  color: #444
-}
-
 .menu-name {
-  visibility: hidden;
   position: absolute;
-  top: 20px;
-  font-size: 12px;
+  top: 27px;
+  font-size: 16px;
   width: 100%;
   text-align: center;
-  color: white;
+  color: #444;
 }
 
 .menu-button:hover {
@@ -202,7 +192,6 @@ body {
 }
 
 .menu-button:hover .menu-name {
-  visibility: visible;
   color: white;
 }
 

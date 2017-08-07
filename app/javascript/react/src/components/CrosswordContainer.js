@@ -14,10 +14,13 @@ class CrosswordContainer extends React.Component {
     let solveStatus = false, isDraftPuzzle = false;
     if ('user_id' in puzzle) {
       this.user_id = puzzle.user_id
+      isDraftPuzzle = puzzle.draft
+    }
+
+    if (puzzle.solution_id) {
       this.solution_id = puzzle.solution_id
       initialSolution = Crossword.parseArrayToGrid(puzzle.user_solution);
       solveStatus = puzzle.is_solved
-      isDraftPuzzle = puzzle.draft
     } else {
       initialSolution = Crossword.generateEmptyGrid(puzzle.size.rows);
     }
@@ -77,9 +80,9 @@ class CrosswordContainer extends React.Component {
     this.setState(newState)
   }
 
-  handleMouseClick(clickedCell, metaKey) {
+  handleMouseClick(clickedCell, altKey) {
     let controller = new UserActionController(this.state)
-    this.setState(controller.mouseClick(clickedCell, metaKey))
+    this.setState(controller.mouseClick(clickedCell, altKey))
   }
 
   updateSelectedCell(row, column) {

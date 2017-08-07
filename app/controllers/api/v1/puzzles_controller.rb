@@ -19,16 +19,19 @@ class Api::V1::PuzzlesController < ApplicationController
       puzzle_data['draft'] = puzzle.draft
       puzzle_data['title'] = puzzle.title
 
-      if current_user && !puzzle.draft
-        solution = Solution.where(puzzle: puzzle, user: current_user).first
-        if solution.nil?
-          answers = " " * puzzle.grid.length
-          solution = Solution.create!(user_answers: answers, user: current_user, puzzle: puzzle)
+      if current_user
+        unless puzzle.draft
+          solution = Solution.where(puzzle: puzzle, user: current_user).first
+          if solution.nil?
+            answers = " " * puzzle.grid.length
+            solution = Solution.create!(user_answers: answers, user: current_user, puzzle: puzzle)
+          end
+          puzzle_data['user_solution'] = solution.user_answers.split('')
+          puzzle_data['solution_id'] = solution.id
+          puzzle_data['is_solved'] = solution.correct
         end
-        puzzle_data['user_solution'] = solution.user_answers.split('')
+        
         puzzle_data['user_id'] = current_user.id
-        puzzle_data['solution_id'] = solution.id
-        puzzle_data['is_solved'] = solution.correct
       end
 
       render json: { puzzle: puzzle_data }
