@@ -23,7 +23,7 @@ class PuzzleMenu extends React.Component {
   }
 
   getMatchingWords(pattern) {
-    fetch(`http://${location.host}/api/v1/words?pattern=${pattern}`)
+    fetch(`${location.origin}/api/v1/words?pattern=${pattern}`)
     .then(response => {return response.ok ? response.json() : {words: []}})
     .then(json => json.words)
     .then(words => {
@@ -50,7 +50,6 @@ class PuzzleMenu extends React.Component {
         <MenuButton key="REVEAL" name="REVEAL" onClick={this.props.on.toggleReveal} />
       ]
     }
-
 
     return(
       <div id="puzzle-menu" className="row">
