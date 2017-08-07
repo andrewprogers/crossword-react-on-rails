@@ -40,6 +40,9 @@ class CrosswordGrid extends React.Component {
     let updateSheet = getCustomSheetUpdater();
     let pctWidth = (100 / this.props.crossword.grid.length);
     updateSheet(`#grid-container .cell { width: ${pctWidth}%;}`);
+
+    let firstCell = document.getElementsByClassName('cell-letter')[0]
+    firstCell.focus()
   }
 
   render() {
