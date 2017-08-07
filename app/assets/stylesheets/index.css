@@ -3,7 +3,6 @@
   max-height: 1000px;
   margin: auto;
   overflow: hidden;
-  border-top: 1px solid #444;
   border-bottom: 5px solid #FFD658;
 }
 
@@ -21,6 +20,7 @@
 }
 
 .try-now a {
+  font-size: 2.4em;
   display: inline-block;
   padding: 2% 4%;
   background-color: rgba(255, 214, 88, 0.83);
@@ -41,7 +41,6 @@
 
 div.lower {
   background-color: #FFD658;
-  border-top: 5px solid white;
   padding: 30px 0px;
 }
 
@@ -50,14 +49,3 @@ div.lower {
   background-color: rgba(255, 255, 255, 0.5);
   padding: 30px;
 }
-
-/* Small only */
-@media screen and (max-width: 39.9375em) {
-
-}
-
-/* Medium and up */
-@media screen and (min-width: 40em) {}
-
-/* Large and up */
-@media screen and (min-width: 64em) {}

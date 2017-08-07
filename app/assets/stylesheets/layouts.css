@@ -3,25 +3,26 @@
   overflow: hidden;
   border-bottom: 5px solid #FFD658;
   border-top: 2px solid #B2B2B2;
-  margin-bottom: 1%;
+  margin-bottom: 0px;
 }
 
 .top a, .top span {
+  font-size: 1.5em;
   color: #444;
   display: block;
   padding: 14px 10px;
 }
 
-.top-left a {
+.avatar, #user-name {
+  display: none;
+}
+
+.top a, .top span, .avatar {
   float: left;
 }
 
-.top-right a, .top-right span, .avatar {
-  float: right;
-}
-
 .top a#title {
-  font-size: 1.4em;
+  font-size: 1.8em;
   padding: 10px 20px 7px 10px;
 }
 
@@ -47,6 +48,7 @@
   background-color: #CF4332;
   color: white;
   transition: all 0.3s ease;
+  width: 100%;
 }
 
 .top a.sign-in:hover {
@@ -54,17 +56,10 @@
   color: white;
 }
 
-.avatar {
-  padding-top: 2px;
-  border-radius: 5px;
-}
-
-
-
 .flash-msg {
   width: 95%;
 
-  font-size: 1.5em;
+  font-size: 1.8em;
   margin: auto;
   margin-top: 1%;
   margin-bottom: 1%;
@@ -88,7 +83,15 @@
 /* Small only */
 @media screen and (max-width: 39.9375em) {
   .flash-msg {
-    font-size: 1em;
+    font-size: 1.5em;
+  }
+
+  .top-right a, .top-right span, .avatar {
+    float: left;
+  }
+
+  .top-right {
+    width: 100%;
   }
 }
 
@@ -98,7 +101,23 @@
     margin-top: 13px;
     margin-bottom: 13px;
   }
+
+  .top a.sign-in {
+    width: auto;
+  }
 }
 
 /* Large and up */
-@media screen and (min-width: 64em) {}
+@media screen and (min-width: 64em) {
+  .avatar, #user-name {
+    display: inherit;
+  }
+
+  .avatar {
+    padding: 6px;
+  }
+
+  .top-right {
+     float: right
+  }
+}
