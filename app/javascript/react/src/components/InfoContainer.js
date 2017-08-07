@@ -1,13 +1,26 @@
 import React from 'react';
 
 const InfoContainer = props => {
-  let wordsList;
-  if (props.words) {
+  let defaultText = <span>
+    Place black cells using option-click <br></br>
+    Enter the grid letters using the keyboard<br></br>
+    Click on the clues to edit them <br></br>
+    Use 'Match' to search for words that fit the highlighted pattern<br></br>
+  When finished, click publish to make this puzzle playable<br></br>
+  </span>
+
+  let defaultStatus = <div>Getting Started</div>
+
+  let wordsList, defaultDisplay;
+  if (props.words.length > 0) {
     wordsList = props.words.map(word => <li key={word.word}>{word.word}</li>)
+  } else {
+    defaultDisplay = defaultText;
   }
   return(
     <div id="info-container">
-      <span className="title">{props.status}</span>
+      <span className="title">{props.status || defaultStatus}</span>
+      <span>{defaultDisplay}</span>
       <div className="words">
         <ul>
           {wordsList}
