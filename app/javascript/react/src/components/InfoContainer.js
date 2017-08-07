@@ -9,7 +9,9 @@ const InfoContainer = props => {
   When finished, click publish to make this puzzle playable<br></br>
   </span>
 
-  let defaultStatus = <div>Getting Started</div>
+  if (props.status !== "Getting Started") {
+    defaultText = null;
+  }
 
   let wordsList, defaultDisplay;
   if (props.words.length > 0) {
@@ -19,8 +21,8 @@ const InfoContainer = props => {
   }
   return(
     <div id="info-container">
-      <span className="title">{props.status || defaultStatus}</span>
-      <span>{defaultDisplay}</span>
+      <span className="title">{props.status}</span>
+      <div>{defaultText}</div>
       <div className="words">
         <ul>
           {wordsList}

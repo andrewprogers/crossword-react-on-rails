@@ -6,8 +6,9 @@ import InfoContainer from '../components/InfoContainer'
 class PuzzleMenu extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
-      status: "",
+      status: "Getting Started",
       words: []
     }
     this.matchPattern = this.matchPattern.bind(this);
@@ -43,7 +44,10 @@ class PuzzleMenu extends React.Component {
       ]
       columnClassNames = "small-12 medium-6 columns";
       infoSection = <div className="small-12 medium-6 columns">
-        <InfoContainer status={this.state.status} words={this.state.words} />
+
+        <InfoContainer
+          status={this.state.status}
+          words={this.state.words} />
       </div>
     } else {
       playOnlyButtons = [
