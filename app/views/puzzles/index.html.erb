@@ -7,10 +7,7 @@
           <% @puzzles_in_progress.each do |puzzle| %>
             <a href=<%= puzzle_path(puzzle.id) %>>
               <div class="puzzle-tile">
-                <%= image_tag "squares.png", width: 30 %>
-                <div class="title-container">
-                  <%= puzzle.title %>
-                </div>
+                <%= puzzle.title %>
               </div>
             </a>
           <% end %>
@@ -29,10 +26,7 @@
           <% @created_puzzles.each do |puzzle| %>
             <a href=<%= puzzle_path(puzzle.id) %>>
               <div class="puzzle-tile">
-                <%= image_tag "squares.png", width: 30 %>
-                <div class="title-container">
-                  <%= puzzle.title %>
-                </div>
+                <%= puzzle.title %>
               </div>
             </a>
           <% end %>
@@ -51,7 +45,6 @@
           <% @draft_puzzles.each do |puzzle| %>
             <a href=<%= edit_puzzle_path(puzzle.id) %>>
               <div class="puzzle-tile">
-                <%= image_tag "squares.png", width: 60 %>
                 <%= puzzle.title %>
               </div>
             </a>
