@@ -56,6 +56,13 @@ class UserActionController {
           newState.selectedCellRow = next.row
           newState.selectedCellColumn = next.column
           break;
+        case 'Tab':
+          let thisClue = crossword.getSelectedClue(this.state.clueDirection, this.state.selectedCellRow, this.state.selectedCellColumn)
+          let nextClue = crossword.nextClue(thisClue)
+          next = crossword.nextEmptyCellWithinClue(nextClue, nextClue.row.end, nextClue.column.end)
+          newState.selectedCellRow = next.row
+          newState.selectedCellColumn = next.column
+          break;
         default:
 
       }
