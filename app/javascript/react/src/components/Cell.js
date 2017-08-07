@@ -23,7 +23,8 @@ const Cell = props => {
       row: props.row,
       column: props.column
     }
-    props.on.handleMouseClick(currentCell, event.metaKey)
+
+    props.on.handleMouseClick(currentCell, event.altKey)
   };
 
   if ((props.selectedCellRow === props.row) && (props.selectedCellColumn === props.column)) {
