@@ -1,10 +1,10 @@
 class PuzzlesController < ApplicationController
   def index
     @user = User.find(params[:user_id])
-    @created_puzzles = Puzzle.where(user: @user, draft: false)
-    @draft_puzzles = Puzzle.where(user: @user, draft: true)
-    user_solutions = Solution.where(user: @user, correct: false)
-    @puzzles_in_progress = user_solutions.map { |solution| solution.puzzle}.reject { |el| el.nil? } || []
+    @created_puzzles = Puzzle.where(user: @user, draft: false).sort_by(&:updated_at)
+    @draft_puzzles = Puzzle.where(user: @user, draft: true).sort_by(&:updated_at)
+    user_solutions = Solution.where(user: @user, correct: false).sort_by(&:updated_at)
+    @puzzles_in_progress = user_solutions.map { |solution| solution.puzzle}.reject { |el| el.nil? || el.draft } || []
   end
 
   def show

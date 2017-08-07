@@ -19,7 +19,7 @@ class Api::V1::PuzzlesController < ApplicationController
       puzzle_data['draft'] = puzzle.draft
       puzzle_data['title'] = puzzle.title
 
-      if current_user
+      if current_user && !puzzle.draft
         solution = Solution.where(puzzle: puzzle, user: current_user).first
         if solution.nil?
           answers = " " * puzzle.grid.length
