@@ -17,8 +17,8 @@ feature 'user creates a new puzzle' do
     end
 
     scenario "authenticated user visits new puzzle page" do
-      expect(page).to have_content("New puzzle")
-      expect(page).to have_content("Enter a size for a new puzzle (number of rows)")
+      expect(page).to have_content("Create a new puzzle")
+      expect(page).to have_content("Size (5-25 rows)")
     end
 
     scenario "user inputs too small a grid size" do
