@@ -1,18 +1,13 @@
-<h1>New puzzle</h1>
+<div class="row" id="new-puzzle">
+  <h1>Create a new puzzle</h1>
 
-<%= form_for @puzzle do |f| %>
-  <div class="row">
-    <%= f.label :title, "Draft Name" %>
-    <%= f.text_field :title %>
-  </div>
+  <%= form_for @puzzle do |f| %>
+      <%= f.label :title, "Draft Name" %>
+      <%= f.text_field :title %>
 
-  <div class="row">
-    <%= f.label "Enter a size for a new puzzle (number of rows)" %>
-    <%= f.label :size %>
-    <%= f.text_field :size %>
-  </div>
+      <%= f.label :size, "Size (5-25 rows)" %>
+      <%= f.text_field :size %>
 
-  <div class="row">
-    <%= f.submit "Create Crossword" %>
-  </div>
-<% end %>
+      <%= f.submit "Create Crossword", class: "submit-button" %>
+  <% end %>
+</div>

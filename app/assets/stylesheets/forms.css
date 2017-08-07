@@ -1,0 +1,34 @@
+#new-puzzle {
+  margin-top: 3%;
+  font-family: 'raleway';
+  width: 50%;
+}
+
+#new-puzzle label {
+  font-size: 1.5em;
+}
+
+#new-puzzle h1 {
+  text-align: center;
+  font-family: 'raleway';
+}
+
+#new-puzzle [type=text] {
+  width: 100%;
+  font-size: 2em;
+  height: 2em;
+}
+
+#new-puzzle .submit-button {
+  background-color: #FFD658;
+  border: none;
+  padding: 2% 2%;
+  font-size: 1.5em;
+  font-family: 'raleway';
+  box-shadow: 2px 2px 14px 0px grey;
+  transition: all 0.3s ease;
+}
+
+#new-puzzle .submit-button:hover {
+  box-shadow: 5px 5px 14px 0px grey;
+}
