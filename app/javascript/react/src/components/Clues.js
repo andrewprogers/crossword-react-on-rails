@@ -12,7 +12,7 @@ const Clues = props => {
   let clueCell = props.crossword.getSelectedClue(props.clueDirection, props.selectedCellRow, props.selectedCellColumn);
   let selected = clueCell.gridNum;
   let clues = props.clues.map((clueObj, index) => {
-    let className = (selected === clueObj.gridNum) ? "selected" : "";
+    let className = (selected === clueObj.gridNum && props.clueDirection === props.type) ? "selected" : "";
     let clickHandler = () => {
       props.on.updateSelectedCell(clueObj.row.start, clueObj.column.start)
       if (props.clueDirection !== props.type) {
