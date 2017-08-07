@@ -63,12 +63,12 @@ class UserActionController {
     return newState;
   }
 
-  mouseClick(currentCell, metaKey) {
+  mouseClick(currentCell, toggleBlack) {
     let newState = {};
     let row = currentCell.row;
     let col = currentCell.column;
 
-    if (this.state.editMode && metaKey) {
+    if (this.state.editMode && toggleBlack) {
       newState.grid = this.state.grid
       let maxIndex = newState.grid.length - 1
       newState.grid[row][col] = (this.state.grid[row][col] === '.') ? ' ' : '.';
