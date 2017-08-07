@@ -11,8 +11,8 @@
 
   <body>
     <div class="top">
+      <div class="title"><%= link_to "Cross Reaction", root_path, id: "title" %></div>
       <div class="top-left">
-        <%= link_to "Cross Reaction", root_path, id: "title" %>
         <%= link_to "Play", puzzles_path, class: "nav-link" %>
         <% if current_user %>
           <%= link_to "Create", new_puzzle_path, class: "nav-link" %>

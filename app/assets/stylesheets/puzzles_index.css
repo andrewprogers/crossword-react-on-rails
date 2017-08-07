@@ -4,51 +4,27 @@
 }
 
 #puzzle-index-wrapper .puzzle-tile-container {
-  /*background-color: rgba(255, 255, 255, );*/
-  /*border: 2px solid black;*/
   text-align: left;
-  border-top: 1px solid black;
+  /*border-top: 1px solid black;*/
   padding-top: 5px;
 }
 
 .puzzle-tile {
-  border: 2px solid #B2B2B2;
   background-color: rgba(255, 255, 255, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0);
   margin: 4px 0px;
-  padding: 0px;
+  padding: 5px;
+  font-size: 1.5em;
   transition: all 0.3s ease;
   color: #444;
 }
 
-.title-container {
-  display: inline;
-  width: 80%;
-}
-
-.puzzle-tile img {
-  display: inline;
-  border: 1px solid #B2B2B2;
-  margin-right: 5px;
-  width: 20%;
-  opacity: 0.8;
-  transition: all 0.3s ease;
-}
-
-a:nth-child(even) img {
-  transform: rotate(90deg);
-}
-
 .puzzle-tile:hover {
-  border: 2px solid #444;
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.puzzle-tile:hover img {
-  opacity: 1;
-}
-
 .puzzle-tile:active {
-  border: 2px solid #B2B2B2;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
 }
 
 .no-results {
