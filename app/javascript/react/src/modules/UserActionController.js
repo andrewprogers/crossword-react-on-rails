@@ -22,7 +22,7 @@ class UserActionController {
     }
   }
 
-  keyPress(key) {
+  keyPress(key, shiftKey) {
     let newState = {}
     let next;
     let crossword = new Crossword(this.state.grid, this.state.clues, this.state.userLetters)
@@ -58,7 +58,7 @@ class UserActionController {
           break;
         case 'Tab':
           let thisClue = crossword.getSelectedClue(this.state.clueDirection, this.state.selectedCellRow, this.state.selectedCellColumn)
-          let nextClue = crossword.nextClue(thisClue)
+          let nextClue = shiftKey ? crossword.previousClue(thisClue) : crossword.nextClue(thisClue)
           next = crossword.nextEmptyCellWithinClue(nextClue, nextClue.row.end, nextClue.column.end)
           newState.selectedCellRow = next.row
           newState.selectedCellColumn = next.column

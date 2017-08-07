@@ -383,6 +383,19 @@ describe('UserActionController', () => {
         }
         expect(newState).toEqual(expectedCell);
       })
+
+      it('reverses with shiftKey = true', () => {
+        fakeState.setCell(1, 1);
+        controller = new UserActionController(fakeState)
+        crossword = new Crossword(fakeState.grid, fakeState.clues, fakeState.userLetters);
+
+        let newState = controller.keyPress('Tab', true);
+        let expectedCell = {
+          selectedCellRow: 0,
+          selectedCellColumn: 0
+        }
+        expect(newState).toEqual(expectedCell);
+      })
     })
 
     describe('arrow keys', () => {

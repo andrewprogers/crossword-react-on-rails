@@ -76,7 +76,7 @@ class CrosswordContainer extends React.Component {
   }
 
   handleKeyDown(event) {
-    let newState = (new UserActionController(this.state)).keyPress(event.key)
+    let newState = (new UserActionController(this.state)).keyPress(event.key, event.shiftKey)
     this.setState(newState)
   }
 
