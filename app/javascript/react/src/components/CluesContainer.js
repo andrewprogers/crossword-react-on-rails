@@ -8,10 +8,12 @@ class CluesContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    let startingScrollY = window.scrollY;
-    let selected = document.getElementsByClassName('selected');
-    selected[0].scrollIntoView();
-    scrollTo(0, startingScrollY);
+    if (!this.props.editMode) {
+      let startingScrollY = window.scrollY;
+      let selected = document.getElementsByClassName('selected');
+      selected[0].scrollIntoView();
+      scrollTo(0, startingScrollY);
+    }
   }
 
   render() {
@@ -66,8 +68,5 @@ class CluesContainer extends React.Component {
     }
   }
 }
-
-
-
 
 export default CluesContainer;
