@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
   resources :session, only: [:create, :destroy]
 
-  resources :puzzles, only: [:show, :new, :create, :edit]
+  resources :puzzles, only: [:index, :show, :new, :create, :edit] do
+    collection do
+      get :random
+    end
+  end
 
   resources :users, only: [] do
     resources :puzzles, only: [:index]

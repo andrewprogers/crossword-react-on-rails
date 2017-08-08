@@ -1,10 +1,16 @@
 class PuzzlesController < ApplicationController
   def index
-    @user = User.find(params[:user_id])
-    @created_puzzles = Puzzle.where(user: @user, draft: false).sort_by(&:updated_at)
-    @draft_puzzles = Puzzle.where(user: @user, draft: true).sort_by(&:updated_at)
-    user_solutions = Solution.where(user: @user, correct: false).sort_by(&:updated_at)
-    @puzzles_in_progress = user_solutions.map { |solution| solution.puzzle}.reject { |el| el.nil? || el.draft } || []
+    @columns = {}
+    if params[:user_id].nil?
+      @user = nil
+      @puzzles = Puzzle.where(draft: false).sort_by(&:updated_at).reverse
+    else
+      @user = User.find(params[:user_id])
+      @created_puzzles = Puzzle.where(user: @user, draft: false).sort_by(&:updated_at).reverse
+      @draft_puzzles = Puzzle.where(user: @user, draft: true).sort_by(&:updated_at).reverse
+      user_solutions = Solution.where(user: @user, correct: false).sort_by(&:updated_at).reverse
+      @puzzles_in_progress = user_solutions.map { |solution| solution.puzzle}.reject { |el| el.nil? || el.draft } || []
+    end
   end
 
   def show
@@ -44,6 +50,11 @@ class PuzzlesController < ApplicationController
       flash[:error] = "That page is unavailable"
       redirect_to root_path
     end
+  end
+
+  def random
+    random_puzzle = Puzzle.where(draft: false).sample
+    redirect_to puzzle_path(random_puzzle)
   end
 
   private
