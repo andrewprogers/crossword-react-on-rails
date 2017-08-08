@@ -1,61 +1,85 @@
 <div id="puzzle-index-wrapper">
   <div class="row">
-    <div class="small-12 medium-12 large-4 columns">
-      <h3>Puzzles In Progress</h3>
-      <% if @puzzles_in_progress.length > 0 %>
-        <div class="puzzle-tile-container">
-          <% @puzzles_in_progress.each do |puzzle| %>
-            <a href=<%= puzzle_path(puzzle.id) %>>
-              <div class="puzzle-tile">
-                <%= puzzle.title %>
-              </div>
-            </a>
-          <% end %>
-        </div>
-      <% else %>
-        <div class="no-results">
-          <p>No Unfinished Puzzles!</p>
-        </div>
-      <% end %>
-    </div>
+    <% unless @user.nil? %>
+      <div class="small-12 medium-12 large-4 columns">
+        <h3>Puzzles In Progress</h3>
+        <% if @puzzles_in_progress.length > 0 %>
+          <div class="puzzle-tile-container">
+            <% @puzzles_in_progress.each do |puzzle| %>
+              <a href=<%= puzzle_path(puzzle.id) %>>
+                <div class="puzzle-tile">
+                  <%= puzzle.title %><br>
+                  <span class='author-name'><%= puzzle.user.name %></span>
+                </div>
+              </a>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="no-results">
+            <p>No Unfinished Puzzles!</p>
+          </div>
+        <% end %>
+      </div>
 
-    <div class="small-12 medium-12 large-4 columns">
-      <h3>Your Puzzles</h3>
-      <% if @created_puzzles.length > 0 %>
-        <div class="puzzle-tile-container">
-          <% @created_puzzles.each do |puzzle| %>
-            <a href=<%= puzzle_path(puzzle.id) %>>
-              <div class="puzzle-tile">
-                <%= puzzle.title %>
-              </div>
-            </a>
-          <% end %>
-        </div>
-      <% else %>
-        <div class="no-results">
-          <p>You haven't created any puzzles yet!</p>
-        </div>
-      <% end %>
-    </div>
+      <div class="small-12 medium-12 large-4 columns">
+        <h3>Your Puzzles</h3>
+        <% if @created_puzzles.length > 0 %>
+          <div class="puzzle-tile-container">
+            <% @created_puzzles.each do |puzzle| %>
+              <a href=<%= puzzle_path(puzzle.id) %>>
+                <div class="puzzle-tile">
+                  <%= puzzle.title %><br>
+                  <span class='author-name'><%= puzzle.user.name %></span>
+                </div>
+              </a>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="no-results">
+            <p>You haven't created any puzzles yet!</p>
+          </div>
+        <% end %>
+      </div>
 
-    <div class="small-12 medium-12 large-4 columns end">
-      <h3>Your Drafts</h3>
-      <% if @draft_puzzles.length > 0 %>
-        <div class="puzzle-tile-container">
-          <% @draft_puzzles.each do |puzzle| %>
-            <a href=<%= edit_puzzle_path(puzzle.id) %>>
-              <div class="puzzle-tile">
-                <%= puzzle.title %>
-              </div>
-            </a>
-          <% end %>
-        </div>
-      <% else %>
-        <div class="no-results">
-          <p>You don't have any drafts right now!</p>
-        </div>
-      <% end %>
-    </div>
-
+      <div class="small-12 medium-12 large-4 columns end">
+        <h3>Your Drafts</h3>
+        <% if @draft_puzzles.length > 0 %>
+          <div class="puzzle-tile-container">
+            <% @draft_puzzles.each do |puzzle| %>
+              <a href=<%= edit_puzzle_path(puzzle.id) %>>
+                <div class="puzzle-tile">
+                  <%= puzzle.title %><br>
+                  <span class='author-name'><%= puzzle.user.name %></span>
+                </div>
+              </a>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="no-results">
+            <p>You don't have any drafts right now!</p>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="small-12 medium-12 large-6 large-offset-3 columns end">
+        <h3>Recent Puzzles</h3>
+        <% if @puzzles.length > 0 %>
+          <div class="puzzle-tile-container">
+            <% @puzzles.each do |puzzle| %>
+              <a href=<%= puzzle_path(puzzle.id) %>>
+                <div class="puzzle-tile">
+                  <%= puzzle.title %><br>
+                  <span class='author-name'><%= puzzle.user.name %></span>
+                </div>
+              </a>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="no-results">
+            <p>No puzzles to play yet!</p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>

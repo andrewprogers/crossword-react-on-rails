@@ -5,15 +5,20 @@
 
 #puzzle-index-wrapper .puzzle-tile-container {
   text-align: left;
-  /*border-top: 1px solid black;*/
   padding-top: 5px;
+}
+
+#puzzle-index-wrapper h3 {
+  padding-top: 1em;
+  font-size: 36px;
+  font-family: 'raleway', sans-serif;
 }
 
 .puzzle-tile {
   background-color: rgba(255, 255, 255, 0.7);
   border: 2px solid rgba(255, 255, 255, 0);
   margin: 4px 0px;
-  padding: 5px;
+  padding: 15px;
   font-size: 1.5em;
   transition: all 0.3s ease;
   color: #444;
@@ -25,6 +30,11 @@
 
 .puzzle-tile:active {
   border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+.puzzle-tile .author-name {
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .no-results {
