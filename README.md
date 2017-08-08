@@ -1,6 +1,3 @@
-![Build Status](https://codeship.com/projects/5fcbd820-5303-0135-5b8f-4247dd4ea899/status?branch=master)
-![Code Climate](https://codeclimate.com/github/andrewprogers/crossword-react-on-rails.png)
-![Coverage Status](https://coveralls.io/repos/andrewprogers/crossword-react-on-rails/badge.png)
 # Cross Reaction
 Cross Reaction is app for solving and building crossword puzzles. CR is built with Ruby on Rails, and utilizes a React front-end for an intuitive solving and constructing interface.
 
@@ -53,3 +50,7 @@ Remember to set the environment variables in heroku in order to enable sign-in
 ## Thanks
 - I'd like to thank [datamuse](http://www.datamuse.com/api/) for offering their API without registration, it is excellent and simple to use!
 - This project was created as a breakable toy during my time at [Launch Academy](https://www.launchacademy.com/). I owe a huge debt everyone there.
+
+![Build Status](https://codeship.com/projects/5fcbd820-5303-0135-5b8f-4247dd4ea899/status?branch=master)
+![Code Climate](https://codeclimate.com/github/andrewprogers/crossword-react-on-rails.png)
+![Coverage Status](https://coveralls.io/repos/andrewprogers/crossword-react-on-rails/badge.png)
