@@ -52,6 +52,11 @@ class PuzzlesController < ApplicationController
     end
   end
 
+  def random
+    random_puzzle = Puzzle.where(draft: false).sample
+    redirect_to puzzle_path(random_puzzle)
+  end
+
   private
 
   def puzzle_params
