@@ -8,6 +8,15 @@
 
 require_relative 'puzzle_hashes'
 
+User.find_or_create_by!(
+  provider: "google_oauth2",
+  uid: "0",
+  name: "legacy",
+  oauth_token: nil,
+  avatar_url: nil,
+  oauth_expires_at: nil
+)
+
 puzzle_hashes do |data|
   puzzle = Puzzle.find_or_create_by!(
     title: data[:title],
@@ -15,7 +24,7 @@ puzzle_hashes do |data|
     grid: data[:grid].join(""),
     date: Date.strptime(data[:date], "%m/%d/%Y"),
     notes: data[:notes],
-    user: User.where(uid: 0).first
+    user: User.where(uid: "0").first
   )
 
   directions = ["Across", "Down"]
