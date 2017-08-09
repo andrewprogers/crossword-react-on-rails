@@ -241,6 +241,7 @@ class CrosswordContainer extends React.Component {
             clueDirection={this.state.clueDirection}
             on={this.on}
             editMode={this.state.editMode}
+            puzzleRevealed={this.state.puzzleRevealed}
             title={this.state.puzzleTitle} />
         </div>
         <div className='small-12 large-6 columns'>
