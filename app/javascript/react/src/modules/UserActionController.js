@@ -60,8 +60,11 @@ class UserActionController {
           let thisClue = crossword.getSelectedClue(this.state.clueDirection, this.state.selectedCellRow, this.state.selectedCellColumn)
           let nextClue = shiftKey ? crossword.previousClue(thisClue) : crossword.nextClue(thisClue)
           next = crossword.nextEmptyCellWithinClue(nextClue, nextClue.row.end, nextClue.column.end)
-          newState.selectedCellRow = next.row
-          newState.selectedCellColumn = next.column
+          newState.selectedCellRow = next ? next.row : nextClue.row.start
+          newState.selectedCellColumn = next ? next.column : nextClue.column.start
+          if (nextClue.direction() !== this.state.clueDirection) {
+            newState.clueDirection = nextClue.direction();
+          }
           break;
         default:
 

@@ -206,6 +206,7 @@ class Crossword {
   nextCellWithinClue(clue, row, col) {
     let nextRow = row
     let nextCol = col
+
     if (clue.rowStart === clue.rowEnd) {
       if (col === clue.columnEnd) {
         nextCol = clue.columnStart
@@ -231,12 +232,14 @@ class Crossword {
     let currentRow = nextCell.row;
     let currentCol = nextCell.column;
 
-    while((nextCell.row !== row) || (nextCell.column !== col)) {
-      if (this.userLetters[nextCell.row][nextCell.column] === ' ' ) {
+    while(true) {
+      if (this.userLetters[nextCell.row][nextCell.column] === ' ') {
         return {
           row: nextCell.row,
           column: nextCell.column
         }
+      } else if ((nextCell.row === row) && (nextCell.column === col)) {
+        return false;
       }
       nextCell = this.nextCellWithinClue(clue, nextCell.row, nextCell.column);
     }

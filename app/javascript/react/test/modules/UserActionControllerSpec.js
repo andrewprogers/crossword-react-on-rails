@@ -359,14 +359,14 @@ describe('UserActionController', () => {
     describe('tab', () => {
       let crossword
 
-      it('moves to the next across clue', () => {
+      it('moves to first empty cell of the next across clue', () => {
+        fakeState.userLetters[1] = ['e',' ',' ',' ']
         controller = new UserActionController(fakeState)
-        crossword = new Crossword(fakeState.grid, fakeState.clues, fakeState.userLetters);
 
         let newState = controller.keyPress('Tab');
         let expectedCell = {
           selectedCellRow: 1,
-          selectedCellColumn: 0
+          selectedCellColumn: 1
         }
         expect(newState).toEqual(expectedCell);
       })
@@ -374,7 +374,6 @@ describe('UserActionController', () => {
       it('moves to the next down clue', () => {
         fakeState.clueDirection = 'down'
         controller = new UserActionController(fakeState)
-        crossword = new Crossword(fakeState.grid, fakeState.clues, fakeState.userLetters);
 
         let newState = controller.keyPress('Tab');
         let expectedCell = {
@@ -384,10 +383,21 @@ describe('UserActionController', () => {
         expect(newState).toEqual(expectedCell);
       })
 
+      it('moves to the first cell of next clue when filled', () => {
+        fakeState.userLetters[1] = ['e','f',' ',' ']
+        controller = new UserActionController(fakeState)
+
+        let newState = controller.keyPress('Tab');
+        let expectedCell = {
+          selectedCellRow: 1,
+          selectedCellColumn: 0
+        }
+        expect(newState).toEqual(expectedCell);
+      })
+
       it('reverses with shiftKey = true', () => {
         fakeState.setCell(1, 1);
         controller = new UserActionController(fakeState)
-        crossword = new Crossword(fakeState.grid, fakeState.clues, fakeState.userLetters);
 
         let newState = controller.keyPress('Tab', true);
         let expectedCell = {
