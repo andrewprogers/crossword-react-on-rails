@@ -19,12 +19,13 @@ const Cell = props => {
   }
 
   let clickHandler = (event) => {
+    event.preventDefault();
     let currentCell = {
       row: props.row,
       column: props.column
     }
-
-    props.on.handleMouseClick(currentCell, event.altKey)
+    let toggleBlack = event.altKey || event.metaKey || event.ctrlKey || event.shiftKey
+    props.on.handleMouseClick(currentCell, toggleBlack)
   };
 
   if ((props.selectedCellRow === props.row) && (props.selectedCellColumn === props.column)) {

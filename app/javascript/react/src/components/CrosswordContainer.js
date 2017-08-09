@@ -80,9 +80,9 @@ class CrosswordContainer extends React.Component {
     this.setState(newState)
   }
 
-  handleMouseClick(clickedCell, altKey) {
+  handleMouseClick(clickedCell, toggleBlack) {
     let controller = new UserActionController(this.state)
-    this.setState(controller.mouseClick(clickedCell, altKey))
+    this.setState(controller.mouseClick(clickedCell, toggleBlack))
   }
 
   updateSelectedCell(row, column) {
