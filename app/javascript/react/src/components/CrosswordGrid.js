@@ -41,8 +41,13 @@ class CrosswordGrid extends React.Component {
     let pctWidth = (100 / this.props.crossword.grid.length);
     updateSheet(`#grid-container .cell { width: ${pctWidth}%;}`);
 
-    let firstCell = document.getElementsByClassName('cell-letter')[0]
-    firstCell.focus()
+    let secondCell = document.getElementsByClassName('cell-letter')[1]
+    secondCell.focus()
+  }
+
+  componentDidUpdate() {
+    let secondCell = document.getElementsByClassName('cell-letter')[1]
+    secondCell.focus()
   }
 
   render() {
