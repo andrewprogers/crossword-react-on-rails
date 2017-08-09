@@ -53,14 +53,12 @@ describe('Cell', () => {
       expect(wrapper.find('div.row')).toBePresent();
     })
 
-    it('should render an input with classes "cell-letter" and row', () => {
-      expect(wrapper.find('input.cell-letter')).toBePresent();
-      expect(wrapper.find('input.row')).toBePresent();
+    it('should render a div with class "cell-letter"', () => {
+      expect(wrapper.find('div.cell-letter')).toBePresent();
     })
 
-    it('should render an input of type text with keydown capture callback', () => {
-      expect(wrapper.find('input').props().type).toEqual('text')
-      expect(wrapper.find('input').props().onKeyDownCapture).toEqual(onSpies.handleKeyDown)
+    it('should render a div with keydown capture callback', () => {
+      expect(wrapper.find('div.cell-letter').props().onKeyDownCapture).toEqual(onSpies.handleKeyDown)
     })
   })
 
@@ -86,8 +84,8 @@ describe('Cell', () => {
       expect(wrapper.find('div.shaded')).toBePresent();
     })
 
-    it('should render an input with value of empty string', () => {
-      expect(wrapper.find('input').props().value).toEqual("")
+    it('should render an div with value of empty string', () => {
+      expect(wrapper.find('div.cell-letter').text()).toEqual("")
     })
 
     it('"div.cell" should have an onClick function', () => {
@@ -114,8 +112,8 @@ describe('Cell', () => {
            />)
     })
 
-    it('should render an input with value of the userGrid for that coordinate', () => {
-      expect(wrapper.find('input').props().value).toEqual('a')
+    it('should render a div with value of the userGrid for that coordinate', () => {
+      expect(wrapper.find('div.cell-letter').text()).toEqual('a')
     })
 
     it('should render a div.cell with an onClick callback', () => {
@@ -212,13 +210,13 @@ describe('Cell', () => {
     })
 
     it('displays the correct letter', () => {
-      expect(wrapper.find('input').props().value).toMatch('a')
+      expect(wrapper.find('div.cell-letter').text()).toMatch('a')
 
       wrapper.setProps({row: 1})
-      expect(wrapper.find('input').props().value).toMatch('e')
+      expect(wrapper.find('div.cell-letter').text()).toMatch('e')
 
       wrapper.setProps({row: 2})
-      expect(wrapper.find('input').props().value).toMatch('i')
+      expect(wrapper.find('div.cell-letter').text()).toMatch('i')
     })
   })
 })

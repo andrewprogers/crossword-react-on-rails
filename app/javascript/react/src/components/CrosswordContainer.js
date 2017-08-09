@@ -75,14 +75,23 @@ class CrosswordContainer extends React.Component {
     }
   }
 
+  refocus() {
+    let hiddenInput = document.getElementById('hidden-input')
+    if (hiddenInput !== null) {
+      hiddenInput.focus()
+    }
+  }
+
   handleKeyDown(event) {
     let newState = (new UserActionController(this.state)).keyPress(event.key, event.shiftKey)
     this.setState(newState)
+    this.refocus()
   }
 
-  handleMouseClick(clickedCell, altKey) {
+  handleMouseClick(clickedCell, toggleBlack) {
     let controller = new UserActionController(this.state)
-    this.setState(controller.mouseClick(clickedCell, altKey))
+    this.setState(controller.mouseClick(clickedCell, toggleBlack))
+    this.refocus()
   }
 
   updateSelectedCell(row, column) {
@@ -90,6 +99,7 @@ class CrosswordContainer extends React.Component {
       selectedCellRow: row,
       selectedCellColumn: column
     })
+    this.refocus();
   }
 
   changeClueDirection(newDirection) {
@@ -103,6 +113,7 @@ class CrosswordContainer extends React.Component {
     if (confirm("This will clear your entire solution. Are you sure?")) {
       this.setState(new UserActionController(this.state).clear())
     }
+    this.refocus()
   }
 
   updateTitle(value) {
@@ -121,6 +132,7 @@ class CrosswordContainer extends React.Component {
 
   toggleReveal() {
     this.setState({puzzleRevealed: !this.state.puzzleRevealed})
+    this.refocus()
   }
 
   publishPayload() {
@@ -241,6 +253,7 @@ class CrosswordContainer extends React.Component {
             clueDirection={this.state.clueDirection}
             on={this.on}
             editMode={this.state.editMode}
+            puzzleRevealed={this.state.puzzleRevealed}
             title={this.state.puzzleTitle} />
         </div>
         <div className='small-12 large-6 columns'>

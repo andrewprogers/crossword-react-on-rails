@@ -51,7 +51,7 @@ class PuzzleMenu extends React.Component {
       </div>
     } else {
       playOnlyButtons = [
-        <MenuButton key="REVEAL" name="REVEAL" onClick={this.props.on.toggleReveal} />
+        <MenuButton key="REVEAL" name="REVEAL" onClick={this.props.on.toggleReveal} active={this.props.puzzleRevealed} />
       ]
     }
 

@@ -12,6 +12,9 @@ body {
   margin-right: 0;
 }
 
+#hidden-input {
+  transform: scale(0);
+}
 
 .scale-container {
   position: relative;
@@ -186,11 +189,11 @@ body {
   color: #444;
 }
 
-.menu-button:hover {
+.menu-button:hover, .menu-button.active {
   background-color: #444;
 }
 
-.menu-button:hover .menu-name {
+.menu-button:hover .menu-name, .menu-button.active .menu-name {
   color: white;
 }
 
