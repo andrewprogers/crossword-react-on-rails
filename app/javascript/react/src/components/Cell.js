@@ -43,11 +43,9 @@ const Cell = props => {
   return(
     <div className={classString} onClick={clickHandler}>
       <div className="cell-number row">{displayNumber}</div>
-      <input
-        type='text'
-        className="cell-letter row"
-        value={letter}
-        onKeyDownCapture={props.on.handleKeyDown}/>
+      <div
+        className="cell-letter"
+        onKeyDownCapture={props.on.handleKeyDown}>{letter}</div>
     </div>
   )
 }

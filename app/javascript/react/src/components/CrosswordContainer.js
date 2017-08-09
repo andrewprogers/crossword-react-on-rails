@@ -78,11 +78,15 @@ class CrosswordContainer extends React.Component {
   handleKeyDown(event) {
     let newState = (new UserActionController(this.state)).keyPress(event.key, event.shiftKey)
     this.setState(newState)
+    let hiddenInput = document.getElementById('hidden-input')
+    hiddenInput.focus()
   }
 
   handleMouseClick(clickedCell, toggleBlack) {
     let controller = new UserActionController(this.state)
     this.setState(controller.mouseClick(clickedCell, toggleBlack))
+    let hiddenInput = document.getElementById('hidden-input')
+    hiddenInput.focus()
   }
 
   updateSelectedCell(row, column) {

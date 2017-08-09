@@ -39,21 +39,25 @@ class CrosswordGrid extends React.Component {
 
     let updateSheet = getCustomSheetUpdater();
     let pctWidth = (100 / this.props.crossword.grid.length);
-    updateSheet(`#grid-container .cell { width: ${pctWidth}%;}`);
+    updateSheet(`#grid-container .cell { width: ${pctWidth}%; height: ${pctWidth}%;}`);
 
-    let secondCell = document.getElementsByClassName('cell-letter')[1]
-    secondCell.focus()
-  }
-
-  componentDidUpdate() {
-    let secondCell = document.getElementsByClassName('cell-letter')[1]
-    secondCell.focus()
+    let hiddenInput = document.getElementById('hidden-input')
+    hiddenInput.focus()
+    window.addEventListener('keydown', (event) => {
+      if (event.keyCode == 9) {   //tab pressed
+        event.preventDefault();
+      }
+    })
   }
 
   render() {
     let cells = this.createCells();
     return(
       <div className="scale-container">
+        <input id='hidden-input'
+          type='text'
+          value=''
+          onKeyDownCapture={this.props.on.handleKeyDown} />
         <div id="grid-container">
           {cells}
         </div>

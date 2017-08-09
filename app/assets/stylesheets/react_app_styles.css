@@ -12,6 +12,9 @@ body {
   margin-right: 0;
 }
 
+#hidden-input {
+  transform: scale(0);
+}
 
 .scale-container {
   position: relative;
