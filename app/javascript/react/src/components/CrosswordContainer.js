@@ -77,7 +77,9 @@ class CrosswordContainer extends React.Component {
 
   refocus() {
     let hiddenInput = document.getElementById('hidden-input')
-    hiddenInput.focus()
+    if (hiddenInput !== null) {
+      hiddenInput.focus()
+    }
   }
 
   handleKeyDown(event) {
