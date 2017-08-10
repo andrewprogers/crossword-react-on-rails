@@ -5408,6 +5408,10 @@ svgo@^0.7.0:
     sax "~1.2.1"
     whet.extend "~0.9.9"
 
+sweet-alert@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/sweet-alert/-/sweet-alert-1.0.0.tgz#befba9b4ed3fbabf8123d09ede5086f2abdf53de"
+
 tapable@^0.2.5, tapable@~0.2.5:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-0.2.7.tgz#e46c0daacbb2b8a98b9b0cea0f4052105817ed5c"
