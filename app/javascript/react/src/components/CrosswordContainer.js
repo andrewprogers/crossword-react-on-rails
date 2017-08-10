@@ -110,9 +110,14 @@ class CrosswordContainer extends React.Component {
   }
 
   handleClear() {
-    if (confirm("This will clear your entire solution. Are you sure?")) {
+    let confirm = sweetAlert({
+      title: "Clear Letters",
+      text: "Are you sure you want to clear all letters?",
+      type: "warning",
+      showCancelButton: true
+    }, () => {
       this.setState(new UserActionController(this.state).clear())
-    }
+    })
     this.refocus()
   }
 
@@ -178,11 +183,19 @@ class CrosswordContainer extends React.Component {
         if (json.errors === undefined){
           location = `http://${location.host}/puzzles/${json.puzzle_id}`
         } else {
-          alert("There was an error saving your puzzle")
+          sweetAlert({
+            title: "Publish Error",
+            text: "There was an error publishing your puzzle",
+            type: "error"
+          })
         }
       })
     } else {
-      alert("Your puzzle is not yet complete")
+      sweetAlert({
+        title: "Incomplete",
+        text: "Your puzzle is not yet complete! Please make sure to fill in all cells and clues",
+        type: "error"
+      })
     }
   }
 
