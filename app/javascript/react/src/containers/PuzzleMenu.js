@@ -9,9 +9,11 @@ class PuzzleMenu extends React.Component {
 
     this.state = {
       status: "Getting Started",
-      words: []
+      words: [],
+      wordData: null
     }
     this.matchPattern = this.matchPattern.bind(this);
+    this.getWordAnalysis = this.getWordAnalysis.bind(this);
   }
 
   matchPattern() {
@@ -20,7 +22,7 @@ class PuzzleMenu extends React.Component {
     let userPattern = this.props.crossword.getUserPattern(this.props.clueDirection, row, col)
     let matchPattern = userPattern.replace(/ /g, "?");
     let matchedWords = this.getMatchingWords(matchPattern)
-    this.setState({status: `Searching: ${matchPattern}`})
+    this.setState({status: `Searching: ${matchPattern}`, words: [], wordData: null})
   }
 
   getMatchingWords(pattern) {
@@ -32,6 +34,20 @@ class PuzzleMenu extends React.Component {
       newState.status = (words.length > 0) ? "Matches" : "Couldn't match your pattern!"
       this.setState(newState)
     })
+  }
+
+  getWordAnalysis(word) {
+    fetch(`${location.origin}/api/v1/words/analyze?word=${word}`)
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw new Error('Error in fetch, failed to analyze')
+      }
+    })
+    .then(json => this.setState({status: `${word} - Data and selected clues`, wordData: json}))
+
+    this.setState({status: `Analyzing: ${word}`, words: [], wordData: null})
   }
 
   render() {
@@ -47,7 +63,9 @@ class PuzzleMenu extends React.Component {
 
         <InfoContainer
           status={this.state.status}
-          words={this.state.words} />
+          words={this.state.words}
+          onWordClick={this.getWordAnalysis}
+          wordData={this.state.wordData} />
       </div>
     } else {
       playOnlyButtons = [

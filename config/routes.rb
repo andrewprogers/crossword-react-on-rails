@@ -19,7 +19,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :words, only: [:index]
+      resources :words, only: [:index] do
+        collection do
+          get :analyze
+        end
+      end
 
       resources :puzzles, only: [:show, :update] do
         member do
