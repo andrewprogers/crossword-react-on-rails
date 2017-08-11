@@ -33,6 +33,6 @@ class Answer < ApplicationRecord
   end
 
   def day_of_week
-    self.puzzle.date.wday
+    puzzle.date.wday
   end
 end

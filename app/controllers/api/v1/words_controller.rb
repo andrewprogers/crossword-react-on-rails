@@ -27,7 +27,7 @@ class Api::V1::WordsController < ApplicationController
 
     response = {}
     response[:word] = word
-    
+
     dow_frequency = Answer.days_of_week(answers)
     response[:days] = dow_frequency
 

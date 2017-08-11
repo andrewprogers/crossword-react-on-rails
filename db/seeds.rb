@@ -19,37 +19,35 @@ User.find_or_create_by!(
 
 puzzle_hashes do |data|
   begin
-  puzzle = Puzzle.find_or_initialize_by(
-    title: data[:title],
-    size: data[:size],
-    grid: data[:grid].join(""),
-    date: Date.strptime(data[:date], "%m/%d/%Y"),
-    notes: data[:notes],
-    user: User.where(uid: "0").first
-  )
+    puzzle = Puzzle.find_or_initialize_by(
+      title: data[:title],
+      size: data[:size],
+      grid: data[:grid].join(""),
+      date: Date.strptime(data[:date], "%m/%d/%Y"),
+      notes: data[:notes],
+      user: User.where(uid: "0").first
+    )
 
-  if puzzle.new_record?
-    puzzle.save
+    if puzzle.new_record?
+      puzzle.save
 
-    answers = []
-    directions = ["Across", "Down"]
-    directions.each do |direction|
-      data[:answers][direction.downcase].each.with_index do |answer, index|
-        match_data = data[:clues][direction.downcase][index].match(/^(\d*)\. (.*)$/)
-        answers << Answer.find_or_initialize_by(
-          direction: direction,
-          gridnum: match_data[1],
-          clue: match_data[2],
-          answer: answer,
-          puzzle: puzzle
-        )
+      answers = []
+      directions = ["Across", "Down"]
+      directions.each do |direction|
+        data[:answers][direction.downcase].each.with_index do |answer, index|
+          match_data = data[:clues][direction.downcase][index].match(/^(\d*)\. (.*)$/)
+          answers << Answer.find_or_initialize_by(
+            direction: direction,
+            gridnum: match_data[1],
+            clue: match_data[2],
+            answer: answer,
+            puzzle: puzzle
+          )
+        end
       end
+      Answer.import answers
     end
-    Answer.import answers
-  end
-
   rescue => e
-    binding.pry
     puts 'Failed to save record'
   end
 end

@@ -5,7 +5,7 @@ def puzzle_hashes(&block)
 
   Dir.glob("**/seed_puzzles/**/*.json") do |filename|
     puts filename
-    
+
     json = JSON.parse(File.read(filename))
     puzzle_hash = {
       author: json['author'],
