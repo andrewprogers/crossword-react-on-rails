@@ -23,7 +23,7 @@ describe('InfoContainer', () => {
   })
 
   it('displays the words passed to it', () => {
-    expect(wrapper.text()).toMatch(words[0].word);
-    expect(wrapper.text()).toMatch(words[1].word);
+    expect(wrapper.text()).toMatch(words[0].word.toUpperCase());
+    expect(wrapper.text()).toMatch(words[1].word.toUpperCase());
   })
 })
