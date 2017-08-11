@@ -3,12 +3,12 @@ class PuzzlesController < ApplicationController
     @columns = {}
     if params[:user_id].nil?
       @user = nil
-      @puzzles = Puzzle.where(draft: false).sort_by(&:updated_at).reverse
+      @puzzles = Puzzle.includes(:user).where(draft: false).limit(20).reverse_order
     else
       @user = User.find(params[:user_id])
-      @created_puzzles = Puzzle.where(user: @user, draft: false).sort_by(&:updated_at).reverse
-      @draft_puzzles = Puzzle.where(user: @user, draft: true).sort_by(&:updated_at).reverse
-      user_solutions = Solution.where(user: @user, correct: false).sort_by(&:updated_at).reverse
+      @created_puzzles = Puzzle.includes(:user).where(user: @user, draft: false).limit(20).reverse_order
+      @draft_puzzles = Puzzle.includes(:user).where(user: @user, draft: true).limit(20).reverse_order
+      user_solutions = Solution.includes(puzzle: :user).where(user: @user, correct: false).limit(20).reverse_order
       @puzzles_in_progress = user_solutions.map { |solution| solution.puzzle}.reject { |el| el.nil? || el.draft } || []
     end
   end

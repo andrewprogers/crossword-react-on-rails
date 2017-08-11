@@ -13,21 +13,43 @@ const InfoContainer = props => {
     defaultText = null;
   }
 
-  let wordsList, defaultDisplay;
+  let wordsList, content;
   if (props.words.length > 0) {
-    wordsList = props.words.map(word => <li key={word.word}>{word.word}</li>)
-  } else {
-    defaultDisplay = defaultText;
+    wordsList = props.words.map(word => {
+      word = word.word.toUpperCase();
+      let clickHandler = () => {
+        props.onWordClick(word)
+      }
+      return(<li
+        key={word}
+        onClick={clickHandler}>
+        {word}
+      </li>)
+    })
+    content = <div className='words'><ul>{wordsList}</ul></div>
+  } else if (props.wordData) {
+    let dayStrings = []
+    for (var day in props.wordData.days) {
+      if (props.wordData.days.hasOwnProperty(day)) {
+        dayStrings.push(day.slice(0, 1).toUpperCase() + `: ${props.wordData.days[day]}`)
+      }
+    }
+    let frequencies = <span><b>Daily Frequencies:</b> {dayStrings.join(' ')}</span>
+    let clues = props.wordData.clues.map((clue, idx) => <li key={idx}>{clue}</li>)
+    content = <div>
+      {frequencies}<br></br>
+      <b>Difficulty:</b> {props.wordData.difficulty_score}
+      <div className='info-list'>
+        <ul>{clues}</ul>
+      </div>
+    </div>
   }
+
   return(
     <div id="info-container">
       <span className="title">{props.status}</span>
       <div>{defaultText}</div>
-      <div className="words">
-        <ul>
-          {wordsList}
-        </ul>
-      </div>
+      {content}
     </div>
   )
 }

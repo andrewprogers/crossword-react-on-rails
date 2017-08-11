@@ -39,3 +39,4 @@ gem 'webpacker'
 gem 'dotenv-rails'
 gem "omniauth-google-oauth2"
 gem 'httparty'
+gem 'activerecord-import'
