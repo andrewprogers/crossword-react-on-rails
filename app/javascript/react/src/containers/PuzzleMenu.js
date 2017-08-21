@@ -72,11 +72,13 @@ class PuzzleMenu extends React.Component {
       playOnlyButtons = [
         <MenuButton key="REVEAL" name="REVEAL" onClick={this.props.on.toggleReveal} active={this.props.puzzleRevealed} />
       ]
-      timer=
-        <TimerContainer
-          initialSeconds={this.props.seconds}
-          loadDate={this.props.loadDate}
-        />
+      if (!this.props.isSolved){
+        timer=
+          <TimerContainer
+            initialSeconds={this.props.seconds}
+            loadDate={this.props.loadDate}
+          />
+      }
     }
 
     return(

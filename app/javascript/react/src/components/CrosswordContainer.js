@@ -222,9 +222,12 @@ class CrosswordContainer extends React.Component {
         clues_update: this.state.clues
       }
     } else {
+        let elapsed = Math.floor((new Date() - this.loadDate) / 1000);
+        let seconds = this.state.seconds + elapsed;
       body = {
         user_solution: this.state.userLetters,
-        is_solved: this.state.isSolved
+        is_solved: this.state.isSolved,
+        seconds
       }
     }
     return {
@@ -274,6 +277,7 @@ class CrosswordContainer extends React.Component {
             editMode={this.state.editMode}
             puzzleRevealed={this.state.puzzleRevealed}
             title={this.state.puzzleTitle}
+            isSolved={this.state.isSolved}
             seconds={this.state.seconds}
             loadDate={this.loadDate} />
         </div>

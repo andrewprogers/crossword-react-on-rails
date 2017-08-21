@@ -45,5 +45,12 @@ RSpec.describe Api::V1::SolutionsController, type: :controller do
       patch :update, params: { user_solution: solution_array, is_solved: false, user_id: user1.id, id: solution1.id }
       expect(Solution.where(user: user1, puzzle: puzzle1).first.correct).to eq(false)
     end
+
+    it 'updates the solution seconds column' do
+      user_solution = solution1.user_answers.reverse
+      solution_array = user_solution.split('')
+      patch :update, params: { user_solution: solution_array, is_solved: true, user_id: user1.id, id: solution1.id, seconds: 124 }
+      expect(Solution.where(user: user1, puzzle: puzzle1).first.seconds).to eq(124)
+    end
   end
 end

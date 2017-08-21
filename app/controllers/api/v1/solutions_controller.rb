@@ -9,6 +9,7 @@ class Api::V1::SolutionsController < ApplicationController
     else
       solution.correct = params[:is_solved] unless params[:is_solved].nil?
       solution.user_answers = update
+      solution.seconds = params[:seconds] if params[:seconds]
       solution.save!
       render json: { user_answers: params[:user_solution] }
     end

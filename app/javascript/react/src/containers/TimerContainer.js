@@ -7,14 +7,19 @@ class TimerContainer extends React.Component {
   }
 
   componentDidMount() {
-    let interval = setInterval(() => {
+    this.interval = setInterval(() => {
       this.forceUpdate()
     }, 1000)
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   render() {
-    let {initialSeconds, loadDate} = this.props
-    let seconds = initialSeconds + this.elapsedSeconds(loadDate)
+    let {initialSeconds, loadDate} = this.props;
+    let seconds = initialSeconds + this.elapsedSeconds(loadDate);
+
     return(
       <Timer
         seconds={seconds}
