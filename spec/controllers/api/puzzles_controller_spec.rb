@@ -58,6 +58,16 @@ RSpec.describe Api::V1::PuzzlesController, type: :controller do
       expect(solution_correct).to eq(true)
     end
 
+    it "should have a seconds property with the solution solve time" do
+      user1 = FactoryGirl.create(:user)
+      solution1 = FactoryGirl.create(:solution, puzzle: puzzle1, user: user1, seconds: 123)
+      session[:user_id] = user1.id
+
+      get :show, params: { id: puzzle1.id }
+      solution_seconds = JSON.parse(response.body)['puzzle']['solution_seconds']
+      expect(solution_seconds).to eq(123)
+    end
+
     it "creates a solution for the current user if none exists" do
       user1 = FactoryGirl.create(:user)
       session[:user_id] = user1.id

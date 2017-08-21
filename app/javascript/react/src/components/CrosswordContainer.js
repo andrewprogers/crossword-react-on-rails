@@ -11,7 +11,7 @@ class CrosswordContainer extends React.Component {
 
     let puzzle = this.props.initialPuzzle
     let initialSolution, solutionString;
-    let solveStatus = false, isDraftPuzzle = false;
+    let solveStatus = false, isDraftPuzzle = false, seconds = 0;
     if ('user_id' in puzzle) {
       this.user_id = puzzle.user_id
       isDraftPuzzle = puzzle.draft
@@ -21,6 +21,7 @@ class CrosswordContainer extends React.Component {
       this.solution_id = puzzle.solution_id
       initialSolution = Crossword.parseArrayToGrid(puzzle.user_solution);
       solveStatus = puzzle.is_solved
+      seconds = puzzle.solution_seconds
     } else {
       initialSolution = Crossword.generateEmptyGrid(puzzle.size.rows);
     }
@@ -59,7 +60,8 @@ class CrosswordContainer extends React.Component {
       isSolved: solveStatus,
       editMode: isDraftPuzzle,
       puzzleTitle: puzzle.title,
-      puzzleRevealed: false
+      puzzleRevealed: false,
+      seconds
     }
 
     this.on = {
@@ -252,6 +254,10 @@ class CrosswordContainer extends React.Component {
       fetch(this.apiEndpoint(), payload)
       .then(response => response.json())
     }
+  }
+
+  componentDidMount() {
+    this.loadDate = new Date()
   }
 
   render() {
