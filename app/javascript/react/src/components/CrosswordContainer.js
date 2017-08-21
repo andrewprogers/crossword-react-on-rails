@@ -11,7 +11,7 @@ class CrosswordContainer extends React.Component {
 
     let puzzle = this.props.initialPuzzle
     let initialSolution, solutionString;
-    let solveStatus = false, isDraftPuzzle = false;
+    let solveStatus = false, isDraftPuzzle = false, seconds = 0;
     if ('user_id' in puzzle) {
       this.user_id = puzzle.user_id
       isDraftPuzzle = puzzle.draft
@@ -21,6 +21,7 @@ class CrosswordContainer extends React.Component {
       this.solution_id = puzzle.solution_id
       initialSolution = Crossword.parseArrayToGrid(puzzle.user_solution);
       solveStatus = puzzle.is_solved
+      seconds = puzzle.solution_seconds
     } else {
       initialSolution = Crossword.generateEmptyGrid(puzzle.size.rows);
     }
@@ -59,7 +60,8 @@ class CrosswordContainer extends React.Component {
       isSolved: solveStatus,
       editMode: isDraftPuzzle,
       puzzleTitle: puzzle.title,
-      puzzleRevealed: false
+      puzzleRevealed: false,
+      seconds
     }
 
     this.on = {
@@ -220,9 +222,12 @@ class CrosswordContainer extends React.Component {
         clues_update: this.state.clues
       }
     } else {
+        let elapsed = Math.floor((new Date() - this.loadDate) / 1000);
+        let seconds = this.state.seconds + elapsed;
       body = {
         user_solution: this.state.userLetters,
-        is_solved: this.state.isSolved
+        is_solved: this.state.isSolved,
+        seconds
       }
     }
     return {
@@ -254,6 +259,10 @@ class CrosswordContainer extends React.Component {
     }
   }
 
+  componentWillMount() {
+    this.loadDate = new Date()
+  }
+
   render() {
     let crossword = new Crossword(this.state.grid, this.state.clues, this.state.userLetters);
     return(
@@ -267,7 +276,10 @@ class CrosswordContainer extends React.Component {
             on={this.on}
             editMode={this.state.editMode}
             puzzleRevealed={this.state.puzzleRevealed}
-            title={this.state.puzzleTitle} />
+            title={this.state.puzzleTitle}
+            isSolved={this.state.isSolved}
+            seconds={this.state.seconds}
+            loadDate={this.loadDate} />
         </div>
         <div className='small-12 large-6 columns'>
           <CrosswordGrid

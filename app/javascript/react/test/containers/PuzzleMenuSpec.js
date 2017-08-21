@@ -6,12 +6,19 @@ import PuzzleMenu from '../../src/containers/PuzzleMenu'
 import MenuButton from '../../src/components/MenuButton'
 import PuzzleTitle from '../../src/components/PuzzleTitle'
 import InfoContainer from '../../src/components/InfoContainer'
+import TimerContainer from '../../src/containers/TimerContainer'
 
 describe('PuzzleMenu', () => {
   let wrapper, matchSpy;
   let onSpies = jasmine.createSpyObj('on', ['handleClear', 'publishPuzzle', 'toggleReveal']);
   beforeEach(() => {
-    wrapper = mount(<PuzzleMenu editMode={false} on={onSpies} />)
+    wrapper = mount(
+      <PuzzleMenu
+        editMode={false}
+        on={onSpies}
+        loadDate={new Date()}
+        seconds={0}
+      />)
   })
 
   it("should render a div#puzzle-menu", () => {
@@ -30,6 +37,10 @@ describe('PuzzleMenu', () => {
 
 
   describe("when not in edit mode", () => {
+    it("should render a TimerContainer component", () => {
+      expect(wrapper.find(TimerContainer)).toBePresent();
+    })
+
     it("should not render a Publish MenuButton", () => {
       let publish = wrapper.find(MenuButton).filterWhere(n => n.prop('name') == "PUBLISH")
       expect(publish).not.toBePresent()
@@ -54,6 +65,10 @@ describe('PuzzleMenu', () => {
   describe("when in edit mode", () => {
     beforeEach(() => {
       wrapper = mount(<PuzzleMenu editMode={true} on={onSpies} />)
+    })
+
+    it("should not render a TimerContainer component", () => {
+      expect(wrapper.find(TimerContainer)).not.toBePresent();
     })
 
     it("should render a Publish MenuButton with correct props", () => {

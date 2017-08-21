@@ -23,9 +23,17 @@ describe('CrosswordContainer', () => {
     testData.solution_id = 4;
     testData.user_solution = testData.grid
     testData.is_solved = true;
+    testData.solution_seconds = 123;
     wrapper = shallow(<CrosswordContainer initialPuzzle={testData} />)
     expect(wrapper.state().userLetters).toEqual(Crossword.parseArrayToGrid(testData.user_solution))
     expect(wrapper.state().isSolved).toEqual(true)
+    expect(wrapper.state().seconds).toEqual(123)
+  })
+
+  it('get the current time on component mount', () => {
+    spyOn(CrosswordGrid.prototype, 'componentDidMount')
+    wrapper = mount(<CrosswordContainer initialPuzzle={mockData} />)
+    expect(wrapper.instance().loadDate).toEqual(jasmine.any(Date))
   })
 
   it('creates blank solution information when user is given', () => {
@@ -111,6 +119,7 @@ describe('CrosswordContainer', () => {
         testData.solution_id = 4;
         testData.user_solution = testData.grid
         testData.is_solved = true;
+        testData.solution_seconds = 123;
 
         wrapper = shallow(<CrosswordContainer initialPuzzle={testData} />)
         payload = wrapper.instance().patchPayload()
@@ -126,6 +135,14 @@ describe('CrosswordContainer', () => {
         expect(payload.body.indexOf(substring)).not.toEqual(-1)
 
         substring = "is_solved"
+        expect(payload.body.indexOf(substring)).not.toEqual(-1)
+      })
+
+      it("should send the elapsed seconds", () => {
+        let substring = JSON.stringify(wrapper.state().seconds)
+        expect(payload.body.indexOf(substring)).not.toEqual(-1)
+
+        substring = 'seconds'
         expect(payload.body.indexOf(substring)).not.toEqual(-1)
       })
     })

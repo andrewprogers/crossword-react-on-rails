@@ -4,5 +4,6 @@ FactoryGirl.define do
     puzzle
     user_answers "FORM.EBD..ASD."
     correct false
+    seconds 0
   end
 end
