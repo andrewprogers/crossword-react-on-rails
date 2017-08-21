@@ -30,7 +30,7 @@ describe('CrosswordContainer', () => {
     expect(wrapper.state().seconds).toEqual(123)
   })
 
-  it('get the current time on component mount', () => {
+  fit('get the current time on component mount', () => {
     spyOn(CrosswordGrid.prototype, 'componentDidMount')
     wrapper = mount(<CrosswordContainer initialPuzzle={mockData} />)
     expect(wrapper.instance().loadDate).toEqual(jasmine.any(Date))

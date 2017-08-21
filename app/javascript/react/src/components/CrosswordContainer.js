@@ -256,7 +256,7 @@ class CrosswordContainer extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.loadDate = new Date()
   }
 
@@ -273,7 +273,9 @@ class CrosswordContainer extends React.Component {
             on={this.on}
             editMode={this.state.editMode}
             puzzleRevealed={this.state.puzzleRevealed}
-            title={this.state.puzzleTitle} />
+            title={this.state.puzzleTitle}
+            seconds={this.state.seconds}
+            loadDate={this.loadDate} />
         </div>
         <div className='small-12 large-6 columns'>
           <CrosswordGrid

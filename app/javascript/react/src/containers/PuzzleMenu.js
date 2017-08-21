@@ -2,6 +2,7 @@ import React from 'react';
 import MenuButton from '../components/MenuButton'
 import PuzzleTitle from '../components/PuzzleTitle'
 import InfoContainer from '../components/InfoContainer'
+import TimerContainer from '../containers/TimerContainer'
 
 class PuzzleMenu extends React.Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class PuzzleMenu extends React.Component {
   }
 
   render() {
-    let editOnlyButtons, playOnlyButtons, infoSection;
+    let editOnlyButtons, playOnlyButtons, infoSection, timer;
     let columnClassNames = "small-12 columns"
     if (this.props.editMode) {
       editOnlyButtons = [
@@ -59,18 +60,23 @@ class PuzzleMenu extends React.Component {
         <MenuButton key="MATCH" name="MATCH" onClick={this.matchPattern} />
       ]
       columnClassNames = "small-12 medium-6 columns";
-      infoSection = <div className="small-12 medium-6 columns">
-
-        <InfoContainer
-          status={this.state.status}
-          words={this.state.words}
-          onWordClick={this.getWordAnalysis}
-          wordData={this.state.wordData} />
-      </div>
+      infoSection =
+        <div className="small-12 medium-6 columns">
+          <InfoContainer
+            status={this.state.status}
+            words={this.state.words}
+            onWordClick={this.getWordAnalysis}
+            wordData={this.state.wordData} />
+        </div>
     } else {
       playOnlyButtons = [
         <MenuButton key="REVEAL" name="REVEAL" onClick={this.props.on.toggleReveal} active={this.props.puzzleRevealed} />
       ]
+      timer=
+        <TimerContainer
+          initialSeconds={this.props.seconds}
+          loadDate={this.props.loadDate}
+        />
     }
 
     return(
@@ -83,6 +89,7 @@ class PuzzleMenu extends React.Component {
           <MenuButton name="CLEAR" onClick={this.props.on.handleClear} />
           {editOnlyButtons}
           {playOnlyButtons}
+          {timer}
         </div>
         {infoSection}
       </div>

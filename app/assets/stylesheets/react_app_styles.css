@@ -202,6 +202,13 @@ body {
   border-color: white;
 }
 
+.timer {
+  float: right;
+  margin-right: 5px;
+  font-size: 24px;
+  font-family: 'Roboto Mono', courier, monospace;
+}
+
 /*-------------*/
 
 div#puzzle-title {
